@@ -1,0 +1,19 @@
+{
+  "extends": ["../../tsconfig.references.base.json"],
+  "compilerOptions": {
+    "outDir": "./dist-tsc",
+    "emitDeclarationOnly": true
+  },
+  "references": [
+    {
+      "path": "./src"
+    },
+    {
+      "path": "./bin"
+    },
+    {
+      "path": "./tests"
+    }
+  ],
+  "include": ["./*.ts"]
+}

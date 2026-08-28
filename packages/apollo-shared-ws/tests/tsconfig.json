@@ -1,0 +1,22 @@
+{
+  "extends": ["../tsconfig.json"],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "paths": {
+      "@src/*": ["../src/*"],
+      "@src": ["../src"],
+      "@bin/*": ["../bin/*"],
+      "@bin": ["../bin"]
+    }
+  },
+  "references": [
+    {
+      "path": "../src"
+    },
+    {
+      "path": "../bin"
+    }
+  ],
+  "exclude": ["**/dist"],
+  "include": ["./**/*.ts", "./**/*.tsx"]
+}

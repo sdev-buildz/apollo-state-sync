@@ -1,0 +1,13 @@
+{
+  "editor.semanticHighlighting.enabled": "configuredByTheme",
+  "workbench.editor.languageDetection": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always",
+    "source.sortImports": "always",
+    //  The below rule adds duplicate comments when exporting
+    "source.fixAll.eslint": "always"
+  },
+  "js/ts.preferences.importModuleSpecifier": "shortest"
+}
