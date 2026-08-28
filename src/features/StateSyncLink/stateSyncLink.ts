@@ -1,6 +1,6 @@
 import { ApolloLink } from '@apollo/client'
 import type { createSharedClient } from 'graphql-shared-ws'
-import { map } from 'rxjs'
+import { catchError, map } from 'rxjs'
 import { synchronizationDebouncer } from '../../util/synchronizationDebouncer'
 
 /**
@@ -45,6 +45,10 @@ export const stateSyncLink = new ApolloLink((operation, forward) => {
     map((response) => {
       synchronizationDebouncer.graphqlRequestCompleted()
       return response
+    }),
+    catchError((err) => {
+      synchronizationDebouncer.graphqlRequestCompleted()
+      throw err
     })
   )
 })

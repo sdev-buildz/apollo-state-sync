@@ -22,8 +22,7 @@ const emitResponse = <ResType = unknown>(
   response: ResType,
   cbName: keyof Sink = 'next'
 ) => {
-  const apiObj = controlledServer.gqlOperations[operationName]
-  if (!apiObj) throw new Error(`No mock for ${operationName}`)
+  const apiObj = controlledServer.gqlOperations[operationName]!
   apiObj.observers.forEach((observer) => observer[cbName](response))
 }
 
@@ -211,6 +210,22 @@ describe('StateSyncLink', () => {
     controlledServer.emitResponse(operation1.operationName!, sampleRes1)
     expect(syncDebouncerSpy.graphqlRequestCompleted).toHaveBeenCalledTimes(1)
   })
+  test(`synchronizationDebouncer should be notified whenever requests result in error.`, () => {
+    const resObs = execute(linkChain, operation1, {
+      client: {} as ApolloClient,
+    })
+    expect(syncDebouncerSpy.graphqlRequestStarted).toHaveBeenCalledTimes(1)
+    resObs.subscribe(observerMock)
+
+    expect(syncDebouncerSpy.graphqlRequestCompleted).not.toHaveBeenCalled()
+
+    controlledServer.emitResponse(
+      operation1.operationName!,
+      new Error('test error.'),
+      'error'
+    )
+    expect(syncDebouncerSpy.graphqlRequestCompleted).toHaveBeenCalledTimes(1)
+  })
 
   test(`synchronizationDebouncer should not be notified, for GraphQL subscriptions.`, () => {
     const subscriptionRequest: ApolloLink.Operation = {
@@ -254,6 +269,8 @@ describe('StateSyncLink', () => {
 
     resObs2.subscribe(observerMock)
     expect(syncDebouncerSpy.graphqlRequestStarted).toHaveBeenCalledTimes(2)
+
+    expect(syncDebouncerSpy.graphqlRequestCompleted).not.toHaveBeenCalled()
 
     // First request's response is received
     controlledServer.emitResponse(operation1.operationName!, sampleRes1)
