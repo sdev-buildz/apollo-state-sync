@@ -32,7 +32,7 @@ export default defineConfig([
     //  The bin (cli)
     ...baseConfig,
     entry: {
-      bin: 'bin',
+      bin: 'bin/cliApp',
     },
 
     format: ['esm'],
