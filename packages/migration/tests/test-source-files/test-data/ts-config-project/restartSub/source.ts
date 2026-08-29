@@ -34,3 +34,20 @@ const apolloClient2 = new ApolloClient({
   link: ApolloLink.from([splitLink]),
   cache: new InMemoryCache()
 })
+
+const wsLink3 = new GraphQLWsLink(
+  createClient({
+    url: 'wss://localhost:443/api/graphql',
+    connectionParams: {
+      headers: {
+        authorization: 'random-auth-header',
+      },
+    },
+  })
+)
+
+//  This should be transformed.
+const apolloClient3 = new ApolloClient({
+  link: ApolloLink.from([wsLink3]),
+  cache: new InMemoryCache()
+})

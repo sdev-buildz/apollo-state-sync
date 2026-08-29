@@ -36,3 +36,21 @@ const apolloClient2 = new ApolloClient({
   link: ApolloLink.from([stateSyncLink, ApolloLink.from([splitLink])]),
   cache: new InMemoryCacheSynced() as InMemoryCache
 })
+const gqlClient = createClient({
+  url: 'wss://localhost:443/api/graphql',
+  connectionParams: {
+    headers: {
+      authorization: 'random-auth-header',
+    },
+  },
+  webSocketImpl: SharedWebSocket
+})
+const wsLink3 = new GraphQLWsLink(
+  gqlClient
+)
+
+//  This should be transformed.
+const apolloClient3 = setupRestartSubscription(new ApolloClient({
+  link: ApolloLink.from([stateSyncLink, ApolloLink.from([wsLink3])]),
+  cache: new InMemoryCacheSynced() as InMemoryCache
+}), { sharedClient: gqlClient })

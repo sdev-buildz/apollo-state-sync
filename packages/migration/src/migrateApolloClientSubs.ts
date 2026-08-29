@@ -26,9 +26,13 @@ export const migrateApolloClientSubs = (project: Project) => {
         if (newExpression.wasForgotten()) return
 
         const apolloClientExpression = newExpression
+
+        /** The link parameter passed to 'new ApolloClient(\{ link \})' expression. */
         let linkParam = getApolloClientLinkParam(newExpression)
-        /** new GraphQLWsLink(...) expression. */
+
+        /** The `new GraphQLWsLink(...)` expression. */
         let gqlWsLinkExpression: NewExpression | undefined
+
         if (!linkParam) return
         else linkParam = getTerminatingLink(linkParam)
         if (!(
@@ -40,11 +44,17 @@ export const migrateApolloClientSubs = (project: Project) => {
 
         if (!gqlWsLinkExpression) gqlWsLinkExpression = linkParam
 
-        // Get the object parameters passed to the expression
+        /** The first parameter passed to 'new GraphQLWsLink(...)'. */
         const arg = gqlWsLinkExpression.getArguments()[0]
-        if (!arg) return
+        if (!arg || !(arg instanceof Expression)) return
 
-        if (!(arg instanceof Expression)) return
+        /**
+         * The graphql-ws client initialization expression.
+         * @example
+         * ```ts
+         *  createClient({ url , ... })
+         * ```
+         */
         const gqlClientInitExpression = resolveIdentifierChain(arg)
         if (
           !gqlClientInitExpression?.isKind(SyntaxKind.CallExpression) ||
@@ -56,48 +66,59 @@ export const migrateApolloClientSubs = (project: Project) => {
           return
 
         /**
-         * If the link is not assigned to a variable, we have to create a variable.
-         *   So that we can pass it to the `setupRestartSubscription`.
+         * If the graphql-ws client is not assigned to a variable, we have to create a variable and assign.
+         *   So that we can pass the same client instance to the second parameter of `setupRestartSubscription`.
          */
         if (!gqlClientInitExpression) return
 
+        /**
+         * The parent of the 'createClient()' expression.  
+         *
+         * This could be a variable declaration.
+         * ```ts
+         * const client = createClient({ url })
+         * ```
+         * Or could be a 'new GraphQLWsLink()' expression.
+         * ```ts
+         * new GraphQLWsLink( createClient({ url }) )
+         * ```
+         */
         const parent = gqlClientInitExpression.getParent()
 
-        let gqlClient: string = `gqlClient`
-        //  If the link is already in a variable
+        /** The name of the variable storing the graphql-ws client. */
+        let gqlClientVarName: string = `gqlClient`
         if (
+          //  If the client is already to a variable
           parent?.isKind(SyntaxKind.VariableDeclaration) &&
           parent.getFirstChild()?.getText()
         ) {
-          gqlClient = parent.getFirstChild()!.getText()
-        }
-        //  else Create a variable and assign the link to it
-        else {
-          const statement = apolloClientExpression.getFirstAncestorByKind(
+          gqlClientVarName = parent.getFirstChild()!.getText()
+        } else {
+          //  else Create a variable and assign the client to it
+          const statement = gqlWsLinkExpression.getFirstAncestorByKind(
             SyntaxKind.VariableStatement
           )
           const idx = statement?.getChildIndex()
-          const parent = statement?.getParentOrThrow(
+          const parentOfStatement = statement?.getParentOrThrow(
             `Couldn't migrate subscription.restart.`
           )
           addManipulationCb(() => {
-            ;(parent as Block).insertVariableStatement(idx!, {
+            ;(parentOfStatement as Block).insertVariableStatement(idx!, {
               declarationKind: VariableDeclarationKind.Const,
               declarations: [
                 {
-                  name: gqlClient,
+                  name: gqlClientVarName,
                   initializer: gqlClientInitExpression!.getText(),
                 },
               ],
             })
-            gqlClientInitExpression?.replaceWithText(
-              gqlClientInitExpression!.getText()
-            )
+            gqlClientInitExpression?.replaceWithText(gqlClientVarName)
           })
         }
+
         addManipulationCb(() => {
           apolloClientExpression.replaceWithText(
-            `setupRestartSubscription(${apolloClientExpression.getFullText()},{ sharedClient: ${gqlClient} })`
+            `setupRestartSubscription(${apolloClientExpression.getFullText()},{ sharedClient: ${gqlClientVarName} })`
           )
         })
 
