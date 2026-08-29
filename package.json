@@ -1,0 +1,145 @@
+{
+  "name": "apollo-state-sync",
+  "version": "0.0.0",
+  "description": "Synchronizes and persists the Apollo Client's state across browsing contexts (browser tabs, iframes, windows). It also provides a shared WebSocket connection across browsing contexts.",
+  "keywords": [
+    "apollo client",
+    "state sync",
+    "cross browsing context",
+    "cache sync",
+    "shared ws"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/innova-dev-builder/ts-helpers-1234.git"
+  },
+  "license": "ISC",
+  "type": "module",
+  "author": {
+    "name": "sdev-buildz",
+    "email": "stevexdev@zohomail.in",
+    "url": "https://github.com/sdev-buildz"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "bin": {
+    "apollo-state-sync": "./dist/bin/bin.mjs"
+  },
+  "scripts": {
+    "check": "turbo build prettier:check lint type-check coverage:ci e2e:ci knip:ci",
+    "release": "pnpm run clean && pnpm run check && git checkout -- pnpm-lock.yaml && pnpm publish -r",
+    "unit-tests": "vitest",
+    "coverage": "vitest --coverage --ui",
+    "coverage:ci": "vitest run --coverage",
+    "unit-tests:with-update-snapshots": "vitest -u",
+    "clean": "pnx rimraf -g **/dist *.tsbuildinfo **/*.tsbuildinfo  **/generated generated .turbo coverage docs",
+    "clean:all": "pnpm run clean && pnx rimraf -g **/node_modules node_modules",
+    "build:main": "tsdown",
+    "build:gql-types": "pnpm --filter e2e-web-app run build-graphql && pnpm exec prettier --write **/*.graphql",
+    "dev": "tsdown --watch",
+    "type-check": "tsc --build",
+    "lint": "eslint",
+    "prettier:check": "prettier --check .",
+    "prettier:write": "prettier --write .",
+    "prettier:pnpm-lock": "prettier --write **/pnpm-lock.yaml",
+    "e2e": "playwright test --trace on",
+    "e2e:ci": "playwright install --with-deps && playwright test",
+    "knip:main": "knip --workspace !e2e/web-app",
+    "knip:e2e-app": "knip --workspace e2e/web-app",
+    "knip": "pnpm run knip:main & pnpm run knip:e2e-app",
+    "knip:ci": "pnpm run knip:main && pnpm run knip:e2e-app",
+    "docs:user": "typedoc --options typedoc.config.js",
+    "docs:dev": "typedoc --options typedoc.dev.js",
+    "docs:all": "pnpm run docs:user && pnpm run docs:dev"
+  },
+  "dependencies": {
+    "@apollo/client": "catalog:",
+    "@stricli/core": "catalog:",
+    "canonical-serialization": "catalog:",
+    "graphql": "catalog:",
+    "graphql-shared-ws": "catalog:",
+    "graphql-ws": "catalog:",
+    "rxjs": "catalog:",
+    "serialize-javascript": "^7.0.7",
+    "ts-strict-utils": "catalog:"
+  },
+  "peerDependencies": {
+    "@apollo/client": "catalog:peer-deps",
+    "apollo-shared-ws": "workspace:*",
+    "ts-morph": "catalog:"
+  },
+  "peerDependenciesMeta": {
+    "@apollo/client": {
+      "optional": true
+    },
+    "ts-morph": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": "22.x || 24.x"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "^24",
+      "onFail": "warn"
+    },
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11",
+      "onFail": "warn"
+    }
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^1.0.0",
+    "@changesets/cli": "^3.0.0",
+    "@eslint/js": "^10.0.1",
+    "@packages/common-utils": "workspace:*",
+    "@packages/migration": "workspace:*",
+    "@packages/typedoc-plugins": "workspace:*",
+    "@playwright/test": "^1.62.1",
+    "@types/node": "catalog:",
+    "@types/serialize-javascript": "^5.0.4",
+    "@typescript/native": "catalog:",
+    "@vitest/coverage-v8": "^4.1.10",
+    "@vitest/ui": "^4.1.10",
+    "eslint": "^10.8.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.5",
+    "eslint-plugin-jsdoc": "^63.3.3",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-naming-convention": "^5.18.2",
+    "eslint-plugin-react-refresh": "^0.5.3",
+    "eslint-plugin-tsdoc": "^0.5.2",
+    "globals": "^17.9.0",
+    "jsdom": "^30.0.1",
+    "knip": "^6.32.0",
+    "prettier": "3.9.6",
+    "tsdown": "catalog:",
+    "tsx": "catalog:",
+    "turbo": "^2.10.12",
+    "typedoc": "^0.28.20",
+    "typescript": "catalog:",
+    "typescript-eslint": "^8.66.0",
+    "vitest": "catalog:"
+  },
+  "funding": {
+    "type": "buymeacoffee",
+    "url": "https://buymeacoffee.com/stevenx.dev"
+  }
+}

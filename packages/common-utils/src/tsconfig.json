@@ -1,0 +1,15 @@
+{
+  "extends": ["../../../tsconfig.references.base.json"],
+  "compilerOptions": {
+    "outDir": "./dist"
+  },
+  "references": [
+    {
+      "path": "./cli-utils"
+    },
+    {
+      "path": "./mocks"
+    }
+  ],
+  "include": ["./**/*.ts", "./**/*.tsx"]
+}

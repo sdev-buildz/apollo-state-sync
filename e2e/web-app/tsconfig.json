@@ -1,0 +1,20 @@
+{
+  "extends": ["../../tsconfig.references.base.json"],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "outDir": "./dist",
+    "paths": {
+      "@shared/*": ["./shared/*"],
+      "@types-gen-react-apollo": ["./generated/typescript-react-apollo"]
+    }
+  },
+  "references": [
+    {
+      "path": "./shared"
+    },
+    {
+      "path": "./server"
+    }
+  ],
+  "include": ["./**/*.ts", "./**/*.tsx", "./*.js"]
+}
