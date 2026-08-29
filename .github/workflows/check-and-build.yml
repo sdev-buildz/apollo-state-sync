@@ -31,7 +31,7 @@ jobs:
       - name: Upload to pkgprnew
         id: pkgprnew
         if: matrix.node == 24
-        run: pnpm dlx pkg-pr-new publish
+        run: pnpm dlx pkg-pr-new publish -r
 
   test-published-package-and-peer-deps:
     runs-on: ubuntu-latest
