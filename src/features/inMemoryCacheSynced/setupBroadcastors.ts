@@ -109,6 +109,9 @@ const setupOperationBroadcastor = (
       args[0] = firstArg?.value
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const result = (originalFn as any).apply(inMemoryStore, args)
+
     if (!config?.shouldBroadcastSubscriptionWrites) {
       /**
        * Skipping broadcasting of writes caused by graphql subscriptions.
@@ -124,8 +127,7 @@ const setupOperationBroadcastor = (
         }
       }
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const result = (originalFn as any).apply(inMemoryStore, args)
+
     const shouldBroadcast: boolean = getShouldBroadcast(
       operationName,
       argsToBroadcast,

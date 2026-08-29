@@ -31,12 +31,12 @@ describe.each<{
   cacheInitializer: (options?: CacheSyncerConfigType) => InMemoryCacheSyncedType
 }>([
   {
-    testName: 'synchronization of in-memory cache using setupCacheSyncer.',
+    testName: 'setupCacheSyncer function.',
     cacheInitializer: (options) =>
       setupCacheSyncer(new InMemoryCache(), options),
   },
   {
-    testName: 'synchronization of in-memory cache using InMemoryCacheSynced.',
+    testName: 'InMemoryCacheSynced class.',
     cacheInitializer: (options) => new InMemoryCacheSynced(undefined, options),
   },
 ])('$testName', async ({ cacheInitializer }) => {
@@ -170,6 +170,16 @@ describe.each<{
     //  The operation should be persisted
     expect(localStorageSetSpy).toHaveBeenCalled()
 
+    expect({ a: 1, b: { c: 2, d: 3 }, e: { g: 5 } }).toMatchObject({
+      b: { c: 2 },
+    })
+
+    expect(inMemoryCache.extract()).toMatchObject({
+      ROOT_SUBSCRIPTION: {
+        iterator: 1,
+      },
+    })
+
     compareLsAndCache()
   })
 
@@ -256,7 +266,7 @@ describe.each<{
       garbageCollected: true,
     },
   ])(
-    'when cache.gc is called, should broadcast and persist',
+    'when cache.gc is called, should broadcast and persist. cache.retain and cache.release also should be synced.',
     async (testProps) => {
       inMemoryCache.writeQuery(writeOptionsParams.toBeEvicted)
       /** The cache id of the node to be evicted */
@@ -510,7 +520,7 @@ describe.each<{
       garbageCollected: true,
     },
   ])(
-    'gc, retain and release operations are handled by listeners.',
+    'gc, retain and release operations are handled by listeners but they neither re-broadcast nor persist.',
     async (testProps) => {
       inMemoryCache.writeQuery(writeOptionsParams.toBeEvicted)
       /** The cache id of the node to be evicted */

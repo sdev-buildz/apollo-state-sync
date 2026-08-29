@@ -71,6 +71,8 @@ export class InMemoryCacheSynced
   }
 
   override write(options: Parameters<InMemoryCacheSyncedType['write']>[0]) {
+    const result = super.write(options)
+
     if (!this.stateSyncerConfig?.shouldBroadcastSubscriptionWrites) {
       /**
        * Skipping broadcasting of writes caused by graphql subscriptions.
@@ -86,8 +88,6 @@ export class InMemoryCacheSynced
         return
       }
     }
-
-    const result = super.write(options)
 
     handleSyncing('write', [options], this, this.stateSyncerConfig)
 
