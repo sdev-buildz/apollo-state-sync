@@ -95,15 +95,31 @@ export const migrateApolloClientSubs = (project: Project) => {
           gqlClientVarName = parent.getFirstChild()!.getText()
         } else {
           //  else Create a variable and assign the client to it
+
+          /** The statement that contains the 'createClient()' expression. */
           const statement = gqlWsLinkExpression.getFirstAncestorByKind(
             SyntaxKind.VariableStatement
           )
-          const idx = statement?.getChildIndex()
+          if (!statement) {
+            console.error(
+              `
+Migration skipped: A 'GraphQLWsLink' instance was found but no ancestor variable declaration statement was found. Manual migration is required.
+File: ${sourceFile.getFilePath()}
+              `
+            )
+            return
+          }
+
+          const idx = statement.getChildIndex()
+
+          /** The parent of the statement that contains the 'createClient()' expression. */
           const parentOfStatement = statement?.getParentOrThrow(
             `Couldn't migrate subscription.restart.`
           )
+
           addManipulationCb(() => {
-            ;(parentOfStatement as Block).insertVariableStatement(idx!, {
+            //  Creates a new variable and assigns the client to it.
+            ;(parentOfStatement as Block).insertVariableStatement(idx, {
               declarationKind: VariableDeclarationKind.Const,
               declarations: [
                 {
@@ -112,11 +128,13 @@ export const migrateApolloClientSubs = (project: Project) => {
                 },
               ],
             })
+            // Uses the new variable in the `new GraphQLWsLink()` expression.
             gqlClientInitExpression?.replaceWithText(gqlClientVarName)
           })
         }
 
         addManipulationCb(() => {
+          // Wraps the 'new ApolloClient(...)' expression with 'setupRestartSubscription' function call.
           apolloClientExpression.replaceWithText(
             `setupRestartSubscription(${apolloClientExpression.getFullText()},{ sharedClient: ${gqlClientVarName} })`
           )
