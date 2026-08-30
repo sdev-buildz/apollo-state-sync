@@ -57,7 +57,7 @@ jobs:
 
       # Add the published package. It will have its own version of the peer dependency.
       - name: Install the published package for testing
-        run: pnpm add --filter="e2e-web-app" apollo-state-sync@@${{ needs.check-and-test-publish.outputs.urls[0] }}
+        run: pnpm add --filter="e2e-web-app" apollo-state-sync@${{ needs.check-and-test-publish.outputs.urls[0] }}
 
       - name: Run tests against the published package
         run: pnpm run e2e:ci
