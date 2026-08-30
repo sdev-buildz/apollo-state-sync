@@ -56,8 +56,10 @@ jobs:
       - run: pnpm add --filter="e2e-web-app" @apollo/client@${{ matrix.apollo-client-peer }}
 
       # Add the published package. It will have its own version of the peer dependency.
-      - name: Install the published package for testing
-        run: pnpm add --filter="e2e-web-app" apollo-state-sync@https://pkg.pr.new/sdev-buildz/apollo-state-sync/apollo-state-sync@${{ github.event.pull_request.head.sha }}
+      - name: Install the published packages for testing
+        run: |
+          pnpm add --filter="e2e-web-app" apollo-state-sync@https://pkg.pr.new/sdev-buildz/apollo-state-sync/apollo-state-sync@${{ github.event.pull_request.head.sha }}
+          pnpm add --filter="e2e-web-app" apollo-shared-ws@https://pkg.pr.new/sdev-buildz/apollo-state-sync/apollo-shared-ws@${{ github.event.pull_request.head.sha }}
 
       - name: Run tests against the published package
         run: pnpm run e2e:ci
