@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import { normalizeNewlines } from './normalizeNewlines'
 
 /**
  * Recursively gets all relative file paths from a base directory.
@@ -53,7 +54,7 @@ export const areContentsSame = async (
     if (!files2.includes(file)) return false
     const content1 = await fs.readFile(path.join(path1, file), 'utf-8')
     const content2 = await fs.readFile(path.join(path2, file), 'utf-8')
-    if (content1 !== content2) {
+    if (normalizeNewlines(content1) !== normalizeNewlines(content2)) {
       return false
     }
   }

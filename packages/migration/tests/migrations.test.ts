@@ -8,6 +8,7 @@ import { Project, QuoteKind } from 'ts-morph'
 import { describe, expect, it, test, vi } from 'vitest'
 import { migrate, migrateProject } from '../src/migrate'
 import { areContentsSame, areFileStructuresSame } from './lib/compareDirs.ts'
+import { normalizeNewlines } from './lib/normalizeNewlines.ts'
 
 const spies = {
   migrateApolloClientSubs: vi.spyOn(
@@ -100,7 +101,9 @@ describe('migrations', () => {
         'utf-8'
       )
 
-      expect(transformedSourceFile).toBe(expected)
+      expect(normalizeNewlines(transformedSourceFile)).toBe(
+        normalizeNewlines(expected.replace(/\r\n/g, '\n'))
+      )
     },
     20000
   )
@@ -234,5 +237,5 @@ test(`migration didn't accidentally edit its own source code itself.`, async () 
   const currentValue = await fs.readFile(
     path.join(import.meta.dirname, './test-snapshot.ts')
   )
-  expect(currentValue).toMatchSnapshot()
+  expect(normalizeNewlines(currentValue.toString())).toMatchSnapshot()
 })
