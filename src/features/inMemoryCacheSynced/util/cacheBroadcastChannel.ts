@@ -42,7 +42,8 @@ class CacheBroadcastChannel
         const eventData = event.data
         const data: MessageEvent<CacheSyncMessageType>['data'] =
           eventData as typeof data
-        listener({ ...event, data })
+        if ('handleEvent' in listener) listener.handleEvent({ ...event, data })
+        else listener({ ...event, data })
       },
       options
     )
