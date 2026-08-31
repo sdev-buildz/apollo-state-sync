@@ -1,1 +1,1 @@
-export * from './link-tag-plugin'
+export * from './link-tag-plugin.ts'

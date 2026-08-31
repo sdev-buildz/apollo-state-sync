@@ -7,5 +7,6 @@ export default {
   out: 'docs/generated/api-reference',
   exclude: ['dist', 'docs', '**/generated', 'node_modules'],
   skipErrorChecking: true,
-  // plugin: ['@packages/typedoc-plugins/link-tag-plugin'],
+  tsconfig: 'tsconfig.typedoc.json',
+  plugin: ['@packages/typedoc-plugins/link-tag-plugin'],
 }

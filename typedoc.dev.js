@@ -12,6 +12,6 @@ export default {
     '**/generated/**',
     '**/node_modules/**',
   ],
-  // plugin: ['@packages/typedoc-plugins/link-tag-plugin'],
+  plugin: ['@packages/typedoc-plugins/link-tag-plugin'],
   skipErrorChecking: true,
 }
