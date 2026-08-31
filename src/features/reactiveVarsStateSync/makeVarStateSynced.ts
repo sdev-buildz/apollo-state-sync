@@ -14,9 +14,9 @@ import type {
 } from './util/types'
 
 /**
- * Maintains unique names for reactive variables
+ * Maintains unique names for reactive variables.
  *  1) to uniquely identify them in the local storage.
- *  2) to apply broadcasted changes to the corresponding variable in listening browsing contexts.
+ *  2) to apply broadcasted changes to only the corresponding variable in listening browsing contexts.
  */
 export class ChannelNames {
   static names: Set<string> = new Set([])
@@ -35,14 +35,14 @@ export class ChannelNames {
 }
 
 /**
- *  Used in place of {@link makeVar}.
- *  It wraps {@link makeVar} internally.
- *  Sets up state synchronization on the newly created reactive variable.
+ *  Creates a reactive variable synchronized across browsing contexts.
+ *  Internally, it wraps {@link makeVar}.
  *  @param value - The initial value of the reactive variable.
- *  @param name - A unique name for the reactive variable.
+ *  @param uniqueName - A unique name for the reactive variable.
  *  @example
  * ```ts
  * import { useReactiveVar } from '@apollo/client/react'
+ * import { makeVarStateSynced } from 'apollo-state-sync'
  *
  * const rVarSynced = makeVarStateSynced('random-value','a-unique-name')
  * ```
@@ -53,18 +53,16 @@ export const makeVarStateSynced = <T>(
   config?: RVarStateSyncConfigType<T>
 ): ReactiveVarStateSync<T> => {
   const persistedReactiveVars = getPersistedReactiveVars()
-  /**
-   * The newly created reactive variable.
-   */
+  /** The new reactive variable. */
   const reactiveVar = makeVar(value)
   ChannelNames.validateUniqueness(
     uniqueName,
     reactiveVar as ReactiveVar<unknown>
   )
+
   /**
    * Persisted apollo state is restored once the page loads.
-   * The value from the persisted state overwrites the value from the argument
-   *  {@link value} of this function call.
+   * The value from the persisted state overwrites the {@link value} from the arguments.
    */
   if (uniqueName in persistedReactiveVars)
     value = persistedReactiveVars[uniqueName] as T
@@ -88,14 +86,14 @@ export const makeVarStateSynced = <T>(
     if (!newValue) return currentValue
 
     const toReturn = reactiveVar(newValue)
-    // If value is not changed then no need to broadcast
+    // If the old and new values are the same, do not broadcast.
     if (
       !config?.skipDefaultComparison &&
       canonicalSerialization(value) === canonicalSerialization(newValue)
     )
       return toReturn
 
-    // Handling broadcasting of reactive variable
+    // Handling broadcasting of the reactive variable.
     let shouldBroadcast: boolean = true
     if (options?.doNotBroadcast) shouldBroadcast = false
     if (options?.isSubscriptionRes && !synchronizationDebouncer.isPending)
@@ -115,7 +113,7 @@ export const makeVarStateSynced = <T>(
       })
     }
 
-    // Handling persisting of reactive variable
+    // Handling persistance of the reactive variable.
     if (
       config?.shouldNotPersistFilter?.(newValue, value, uniqueName) ||
       options?.doNotPersist

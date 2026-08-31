@@ -20,18 +20,20 @@ type ClientResolverOperation = Omit<
   Partial<Pick<ApolloLink.Operation, 'extensions' | 'variables'>>
 
 /**
- * Given a graphql operation, returns the ApolloLink to use.
- * Should provide the same result as {@link ApolloLink.split}.
- * @returns The link if it is a {@link SharedClient}, undefined otherwise
+ * Given a graphql operation, returns the {@link SharedClient} to use.
+ *
+ * It is useful only when {@link ApolloLink.split} is used.
+ * It should return the same result as {@link ApolloLink.split}.
+ * @returns The client if it is a {@link SharedClient}, undefined otherwise
  */
 export type ClientResolver = (
   operation: ClientResolverOperation
 ) => SharedClient | undefined
 
 /**
- * Overrides the restart function returned by {@link ApolloClient.subscribe}.
+ * Overwrites the restart function returned by {@link ApolloClient.subscribe}.
  * It prevents the default behavior of the 'restart' function and instead
- *  invokes the restartSubscription method from the gql client.
+ *  invokes the {@link SharedClient.restartSubscription}.
  * It modifies the ApolloClient in place and also returns the modified ApolloClient.
  */
 export const setupRestartSubscription = (
@@ -48,7 +50,7 @@ export const setupRestartSubscription = (
   const originalSubscribe = apolloClient.subscribe.bind(apolloClient)
 
   // Wrapping ApolloClient.subscribe function.
-  //  The wrapper modifies the restart function returned during each operation.
+  //  The wrapper modifies the restart function returned, during each operation.
   apolloClient.subscribe = function (...args) {
     /** The response of ApolloClient.subscribe */
     const subscribeRes = originalSubscribe(...args)

@@ -28,7 +28,7 @@ export const broadcast = <OperationName extends CacheOperationsToSyncType>(
 }
 
 /**
- * @returns whether the cache operation should be broadcasted or not.
+ * @returns whether the cache operation should be broadcasted.
  */
 export const getShouldBroadcast = <
   OperationName extends CacheOperationsToSyncType,
@@ -64,7 +64,7 @@ export const handleSyncing = <OperationName extends CacheOperationsToSyncType>(
 }
 
 /**
- * @returns whether the client state should be persisted or not
+ * @returns whether the apollo state should be persisted
  *   as part of the cache operation.
  */
 export const getShouldPersist = <
@@ -81,8 +81,7 @@ export const getShouldPersist = <
 }
 
 /**
- * Sets up the broadcastors which broadcast the arguments of operation function call.
- * it modifies the cache operation function definitions by wrapping them with broadcast function.
+ * Sets up broadcastors of cache operations by wrapping the InMemoryCache methods with the broadcastors.
  */
 const setupOperationBroadcastor = (
   inMemoryStore: InMemoryCache,
@@ -166,11 +165,7 @@ const setupBroadcastorForResets = (
 }
 
 /**
- * Sets up broadcastors of apollo cache's state across browsing contexts.
- * Modifying the operations of the cache.
- * Adding logic to broadcast changes made in each operation.
- *  Broadcasting the arguments of operation function call.
- *  The arguments will be used by the listeners to replicate the function call in other browsing contexts.
+ * Sets up broadcastors of apollo cache.
  */
 export const setupBroadcastors = (
   inMemoryStore: InMemoryCacheSyncedType,

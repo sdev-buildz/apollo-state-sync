@@ -8,10 +8,9 @@ import { Debouncer } from '../lib/debouncer'
  * Broadcasting when there are any in-flight graphql requests, could result in incorrect state.
  *  So we track the count of in-flight graphql requests.
  *
- * Broadaasting when the UI is rendering could also result in incorrect state.
+ * Broadcasting when the UI is rendering could also result in incorrect state.
  *  UI usually rerenders as soon as any GraphQL response is received.
- *  But as soon as the responses of all the in-flight requests are received, there will be no in-flight requests.
- *  So once there are no in-flight requests, we wait for {@link globalConfig.synhnorizationDebounceTimeoutMs | some time}
+ *  So once all the in-flight requests are completed, we wait for {@link globalConfig.synhnorizationDebounceTimeoutMs | some time}
  *    until the UI finishes rendering before broadcasting.
  *  @example scenerio
  * ```plaintext

@@ -4,9 +4,9 @@ import { catchError, map } from 'rxjs'
 import { synchronizationDebouncer } from '../../util/synchronizationDebouncer'
 
 /**
- * A non-terminating {@link ApolloLink}.
+ * A non-terminating {@link ApolloLink}.  
  * Tracks the count of in-flight graphql requests.
- * It must be used when using our 'apollo-state-sync' library.
+ * It must be used when using the 'apollo-state-sync' library.
  *
  * This diagram explains the logic with an example:
  *    ![alt text](assets/sequence_diagram-debouncer.png)
@@ -14,25 +14,26 @@ import { synchronizationDebouncer } from '../../util/synchronizationDebouncer'
  *    ![alt text](src/assets/architecture-diagram.svg)
  * @example
  * ```ts
- * import { GraphQLSharedWsLink, stateSyncLink } from 'apollo-state-sync'
+ * import { GraphQLWsLink } from '@apollo/client'
+ * import { stateSyncLink } from 'apollo-state-sync'
+ * import { createSharedClient } from 'graphql-shared-ws'
  *
- * const gqlSharedWslink = new GraphQLSharedWsLink({
- *  url: 'wss://localhost:443/api/graphql',
- *    connectionParams: {
- *      headers: {
- *        authorization: 'random-auth-code',
- *      },
- *    },
- * })
+ * const wsLink = new GraphQLWsLink(
+ *   createSharedClient({
+ *     url: 'wss://localhost:443/api/graphql',
+ *   })
+ * )
  *
  * const apolloClient = new ApolloClient({
  *   link: ApolloLink.from([
  *     authMiddleware,
+ *
+ *     // use stateSyncLink
  *     stateSyncLink,
- *     gqlSharedWslink,
+ *
+ *     wsLink,
  *   ]),
  *   cache: inMemoryStore,
- *   localState: new LocalState(),
  * })
  * ```
  */

@@ -3,9 +3,6 @@ import { globalConfig } from '../globalConfig'
 
 /**
  * The apollo client's state persisted in local storage.
- * It is persisted even after the user closes our web app.
- * When the user reopens our web app this state is restored.
- *  This allows the user to coninue from where he/she left off.
  */
 export type PersistedStateType = {
   cache: NormalizedCacheObject
