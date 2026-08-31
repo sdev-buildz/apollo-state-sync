@@ -124,7 +124,8 @@ This automation:
 - adds `webSocketImpl: SharedWebSocket` to `createClient(...)` calls
 - wraps ApolloClient instantiations with `setupRestartSubscription(...)`
 
-This is helpful for simple migration cases, but it has limitations. For example, `Subscription.restart` is not automatically migrated when `ApolloLink.split` is used.
+This is helpful for simple migration cases, but it has limitations. For example, `Subscription.restart` is not automatically migrated when `ApolloLink.split` is used.  
+If in case you are using `ApolloLink.split`, refer this [documentation](https://sdev-buildz.github.io/apollo-state-sync/functions/packages_apollo-shared-ws_src.setupRestartSubscription.html)).
 
 ## 👥 Community & Support
 
