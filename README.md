@@ -1,19 +1,48 @@
 <header align="center">
-    <h1 align="center">Apollo Client State Sync</h1>
-    <p align="center">Synchronizes Apollo Client's state across all browsing contexts (across browser tabs, windows, iframes, etc...).</p>
+    <h1 align="center">Apollo State Sync</h1>
+    <p align="center">
+        Synchronize Apollo Client state effortlessly across all browsing contexts, such as browser tabs, windows, and iframes.  
+    </p>
+    <p align="center">
+        Apollo State Sync keeps Apollo Client state consistent across browing contexts without redundant network requests.
+    </p>
+    <p align="center">
+        It syncs Apollo's in-memory cache and reactive variables across contexts, and can persist state between sessions so users can resume where they left off. It also avoids duplicate GraphQL subscription channels across contexts.
+    </p>
+
 </header>
+
+## 💡 Why use it?
+
+Modern web apps often run across multiple browser tabs or windows within the same workflow. Without shared state synchronization, users can end up with inconsistent data:
+
+- logged in status differs across tabs
+- Data edited in one tab stays outdated in another until a manual refresh.
+- in-memory caches are inconsistent across tabs
+- GraphQL subscriptions are duplicated across tabs
+- app state resets unexpectedly when a tab is reopened
+
+Apollo State Sync solves this by keeping state in sync across browsing contexts and user sessions while reusing a shared WebSocket connection and sharing active subscription channels.
 
 ## ✨ Features
 
-- Synchronizes Apollo Client's state (in-memory cache and reactive variables) across all browsing contexts (across browser tabs, windows, iframes, etc...).
-- The state gets persisted across user sessions even after the browser gets closed. So the users can continue their works when they reopen the app.
-- A single Web Socket connection gets shared across browsing contexts. GraphQL subscription channels are indexed by their payloads.
+- Syncs Apollo Client's state across all browsing contexts.
+  - browser tabs
+  - windows
+  - iframes
+  - other active app instances
+- Keeps Apollo cache and reactive variables synchronized in real time
+- Persists state across browser restarts and user sessions
+- Reuses a single shared WebSocket connection for GraphQL subscriptions
+- Minimizes duplicate network traffic by indexing GraphQL subscription channels by payload
+- Helps build multi-window and multi-tab apps without custom state plumbing
 
-## 💻 Example end-user use-cases
+## 💻 Example use-cases
 
-- If a visitor logs-in in one browser tab, the visitor will be simultaneously logged-in in other tabs also.
-- If a customer adds a product to cart in one browser tab, and adds a different product in a different tab, both the tabs will have both the products in their carts.
-- Streaming apps (such as chat apps, live locations, performance metrics dashboards, score boards, etc...) can be opened in multiple windows side-by-side without any increase in network load.
+- User logs in from one tab and is automatically logged in on all other tabs
+- Shopping cart updates are shared instantly across every open tab
+- Chat applications, dashboards, live-location apps, or scoreboards can be opened in multiple windows without extra network load
+- Long-lived user workflows continue seamlessly after closing and reopening the browser
 
 ## 📦 Installation
 
@@ -21,16 +50,67 @@
 npm install apollo-state-sync
 ```
 
+<details>
+<summary><strong>Using pnpm</strong></summary>
+
+#### 1) For non-monorepos.
+
+```sh
+pnpm add apollo-state-sync
+```
+
+#### 2) Adds to specific workspace.
+
+```sh
+pnpm add apollo-state-sync --filter="./packages/my-workspace"
+```
+
+#### 3) Adds to project's root workspace.
+
+```sh
+pnpm add apollo-state-sync -w
+```
+
+</details>
+
+<details>
+<summary><strong>Using yarn</strong></summary>
+
+#### 1) For non-monorepos
+
+```sh
+yarn add apollo-state-sync
+```
+
+#### 2) To a specifig workspace
+
+```sh
+yarn workspace <workspace-name> add apollo-state-sync
+```
+
+### 3) Adds to root workspace
+
+```sh
+yarn add -W apollo-state-sync
+```
+
+</details>
+
+## ⚙️ How it works ( Internal Achitecture )
+
+Apollo State Sync listens for state changes in Apollo Client and broadcasts them across browsing contexts using Broadcast Channels. It can also persist state in Local Storage so it remains available when the user reopens the app. It uses SharedWorkers to avoid duplicate GraphQL subscription channels.
+
 ## 🤖 Migration Automation
 
-Run the following terminal commands sequentially to automatically migrate Apollo Client projects to apollo-state-sync.  
-By default, web sockets are not migrated. Refer this [document](./packages/apollo-shared-ws/README.md) for more details.
+If you want to migrate an existing Apollo Client TypeScript project to Apollo State Sync, you can run the following commands:
 
 ```sh
 npm i -g ts-morph
 npx apollo-state-sync --help
 npx apollo-state-sync
 ```
+
+By default, WebSocket migration is not enabled. For details on WebSocket configuration and migration, see the [Apollo Shared WebSocket documentation](./packages/apollo-shared-ws/README.md).
 
 ## 👥 Community & Support
 
