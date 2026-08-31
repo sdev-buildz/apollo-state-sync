@@ -136,11 +136,7 @@ export class InMemoryCacheSynced
   override retain(...args: Parameters<InMemoryCacheSyncedType['retain']>) {
     let processedArgs: Parameters<InMemoryCache['retain']>
     if (typeof args[0] !== 'string') {
-      const firstArg = args[0] as Exclude<
-        Parameters<InMemoryCacheSyncedType['retain']>[0],
-        string
-      >
-      processedArgs = [firstArg?.value, args[1]]
+      processedArgs = [args[0]?.value, args[1]]
     } else processedArgs = args as Parameters<InMemoryCache['retain']>
 
     const result = super.retain(...processedArgs)
@@ -153,11 +149,7 @@ export class InMemoryCacheSynced
   override release(...args: Parameters<InMemoryCacheSyncedType['release']>) {
     let processedArgs: Parameters<InMemoryCache['release']>
     if (typeof args[0] !== 'string') {
-      const firstArg = args[0] as Exclude<
-        Parameters<InMemoryCacheSyncedType['release']>[0],
-        string
-      >
-      processedArgs = [firstArg?.value, args[1]]
+      processedArgs = [args[0]?.value, args[1]]
     } else processedArgs = args as Parameters<InMemoryCache['release']>
 
     const result = super.release(...processedArgs)

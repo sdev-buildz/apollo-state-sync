@@ -49,7 +49,7 @@ export class ChannelNames {
  */
 export const makeVarStateSynced = <T>(
   value: T,
-  name: string,
+  uniqueName: string,
   config?: RVarStateSyncConfigType<T>
 ): ReactiveVarStateSync<T> => {
   const persistedReactiveVars = getPersistedReactiveVars()
@@ -57,22 +57,24 @@ export const makeVarStateSynced = <T>(
    * The newly created reactive variable.
    */
   const reactiveVar = makeVar(value)
-  ChannelNames.validateUniqueness(name, reactiveVar as ReactiveVar<unknown>)
+  ChannelNames.validateUniqueness(
+    uniqueName,
+    reactiveVar as ReactiveVar<unknown>
+  )
   /**
    * Persisted apollo state is restored once the page loads.
    * The value from the persisted state overwrites the value from the argument
    *  {@link value} of this function call.
-   * So, the {@link value} passed in the arguments can be considered as the default initial value,
-   *  while the value restored from persistant storage takes precedence.
    */
-  if (name in persistedReactiveVars) value = persistedReactiveVars[name] as T
+  if (uniqueName in persistedReactiveVars)
+    value = persistedReactiveVars[uniqueName] as T
   reactiveVar(value)
 
   const reactiveVarBc = new SerializingBroadcastChannel(
-    name
+    uniqueName
   ) as TypedBroadcastChannel<T>
 
-  /** Setting up listener */
+  /** Setting up listener on the broadcast channel. */
   reactiveVarBc.addEventListener('message', (event) => {
     reactiveVar(event.data)
   })
@@ -103,7 +105,7 @@ export const makeVarStateSynced = <T>(
       !config?.shouldNotBroadcastFilter?.(
         newValue,
         value,
-        name,
+        uniqueName,
         synchronizationDebouncer.isPending
       )
     )
@@ -115,12 +117,12 @@ export const makeVarStateSynced = <T>(
 
     // Handling persisting of reactive variable
     if (
-      config?.shouldNotPersistFilter?.(newValue, value, name) ||
+      config?.shouldNotPersistFilter?.(newValue, value, uniqueName) ||
       options?.doNotPersist
     )
       return toReturn
     try {
-      persistReactiveVar(name, newValue)
+      persistReactiveVar(uniqueName, newValue)
     } catch (err) {
       console.error('Error while persisting reactive variables.\n', err)
     }
