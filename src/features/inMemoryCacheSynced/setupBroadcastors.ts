@@ -15,9 +15,9 @@ import { persistInMemoryCache } from './util/persistance'
 /**
  * Broadcasts the arguments of cache operations.
  */
-export const broadcast = (
-  operationName: CacheOperationsToSyncType,
-  args: Parameters<InMemoryCacheSyncedType[CacheOperationsToSyncType]>
+export const broadcast = <OperationName extends CacheOperationsToSyncType>(
+  operationName: OperationName,
+  args: Parameters<InMemoryCacheSyncedType[OperationName]>
 ) => {
   synchronizationDebouncer.debounce(() => {
     cacheBroadcastChannel.postMessage({
@@ -30,9 +30,11 @@ export const broadcast = (
 /**
  * @returns whether the cache operation should be broadcasted or not.
  */
-export const getShouldBroadcast = (
-  operationName: CacheOperationsToSyncType,
-  args: Parameters<InMemoryCacheSyncedType[typeof operationName]>,
+export const getShouldBroadcast = <
+  OperationName extends CacheOperationsToSyncType,
+>(
+  operationName: OperationName,
+  args: Parameters<InMemoryCacheSyncedType[OperationName]>,
   config?: Pick<GlobalConfig, 'skipBroadcastFilter'>
 ): boolean => {
   const shouldNotBroadcast: boolean =
@@ -65,9 +67,11 @@ export const handleSyncing = <OperationName extends CacheOperationsToSyncType>(
  * @returns whether the client state should be persisted or not
  *   as part of the cache operation.
  */
-export const getShouldPersist = (
-  operationName: CacheOperationsToSyncType,
-  args: Parameters<InMemoryCacheSyncedType[typeof operationName]>,
+export const getShouldPersist = <
+  OperationName extends CacheOperationsToSyncType,
+>(
+  operationName: OperationName,
+  args: Parameters<InMemoryCacheSyncedType[OperationName]>,
   config?: Pick<GlobalConfig, 'skipPersistFilter'>
 ): boolean => {
   const shouldNotPersist: boolean =
