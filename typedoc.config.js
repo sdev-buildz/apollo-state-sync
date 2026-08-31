@@ -9,4 +9,32 @@ export default {
   skipErrorChecking: true,
   tsconfig: 'tsconfig.typedoc.json',
   plugin: ['@packages/typedoc-plugins/link-tag-plugin'],
+  externalSymbolLinkMappings: {
+    typescript: {
+      SharedWorker:
+        'https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker',
+    },
+    global: {
+      SharedWorker:
+        'https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker',
+    },
+    'graphql-ws': {
+      '*': 'https://the-guild.dev/graphql/ws',
+    },
+    'graphql-shared-ws': {
+      '*': 'https://www.npmjs.com/package/graphql-shared-ws',
+    },
+    '@apollo/client': {
+      '*': 'https://www.apollographql.com/blog/announcing-apollo-client-4-0',
+    },
+    'canonical-serialization': {
+      '*': 'https://www.npmjs.com/package/canonical-serialization',
+    },
+    graphql: {
+      '*': 'https://www.npmjs.com/package/graphql',
+    },
+    'serialize-javascript': {
+      '*': 'https://www.npmjs.com/package/serialize-javascript',
+    },
+  },
 }
