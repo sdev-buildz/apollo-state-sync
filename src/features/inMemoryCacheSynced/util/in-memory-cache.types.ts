@@ -2,14 +2,14 @@ import type { ApolloClient } from '@apollo/client'
 import type { InMemoryCacheSyncedType } from './InMemoryCacheSyncedType'
 
 /**
- * Cache operations which are to be broadcasted across browsing contexts.
+ * Names of cache operations to broadcast.
  */
 export type CacheOperationsToSyncType = keyof Pick<
   InMemoryCacheSyncedType,
   'write' | 'evict' | 'modify' | 'gc' | 'reset' | 'retain' | 'release'
 >
 
-/** Cache operations which are to be broadcasted across browsing contexts. */
+/** Array of names of every cache operation to broadcast. */
 export const cacheOperationsToSync = [
   'write',
   'evict',
@@ -31,7 +31,7 @@ const allOperationsSyncedTypeSafety = <T extends CacheOperationsToSyncType[]>(
 allOperationsSyncedTypeSafety(cacheOperationsToSync)
 
 /**
- * Wrapper around string to behave like objects.
+ * Wrapper around string to use as object.
  */
 export type WrappedString = {
   value: string
@@ -48,6 +48,7 @@ export type CacheSyncMessageType<
   operationName: OperationName
   args: Parameters<InMemoryCacheSyncedType[OperationName]>
 }
+
 /** Maps the operation names to the corresponding broadcasted messages. */
 export type CacheSyncMessageTypeMap = {
   [
@@ -56,14 +57,14 @@ export type CacheSyncMessageTypeMap = {
 }
 
 /**
- * Used to specify if the operation should not be broadcasted to other browsing contexts.
+ * Used to specify if the cache operation should not be broadcasted.
  * Operation will not be broadcasted if it is set to true as shown in this following example.
  * @example
  * ```ts
- * const inMemoryStore = setupStateSyncer(new InMemoryCache(inMemoryCacheConfig)
+ * const inMemoryStore = new InMemoryCacheSynced(inMemoryCacheConfig)
  *
  * inMemoryStore.write({
- *  //  Since this is true, this operations will not be broadcasted to other browsing contexts.
+ *  //  Since this is true, this operations will not be broadcasted.
  *  [shouldNotBroadcastSymbol]: true,
  *  query: gql('query { currentUser: { id } }'),
  *  result: {
@@ -77,14 +78,14 @@ export const shouldNotBroadcastSymbol = Symbol('shouldNotBroadcast')
 /**
  * By default, {@link ApolloClient}'s state is persisted following every cache operation.
  *
- * This synbol is used to specify if the apollo client's state should not be persisted following a specific operation.
+ * This symbol is used to specify if the apollo client's state should not be persisted following a specific operation.
  * Apollo Client's state will not be persisted if it is set to true as shown in this following example.
  * @example
  * ```ts
- * const inMemoryStore = setupStateSyncer(new InMemoryCache(inMemoryCacheConfig)
+ * const inMemoryStore = new InMemoryCacheSynced(inMemoryCacheConfig)
  *
  * inMemoryStore.write({
- *  //  Since this is true, this operations will not be broadcasted to other browsing contexts.
+ *  //  Since this is true, the cache will not be persisted as part of this cache operation.
  *  [shouldNotPersistSymbol]: true,
  *  query: gql('query { currentUser: { id } }'),
  *  result: {
@@ -99,9 +100,6 @@ export const shouldNotPersistSymbol = Symbol('shouldNotPersist')
  * Used to augment the options parameter of cache operations.
  */
 export interface CacheSyncOptionsAugmentType {
-  /**
-   * If true, this is a broadcasted message, and so should not be rebroadcasted again.
-   */
   [shouldNotBroadcastSymbol]?: boolean
   [shouldNotPersistSymbol]?: boolean
 }

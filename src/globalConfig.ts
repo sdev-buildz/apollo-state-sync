@@ -17,15 +17,14 @@ export type CacheSyncerConfigType = {
   /**
    * Set to true, if the cache writes caused by graphql subscription operations
    *   are to be broadcasted for syncing.
-   * @default false.
    *
-   * Since graphql subscriptions are handled by web socket connections,
-   *    other browsing contexts also get notified of the
-   *    subscription writes directly by the ws connections.
+   * Since graphql subscriptions are handled by {@link https://www.npmjs.com/package/apollo-shared-ws | apollo-shared-ws} WebSocket connections,
+   *    other browsing contexts also get notified of the subscription writes directly by the WebSocket connections itself.
    *  So subscription writes are not broadcasted by default.
    *
-   *  Setting this to true could cause indefinite back-and-forth broadcasting among browsing contexts.
+   *  Setting this to true could cause indefinite back-and-forth broadcasting between browsing contexts.
    *   To avoid that, provide a value for {@link GlobalConfig.skipBroadcastFilter}.
+   * @default false.
    */
   shouldBroadcastSubscriptionWrites?: boolean
 
@@ -41,7 +40,7 @@ export type CacheSyncerConfigType = {
 
   /**
    * @return true, if the listened operation (which is broadcasted from a
-   *   different browsing context) is to be ignored and not processed.
+   *   different browsing context) is to be ignored and should not be processed.
    */
   skipListenedFilter?: ShouldSkipFilter
 }
@@ -55,6 +54,7 @@ export type GlobalConfig = {
    * @see {@link SynchronizationDebouncer}
    */
   synhnorizationDebounceTimeoutMs: number
+
   /**
    * The time in milliseconds after which the persisted cache expires.
    * Set to 0 to disable persistance.
@@ -70,10 +70,11 @@ export const globalConfig: GlobalConfig = {
    * Caclulation of this default value:
    *
    *  Typically React's rerendering time should be within 16ms.
+   *
    *  Syncing process of reactive variables take more time than that of in-memory cache operations.
    *  When reactive variable changes are broadcasted, they are rebroadcasted back from the listening browsing contexts.
    *    The rebroadcasted events are ignored and are not rebroadcasted again.
-   *    This process takes 21ms most of the times.
+   *    This process took 21ms most of the times during my experiments.
    *    So the default debouncing time is set at 24ms.
    */
   synhnorizationDebounceTimeoutMs: 24,

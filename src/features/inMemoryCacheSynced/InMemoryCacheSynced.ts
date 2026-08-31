@@ -13,14 +13,13 @@ import type { InMemoryCacheSyncedType } from './util/InMemoryCacheSyncedType'
 import { persistInMemoryCache, restorePersisted } from './util/persistance'
 
 /**
- * Apollo in-memory cache with its state synchronized across browsing contexts. (such as browser tabs, or windows).
+ * Apollo in-memory cache with its state synchronized across browsing contexts (such as browser tabs, windows, or iframes).
  * @example
  * ```ts
- * import { InMemoryCache } from '@apollo/client'
  * import { InMemoryCacheSynced, stateSyncLink } from 'apollo-state-sync'
  * import { terminatingLink } from './util/terminatingLink'
  *
- * // use InMemoryCacheSynced as apollo cache.
+ * // use InMemoryCacheSynced as Apollo Cache.
  * const apolloCache = new InMemoryCacheSynced()
  *
  * const apolloClient = new ApolloClient({
@@ -43,6 +42,7 @@ export class InMemoryCacheSynced
     this.setupListeners(stateSyncerConfig)
   }
 
+  /** Listens to broadcasted cache operations emitted from other browsing contexts. */
   protected setupListeners = (
     config?: Pick<GlobalConfig, 'skipListenedFilter'>
   ) => {
@@ -105,9 +105,7 @@ export class InMemoryCacheSynced
   override modify(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     options: any
-    // Parameters<InMemoryCacheSyncedType['modify']>[0]
   ) {
-    // options: any
     const result = super.modify(options)
 
     handleSyncing('modify', [options], this, this.stateSyncerConfig)
@@ -136,11 +134,7 @@ export class InMemoryCacheSynced
   override retain(...args: Parameters<InMemoryCacheSyncedType['retain']>) {
     let processedArgs: Parameters<InMemoryCache['retain']>
     if (typeof args[0] !== 'string') {
-      const firstArg = args[0] as Exclude<
-        Parameters<InMemoryCacheSyncedType['retain']>[0],
-        string
-      >
-      processedArgs = [firstArg?.value, args[1]]
+      processedArgs = [args[0]?.value, args[1]]
     } else processedArgs = args as Parameters<InMemoryCache['retain']>
 
     const result = super.retain(...processedArgs)
@@ -153,11 +147,7 @@ export class InMemoryCacheSynced
   override release(...args: Parameters<InMemoryCacheSyncedType['release']>) {
     let processedArgs: Parameters<InMemoryCache['release']>
     if (typeof args[0] !== 'string') {
-      const firstArg = args[0] as Exclude<
-        Parameters<InMemoryCacheSyncedType['release']>[0],
-        string
-      >
-      processedArgs = [firstArg?.value, args[1]]
+      processedArgs = [args[0]?.value, args[1]]
     } else processedArgs = args as Parameters<InMemoryCache['release']>
 
     const result = super.release(...processedArgs)
