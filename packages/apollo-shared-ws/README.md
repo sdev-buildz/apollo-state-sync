@@ -101,11 +101,14 @@ const apolloClient =
   )
 ```
 
+If in case you are using `ApolloLink.split`, refer this [documentation](https://sdev-buildz.github.io/apollo-state-sync/functions/packages_apollo-shared-ws_src.setupRestartSubscription.html).
+
 ## 🔌 API documentations
 
-1. [graphql-shared-ws API Reference](https://www.npmjs.com/package/graphql-shared-ws#:~:text=%F0%9F%94%8C-,API%20Reference,-This%20library%20implements)
-2. [graphql-ws documentation](https://the-guild.dev/graphql/ws/get-started)
-3. [Apollo GraphQLWsLink documentation](https://www.apollographql.com/docs/react/v3/api/link/apollo-link-subscriptions)
+1. [apollo-shared-ws API referemce](https://sdev-buildz.github.io/apollo-state-sync/functions/packages_apollo-shared-ws_src.setupRestartSubscription.html)
+2. [graphql-shared-ws documentation](https://www.npmjs.com/package/graphql-shared-ws#:~:text=%F0%9F%94%8C-,API%20Reference,-This%20library%20implements)
+3. [graphql-ws documentation](https://the-guild.dev/graphql/ws/get-started)
+4. [Apollo GraphQLWsLink documentation](https://www.apollographql.com/docs/react/v3/api/link/apollo-link-subscriptions)
 
 ## 🤖 Migration automation
 
@@ -124,8 +127,7 @@ This automation:
 - adds `webSocketImpl: SharedWebSocket` to `createClient(...)` calls
 - wraps ApolloClient instantiations with `setupRestartSubscription(...)`
 
-This is helpful for simple migration cases, but it has limitations. For example, `Subscription.restart` is not automatically migrated when `ApolloLink.split` is used.  
-If in case you are using `ApolloLink.split`, refer this [documentation](https://sdev-buildz.github.io/apollo-state-sync/functions/packages_apollo-shared-ws_src.setupRestartSubscription.html)).
+This is helpful for simple migration cases, but it has limitations. For example, `Subscription.restart` is not automatically migrated when `ApolloLink.split` is used.
 
 ## 👥 Community & Support
 
