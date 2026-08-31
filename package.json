@@ -81,9 +81,6 @@
     "ts-morph": "catalog:"
   },
   "peerDependenciesMeta": {
-    "@apollo/client": {
-      "optional": true
-    },
     "ts-morph": {
       "optional": true
     }
