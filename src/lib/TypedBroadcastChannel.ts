@@ -2,20 +2,39 @@
  * Wrapper around the {@link BroadcastChannel} API.
  * Enables adding types to broadcasted messages and channel name.
  */
-export type TypedBroadcastChannel<
+export class TypedBroadcastChannel<
   MessageType,
   ChannelNameType extends string = string,
-> = globalThis.BroadcastChannel & {
-  /** The name of the channel. */
-  readonly name: ChannelNameType
-  /** Broadcasts the message to other BroadcastChannel instances with the same name. */
-  postMessage(message: MessageType): void
-  /** An event handler called when a message is received. */
-  onmessage: ((event: MessageEvent<MessageType>) => void) | null
-  /** Attaches an event listener for the "message" event with the specific message type. */
-  addEventListener: (
-    type: 'message',
-    listener: (event: MessageEvent<MessageType>) => void,
+> extends BroadcastChannel {
+  constructor(override readonly name: ChannelNameType) {
+    super(name)
+  }
+
+  override postMessage(message: MessageType) {
+    super.postMessage(message)
+  }
+
+  override onmessage: ((event: MessageEvent<MessageType>) => void) | null = null
+
+  override addEventListener<K extends keyof BroadcastChannelEventMap>(
+    type: K,
+    listener:
+      | {
+          (
+            event: K extends 'message'
+              ? MessageEvent<MessageType>
+              : MessageEvent
+          ): void
+        }
+      | {
+          handleEvent(
+            object: K extends 'message'
+              ? MessageEvent<MessageType>
+              : MessageEvent
+          ): void
+        },
     options?: boolean | AddEventListenerOptions
-  ) => void
+  ): void {
+    super.addEventListener(type, listener as EventListenerObject, options)
+  }
 }
