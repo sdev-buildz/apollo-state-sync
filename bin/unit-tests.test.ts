@@ -29,7 +29,7 @@ describe('cli', () => {
 
   test.skip('importing the ts file to stimulate cli invocation.', () => {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    require('./index.ts')
+    require('./runCli.ts')
 
     expect(migrateSpy).toHaveBeenCalled()
   })

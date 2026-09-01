@@ -6,7 +6,7 @@
       "@src/*": ["../src/*"],
       "@src": ["../src"],
       "@bin/*": ["../bin/*"],
-      "@bin": ["../bin"]
+      "@bin": ["../bin/cliApp"]
     }
   },
   "references": [
