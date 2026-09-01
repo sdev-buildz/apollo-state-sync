@@ -1,2 +1,2 @@
 export * from './cliApp'
-export * from './run-cli'
+export * from './runCli'
