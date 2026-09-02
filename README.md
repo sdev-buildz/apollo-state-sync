@@ -107,12 +107,16 @@ Apollo State Sync listens for state changes in Apollo Client and broadcasts them
 If you want to migrate an existing Apollo Client TypeScript project to Apollo State Sync, you can run the following commands:
 
 ```sh
-npm i -g ts-morph
+npm i --save-dev ts-morph
 npx apollo-state-sync --help
 npx apollo-state-sync
 ```
 
 By default, WebSocket migration is not enabled. For details on WebSocket configuration and migration, see the [Apollo Shared WebSocket documentation](./packages/apollo-shared-ws/README.md).
+
+## 🔌 API documentation
+
+For details on setup and configurations, refer to this [documentation](https://sdev-buildz.github.io/apollo-state-sync).
 
 ## 👥 Community & Support
 
