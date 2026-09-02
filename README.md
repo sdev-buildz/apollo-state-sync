@@ -98,7 +98,7 @@ yarn add -W apollo-state-sync
 
 </details>
 
-## ⚙️ How it works ( Internal Achitecture )
+## ⚙️ How it works ( Architecture )
 
 Apollo State Sync listens for state changes in Apollo Client and broadcasts them across browsing contexts using Broadcast Channels. It can also persist state in Local Storage so it remains available when the user reopens the app. It uses SharedWorkers to avoid duplicate GraphQL subscription channels.
 

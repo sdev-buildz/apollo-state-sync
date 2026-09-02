@@ -5,9 +5,9 @@
     </p>
 </header>
 
-It indexes GraphQL subscriptions by their payloads avoiding duplicate subscription channels across browsing contexts.
+It indexes GraphQL subscriptions by payload to avoid duplicate subscription channels across browsing contexts.
 
-It is built on top of [graphql-shared-ws](https://www.npmjs.com/package/graphql-shared-ws), a drop-in wrapper around [graphql-ws](https://www.npmjs.com/package/graphql-ws).
+It is built on top of [graphql-shared-ws](https://www.npmjs.com/package/graphql-shared-ws), a drop-in wrapper around [graphql-ws](https://www.npmjs.com/package/graphql-ws), and uses a SharedWorker to coordinate a single underlying WebSocket connection across browser tabs, windows, and iframes.
 
 ## 💡 Why use it?
 
@@ -16,7 +16,7 @@ It is built on top of [graphql-shared-ws](https://www.npmjs.com/package/graphql-
 - Keep shared GraphQL subscriptions consistent across browsing contexts
 - Works as a direct replacement for standard graphql-ws usage in Apollo
 
-💡 If you are using [TanStack Query (React Query)](https://tanstack.com/query/latest) or [graphql-ws](https://the-guild.dev/graphql/ws/get-started), refer the [official graphql-shared-ws documentation](https://www.npmjs.com/package/graphql-shared-ws).
+💡 If you are using [TanStack Query (React Query)](https://tanstack.com/query/latest) or [graphql-ws](https://the-guild.dev/graphql/ws/get-started), refer to the [official graphql-shared-ws documentation](https://www.npmjs.com/package/graphql-shared-ws).
 
 ## 📦 Installation
 
@@ -74,6 +74,7 @@ yarn add -W apollo-shared-ws
 
 ```ts
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
+import { ApolloClient, ApolloLink, InMemoryCache } from '@apollo/client'
 import { setupRestartSubscription } from 'apollo-state-sync'
 import { createSharedClient } from 'graphql-shared-ws'
 import { authLink } from './util/authLink'
@@ -101,11 +102,17 @@ const apolloClient =
   )
 ```
 
-If in case you are using `ApolloLink.split`, refer this [documentation](https://sdev-buildz.github.io/apollo-state-sync/functions/packages_apollo-shared-ws_src.setupRestartSubscription.html).
+If you are using `ApolloLink.split`, refer to this [documentation](https://sdev-buildz.github.io/apollo-state-sync/functions/packages_apollo-shared-ws_src.setupRestartSubscription.html).
 
-## 🔌 API documentations
+## ⚙️ How it works ( Architecture )
 
-1. [apollo-shared-ws API referemce](https://sdev-buildz.github.io/apollo-state-sync/functions/packages_apollo-shared-ws_src.setupRestartSubscription.html)
+It uses SharedWorkers to avoid duplicate GraphQL subscription channels.
+
+🌐 [Support for SharedWorkers](https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker#browser_compatibility) depends on the browser and may be restricted by privacy settings or unsupported environments.
+
+## 🔌 API documentation
+
+1. [apollo-shared-ws API reference](https://sdev-buildz.github.io/apollo-state-sync/functions/packages_apollo-shared-ws_src.setupRestartSubscription.html)
 2. [graphql-shared-ws documentation](https://www.npmjs.com/package/graphql-shared-ws#:~:text=%F0%9F%94%8C-,API%20Reference,-This%20library%20implements)
 3. [graphql-ws documentation](https://the-guild.dev/graphql/ws/get-started)
 4. [Apollo GraphQLWsLink documentation](https://www.apollographql.com/docs/react/v3/api/link/apollo-link-subscriptions)
