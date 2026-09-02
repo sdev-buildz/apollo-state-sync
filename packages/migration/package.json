@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@typescript/native": "catalog:",
+    "@stricli/core": "catalog:",
     "typescript": "catalog:",
     "@apollo/client": "catalog:",
     "@types/node": "catalog:",

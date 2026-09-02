@@ -4,5 +4,10 @@
   "compilerOptions": {
     "outDir": "./dist"
   },
+  "references": [
+    {
+      "path": "../packages/migration/src"
+    }
+  ],
   "include": ["./**/*.ts"]
 }
