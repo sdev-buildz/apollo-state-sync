@@ -106,7 +106,7 @@ If you are using `ApolloLink.split`, refer to this [documentation](https://sdev-
 
 ## ⚙️ How it works ( Architecture )
 
-It uses SharedWorkers to avoid duplicate GraphQL subscription channels.
+It uses SharedWorkers to host a single shared WebSocket connection and indexes subscription payloads to avoid duplicate GraphQL subscription channels across browsing contexts.
 
 🌐 [Support for SharedWorkers](https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker#browser_compatibility) depends on the browser and may be restricted by privacy settings or unsupported environments.
 
@@ -124,7 +124,7 @@ This package includes a lightweight migration helper for Apollo Client projects.
 Run the following commands sequentially:
 
 ```sh
-npm i -g ts-morph
+npm i --save-dev ts-morph
 npx gql-shr-ws-link-migrate --help
 npx gql-shr-ws-link-migrate
 ```
