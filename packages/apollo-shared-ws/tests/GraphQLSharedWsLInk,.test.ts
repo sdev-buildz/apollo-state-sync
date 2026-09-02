@@ -13,14 +13,12 @@ import {
   mockCreateSharedClient,
   type ClientHandle,
 } from '@packages/common-utils/mocks'
+import type { ClientResolver } from '@src/ClientResolver'
 import { print } from 'graphql'
 import { createSharedClient, type SharedClient } from 'graphql-shared-ws'
 import type { SubscribePayload } from 'graphql-ws'
 import { expect, it, vi } from 'vitest'
-import {
-  setupRestartSubscription,
-  type ClientResolver,
-} from '../src/setupRestartSubscription'
+import { setupRestartSubscription } from '../src/setupRestartSubscription'
 
 const subscribePayload: SubscribePayload = {
   query: print(gql`
