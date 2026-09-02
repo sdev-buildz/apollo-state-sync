@@ -16,7 +16,7 @@ It is built on top of [graphql-shared-ws](https://www.npmjs.com/package/graphql-
 - Keep shared GraphQL subscriptions consistent across browsing contexts
 - Works as a direct replacement for standard graphql-ws usage in Apollo
 
-💡 If you are using [TanStack Query (React Query)](!https://tanstack.com/query/latest) or [graphql-ws](https://the-guild.dev/graphql/ws/get-started), refer the [official graphql-shared-ws documentation](https://www.npmjs.com/package/graphql-shared-ws).
+💡 If you are using [TanStack Query (React Query)](https://tanstack.com/query/latest) or [graphql-ws](https://the-guild.dev/graphql/ws/get-started), refer the [official graphql-shared-ws documentation](https://www.npmjs.com/package/graphql-shared-ws).
 
 ## 📦 Installation
 
@@ -39,7 +39,7 @@ pnpm add apollo-shared-ws
 pnpm add apollo-shared-ws --filter="./packages/my-workspace"
 ```
 
-#### 3) Adds to project's root workspace.
+#### 3) Adds to root workspace.
 
 ```sh
 pnpm add apollo-shared-ws -w
@@ -56,13 +56,13 @@ pnpm add apollo-shared-ws -w
 yarn add apollo-shared-ws
 ```
 
-#### 2) To a specifig workspace
+#### 2) Adds to specific workspace
 
 ```sh
 yarn workspace <workspace-name> add apollo-shared-ws
 ```
 
-### 3) Adds to root workspace
+#### 3) Adds to root workspace
 
 ```sh
 yarn add -W apollo-shared-ws
