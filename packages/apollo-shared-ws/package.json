@@ -48,9 +48,7 @@
     "@apollo/client": "catalog:",
     "@stricli/core": "catalog:",
     "graphql": "catalog:",
-    "graphql-shared-ws": "catalog:",
-    "graphql-ws": "catalog:",
-    "rxjs": "catalog:"
+    "graphql-shared-ws": "catalog:"
   },
   "peerDependencies": {
     "@apollo/client": "catalog:peer-deps",
@@ -82,6 +80,7 @@
     "@packages/migration": "workspace:*",
     "@types/node": "catalog:",
     "@typescript/native": "catalog:",
+    "graphql-ws": "catalog:",
     "tsdown": "catalog:",
     "tsx": "catalog:",
     "typescript": "catalog:",
