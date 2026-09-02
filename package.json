@@ -68,12 +68,7 @@
     "@apollo/client": "catalog:",
     "@stricli/core": "catalog:",
     "canonical-serialization": "catalog:",
-    "graphql": "catalog:",
-    "graphql-shared-ws": "catalog:",
-    "graphql-ws": "catalog:",
-    "rxjs": "catalog:",
-    "serialize-javascript": "^7.0.7",
-    "ts-strict-utils": "catalog:"
+    "rxjs": "catalog:"
   },
   "peerDependencies": {
     "@apollo/client": "catalog:peer-deps",
@@ -122,9 +117,14 @@
     "eslint-plugin-react-refresh": "^0.5.3",
     "eslint-plugin-tsdoc": "^0.5.2",
     "globals": "^17.9.0",
+    "graphql": "catalog:",
+    "graphql-shared-ws": "catalog:",
+    "graphql-ws": "catalog:",
     "jsdom": "^30.0.1",
     "knip": "^6.33.0",
     "prettier": "3.9.6",
+    "serialize-javascript": "^7.0.7",
+    "ts-strict-utils": "catalog:",
     "tsdown": "catalog:",
     "tsx": "catalog:",
     "turbo": "^2.10.12",
