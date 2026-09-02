@@ -24,5 +24,5 @@ const rootMainCommand = buildCommand<FlagsType, PositionalsType>(buildArgs)
  */
 export const cliApp = buildApplication(rootMainCommand, {
   ...cliAppConfig,
-  name: 'cli to migrate to apollo-state-sync.',
+  name: 'apollo-state-sync',
 })
