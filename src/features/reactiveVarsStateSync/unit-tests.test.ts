@@ -173,9 +173,15 @@ test('listener applies incoming operations without re-broadcasting or persisting
   const testVarName = testVarData.name
   const testVar = makeVarStateSynced(1, testVarName)
   const bc = MockBroadcastChannel.getBroadcastChannel()
+  const postSpy = vi.spyOn(bc, 'postMessage')
 
   bc.emitMessage(testVarData.value)
   expect(testVar()).toBe(testVarData.value)
+
+  vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+
+  expect(postSpy).not.toHaveBeenCalledWith()
+  expect(localStorageSetSpy).not.toHaveBeenCalled()
 })
 
 test.each<{ shouldDebounce: boolean; expectToBeBroadcasted: boolean }>([
