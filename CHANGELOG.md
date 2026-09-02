@@ -1,5 +1,13 @@
 # apollo-state-sync
 
+## 0.0.2
+
+### Patch Changes
+
+- [#34](https://github.com/sdev-buildz/apollo-state-sync/pull/34) [`e9215f0`](https://github.com/sdev-buildz/apollo-state-sync/commit/e9215f0411d77115b2069367df7bef857597797b) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - readme docs improved.
+- Updated dependencies [[`e9215f0`](https://github.com/sdev-buildz/apollo-state-sync/commit/e9215f0411d77115b2069367df7bef857597797b)]:
+  - apollo-shared-ws@0.0.2
+
 ## 0.0.1
 
 ### Patch Changes

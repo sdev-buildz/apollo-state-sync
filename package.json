@@ -1,6 +1,6 @@
 {
   "name": "apollo-state-sync",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Synchronizes and persists the Apollo Client's state across browsing contexts (browser tabs, windows, iframes). Also supports WebSocket connection shared across browsing contexts.",
   "keywords": [
     "apollo client",
