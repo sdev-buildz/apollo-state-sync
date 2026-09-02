@@ -1,8 +1,7 @@
 import { canonicalSerialization, deserialize } from 'canonical-serialization'
-import serializeJavascript from 'serialize-javascript'
 
 /**
- * A BroadcastChannel that serializes the messages using {@link serializeJavascript}.
+ * A BroadcastChannel that serializes the messages using {@link canonicalSerialization}.
  */
 export class SerializingBroadcastChannel extends BroadcastChannel {
   public override postMessage(message: unknown): void {
