@@ -76,6 +76,9 @@
     "ts-morph": "catalog:"
   },
   "peerDependenciesMeta": {
+    "apollo-shared-ws": {
+      "optional": true
+    },
     "ts-morph": {
       "optional": true
     }
