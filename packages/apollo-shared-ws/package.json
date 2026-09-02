@@ -22,7 +22,7 @@
   },
   "type": "module",
   "bin": {
-    "gql-shr-ws-link-migrate": "dist/bin/bin.mjs"
+    "apollo-shared-ws": "dist/bin/bin.mjs"
   },
   "sideEffects": false,
   "files": [

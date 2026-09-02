@@ -6,13 +6,16 @@
  * It can automatically migrate ts projects to use 'state-sync-cross-tab'.
  */
 import { buildApplication, buildCommand } from '@stricli/core'
-import fs from 'node:fs'
-import path from 'node:path'
 
-import * as migration from '@packages/migration'
-import { type MigrateOptionsType } from '@packages/migration'
+import {
+  buildArgs,
+  cliAppConfig,
+  getCommandFunction,
+  type MigrateOptionsType,
+} from '@packages/migration'
+import { typedObjectEntries } from 'ts-strict-utils'
 
-type FlagsType = Partial<Pick<MigrateOptionsType, 'tsConfigFilePath'>> &
+type FlagsType = Pick<MigrateOptionsType, 'tsConfigFilePath'> &
   Pick<MigrateOptionsType['toMigrate'], 'graphqlWs' | 'restartSub'>
 
 type PositionalsType = [string?]
@@ -27,8 +30,8 @@ const getMigrateOptionsFromFlags = (
       inMemoryCache: false,
       makeVar: false,
       stateSyncLink: false,
-      graphqlWs: flags.graphqlWs,
-      restartSub: flags.restartSub,
+      graphqlWs: flags.graphqlWs ?? false,
+      restartSub: flags.restartSub ?? false,
     },
   }
 }
@@ -37,83 +40,39 @@ const getMigrateOptionsFromFlags = (
  *  The schema for the cli commands, arguments, flags, documentations and executions.
  */
 const rootMainCommand = buildCommand<FlagsType, PositionalsType>({
+  ...buildArgs,
   docs: {
-    brief: 'A simple command-line interface for item inventory.',
-    fullDescription: `Requires ts-morph to be installed.
-  If you are using npm, run "npm i -g ts-morph".
-  If you are using pnpm, run "pnpm add -g ts-morph".
-`,
+    ...buildArgs.docs,
+    brief: `CLI used to migrate ApolloClient TypeScript projects to apollo-shared-ws.`,
   },
   parameters: {
     flags: {
       tsConfigFilePath: {
-        kind: 'parsed',
-        parse: String,
-        optional: true,
-        brief: `Path to the tsconfig.json file of the project to be migrated.`,
+        ...buildArgs.parameters.flags.tsConfigFilePath,
       },
       graphqlWs: {
-        kind: 'boolean',
+        ...buildArgs.parameters.flags.graphqlWs,
         default: true,
-        brief: 'Whether to migrate graphq-ws to use shared ws connection.',
       },
       restartSub: {
-        kind: 'boolean',
+        ...buildArgs.parameters.flags.restartSub,
         default: true,
-        brief: `Whether to migrate Apollo Client to support 'restart subscription' when using shared ws connection.`,
       },
     },
     aliases: {
-      t: 'tsConfigFilePath',
-      p: 'tsConfigFilePath',
-      w: 'graphqlWs',
-      a: 'restartSub',
+      ...Object.fromEntries(
+        typedObjectEntries(buildArgs.parameters.aliases ?? {}).filter(
+          ([key, value]) =>
+            value === 'tsConfigFilePath' ||
+            value === 'graphqlWs' ||
+            value === 'restartSub'
+        )
+      ),
     },
-    positional: {
-      kind: 'tuple',
-      parameters: [
-        {
-          placeholder: 'tsConfigFilePath',
-          optional: true,
-          parse: String,
-          brief: `Path to the project's tsconfig.json file.`,
-        },
-      ],
-    },
+    positional: buildArgs.parameters.positional,
   },
 
-  func(flags: FlagsType, ...positionals) {
-    const targetPackagePath = path.join(process.cwd(), 'package.json')
-    /**
-     * Check if the current project is the cli itself.
-     */
-    if (fs.existsSync(targetPackagePath)) {
-      const targetPackage = JSON.parse(
-        fs.readFileSync(targetPackagePath, 'utf-8') ?? '{}'
-      )
-      if (
-        targetPackage.name === 'apollo-state-sync' ||
-        targetPackage.name === 'apollo-shared-ws' ||
-        targetPackage.name === 'ts-helpers-1234' ||
-        targetPackage.name === 'ts-array-util-lib-not'
-      ) {
-        if (
-          process.env.NODE_ENV !== 'test' ||
-          process.env.CLI_EXEC_TEST === 'true'
-        ) {
-          console.warn(
-            `
-            Since this project folder is the source code of the cli itself, the cli is not executed.
-            If you want to try using the cli, invoke the cli command in a different proejct.
-            `
-          )
-          return
-        }
-      }
-    }
-    const migrateOptions = getMigrateOptionsFromFlags(flags, positionals)
-    migration.migrate(migrateOptions)
-  },
+  func: getCommandFunction(getMigrateOptionsFromFlags),
 })
 
 /**
@@ -121,14 +80,6 @@ const rootMainCommand = buildCommand<FlagsType, PositionalsType>({
  * It is exported in order to support testing.
  */
 export const cliApp = buildApplication(rootMainCommand, {
-  name: 'migrate cli',
-  versionInfo: {
-    currentVersion: `v1.0.0`,
-  },
-  scanner: {
-    caseStyle: 'allow-kebab-for-camel',
-  },
-  documentation: {
-    useAliasInUsageLine: true,
-  },
+  ...cliAppConfig,
+  name: 'apollo-shared-ws.',
 })

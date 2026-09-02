@@ -34,7 +34,7 @@ export default defineConfig([
     //  The bin (cli)
     ...baseConfig,
     entry: {
-      bin: 'bin/cliApp',
+      bin: 'bin/runCli',
     },
     format: ['esm'],
     outDir: 'dist/bin',

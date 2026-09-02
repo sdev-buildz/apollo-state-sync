@@ -2,7 +2,7 @@ import type { ApolloClient, InMemoryCache, makeVar } from '@apollo/client'
 import type { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { Project, QuoteKind } from 'ts-morph'
 import type { StrictOmit } from 'ts-strict-utils'
-import { SemicolonPreference } from 'typescript'
+import type { SemicolonPreference } from 'typescript'
 import { executeBatches } from './lib/batchManipulationOperations'
 import { migrateStateSyncLink } from './migStateSyncLinks'
 import { migrateApolloClientSubs } from './migrateApolloClientSubs'
@@ -47,7 +47,8 @@ export const migrateProject = (
       file.organizeImports()
     }
     file.formatText({
-      semicolons: SemicolonPreference.Remove,
+      //  SemicolonPreference enum is not imported as value, because import statements will break with TypeScript v7.
+      semicolons: 'remove' as SemicolonPreference.Remove,
       indentSize: 2,
     })
   }
