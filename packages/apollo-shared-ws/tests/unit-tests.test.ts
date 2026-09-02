@@ -13,9 +13,9 @@ vi.mock('../../../package.json', () => {
 })
 import { cliApp } from '@bin'
 import { buildContextForTest } from '@packages/common-utils/cli-utils'
-import * as migration from '@packages/migration'
 import { run } from '@stricli/core'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
+import * as migration from '../../migration/src/migrate'
 
 const migrateSpy = vi.spyOn(migration, 'migrate').mockImplementation(vi.fn())
 
