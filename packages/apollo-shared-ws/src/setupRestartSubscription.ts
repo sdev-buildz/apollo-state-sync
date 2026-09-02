@@ -11,24 +11,8 @@ import { getOperationName } from '@apollo/client/utilities/internal'
 import { getOperationType } from '@packages/common-utils'
 import { print } from 'graphql'
 import type { SharedClient } from 'graphql-shared-ws'
+import type { ClientResolver, ClientResolverOperation } from './ClientResolver'
 import { getDocumentInfo, getVariables } from './lib/apollo-client-lib-internal'
-
-type ClientResolverOperation = Omit<
-  ApolloLink.Operation,
-  'setContext' | 'getContext' | 'extensions' | 'variables'
-> &
-  Partial<Pick<ApolloLink.Operation, 'extensions' | 'variables'>>
-
-/**
- * Given a graphql operation, returns the {@link SharedClient} to use.
- *
- * It is useful only when {@link ApolloLink.split} is used.
- * It should return the same result as {@link ApolloLink.split}.
- * @returns The client if it is a {@link SharedClient}, undefined otherwise
- */
-export type ClientResolver = (
-  operation: ClientResolverOperation
-) => SharedClient | undefined
 
 /**
  * Overwrites the restart function returned by {@link ApolloClient.subscribe}.
@@ -64,7 +48,6 @@ export const setupRestartSubscription = (
       operationName: getOperationName(args[0].query),
       operationType: getOperationType(args[0].query)!,
     }
-
     let sharedClient: SharedClient | undefined
     if ('sharedClient' in options) sharedClient = options.sharedClient
     else sharedClient = options.sharedClientResolver(clientResolverOperation)
