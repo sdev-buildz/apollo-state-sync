@@ -21,7 +21,7 @@ import { getDocumentInfo, getVariables } from './lib/apollo-client-lib-internal'
  * It modifies the ApolloClient in place and also returns the modified ApolloClient.
  *
  * In case you are using {@link ApolloLink.split}, provide the
- *  sharedClientResolver field in the options parameter.
+ *  {@link ClientResolver | sharedClientResolver} field in the options parameter.
  */
 export const setupRestartSubscription = (
   apolloClient: ApolloClient,

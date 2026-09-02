@@ -4,7 +4,7 @@
         Synchronize Apollo Client state effortlessly across all browsing contexts, such as browser tabs, windows, and iframes.  
     </p>
     <p align="center">
-        Apollo State Sync keeps Apollo Client state consistent across browing contexts without redundant network requests.
+        Apollo State Sync keeps Apollo Client state consistent across browsing contexts without redundant network requests.
     </p>
     <p align="center">
         It syncs Apollo's in-memory cache and reactive variables across contexts, and can persist state between sessions so users can resume where they left off. It also avoids duplicate GraphQL subscription channels across contexts.
@@ -37,6 +37,8 @@ Apollo State Sync solves this by keeping state in sync across browsing contexts 
 - Minimizes duplicate network traffic by indexing GraphQL subscription channels by payload
 - Helps build multi-window and multi-tab apps without custom state plumbing
 
+❗ Apollo State Sync keeps Apollo state synchronized across tabs and windows. For shared GraphQL subscription channels and a single reused WebSocket connection across browsing contexts, install and configure [apollo-shared-ws npm package](https://www.npmjs.com/package/apollo-shared-ws).
+
 ## 💻 Example use-cases
 
 - User logs in from one tab and is automatically logged in on all other tabs
@@ -65,7 +67,7 @@ pnpm add apollo-state-sync
 pnpm add apollo-state-sync --filter="./packages/my-workspace"
 ```
 
-#### 3) Adds to project's root workspace.
+#### 3) Adds to root workspace.
 
 ```sh
 pnpm add apollo-state-sync -w
@@ -82,13 +84,13 @@ pnpm add apollo-state-sync -w
 yarn add apollo-state-sync
 ```
 
-#### 2) To a specifig workspace
+#### 2) Adds to specific workspace.
 
 ```sh
 yarn workspace <workspace-name> add apollo-state-sync
 ```
 
-### 3) Adds to root workspace
+#### 3) Adds to root workspace.
 
 ```sh
 yarn add -W apollo-state-sync
