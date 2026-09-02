@@ -62,7 +62,7 @@
     "knip:e2e-app": "knip --workspace e2e/web-app",
     "knip": "pnpm run knip:main & pnpm run knip:e2e-app",
     "knip:ci": "pnpm run knip:main && pnpm run knip:e2e-app",
-    "docs:user": "typedoc --options typedoc.config.js"
+    "docs": "typedoc --options typedoc.config.js"
   },
   "dependencies": {
     "@apollo/client": "catalog:",
