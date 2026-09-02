@@ -447,6 +447,9 @@ importers:
       '@pothos/core':
         specifier: ^4.13.1
         version: 4.13.1(graphql@17.0.2)
+      apollo-shared-ws:
+        specifier: workspace:*
+        version: link:../../packages/apollo-shared-ws
       apollo-state-sync:
         specifier: workspace:*
         version: link:../..

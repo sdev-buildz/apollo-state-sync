@@ -19,6 +19,7 @@
     "@apollo/client": "catalog:",
     "@packages/logger": "workspace:*",
     "@pothos/core": "^4.13.1",
+    "apollo-shared-ws": "workspace:*",
     "apollo-state-sync": "workspace:*",
     "canonical-serialization": "catalog:",
     "graphql": "catalog:",
