@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { beforeEach, describe, expect, it, test, vi } from 'vitest'
 import { globalConfig } from '../../globalConfig'
 import { MockBroadcastChannel } from '../../lib/MockBroadcastChannel'
 import { synchronizationDebouncer } from '../../util/synchronizationDebouncer'
@@ -37,6 +37,27 @@ const testVarData = {
   name: 'testVar',
   value: 2,
 }
+
+it('includes the features of normal reactive variables.', () => {
+  const initialValue = 'initValue'
+
+  const var1 = makeVarStateSynced<string | boolean>(initialValue, 'var1')
+  expect(var1()).toBe(initialValue)
+  expect(var1()).toBe(initialValue)
+
+  const newValue = 'newValue'
+  expect(var1(newValue)).toBe(newValue)
+  expect(var1()).toBe(newValue)
+
+  expect(var1(undefined)).toBe(undefined)
+  expect(var1()).toBe(undefined)
+
+  expect(var1('')).toBe('')
+  expect(var1()).toBe('')
+
+  expect(var1(false)).toBe(false)
+  expect(var1()).toBe(false)
+})
 
 test('restores persisted reactive variables during initialization', () => {
   persistReactiveVar(testVarData.name, testVarData.value)

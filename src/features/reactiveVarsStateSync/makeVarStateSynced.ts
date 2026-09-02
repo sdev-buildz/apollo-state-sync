@@ -78,12 +78,11 @@ export const makeVarStateSynced = <T>(
   })
 
   /** The reactive variable with its state synced across browsing contexts. */
-  const reactiveVarStateSync = (
-    newValue?: T,
+  const reactiveVarStateSync = function (
+    newValue?: T | undefined,
     options?: SetReactiveVarOptionsType
-  ) => {
-    const currentValue = reactiveVar()
-    if (!newValue) return currentValue
+  ) {
+    if (arguments.length === 0) return reactiveVar()
 
     const toReturn = reactiveVar(newValue)
     // If the old and new values are the same, do not broadcast.
@@ -101,7 +100,8 @@ export const makeVarStateSynced = <T>(
 
     shouldBroadcast &&= Boolean(
       !config?.shouldNotBroadcastFilter?.(
-        newValue,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        newValue as any,
         value,
         uniqueName,
         synchronizationDebouncer.isPending
@@ -109,13 +109,15 @@ export const makeVarStateSynced = <T>(
     )
     if (shouldBroadcast) {
       synchronizationDebouncer.debounce(() => {
-        reactiveVarBc.postMessage(newValue)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        reactiveVarBc.postMessage(newValue as any)
       })
     }
 
     // Handling persistance of the reactive variable.
     if (
-      config?.shouldNotPersistFilter?.(newValue, value, uniqueName) ||
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      config?.shouldNotPersistFilter?.(newValue as any, value, uniqueName) ||
       options?.doNotPersist
     )
       return toReturn
