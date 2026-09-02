@@ -31,7 +31,7 @@ jobs:
       - run: pnpm exec prettier --write ./pnpm-lock.yaml
 
       - name: Generate Documentation
-        run: pnpm run docs:user
+        run: pnpm run docs
 
       - name: Upload artifact
         # v5.0.0
