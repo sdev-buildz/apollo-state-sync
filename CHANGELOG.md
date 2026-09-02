@@ -1,5 +1,11 @@
 # apollo-state-sync
 
+## 0.1.0
+
+### Minor Changes
+
+- [#36](https://github.com/sdev-buildz/apollo-state-sync/pull/36) [`1008301`](https://github.com/sdev-buildz/apollo-state-sync/commit/10083016af81f95ee732e8ae8f6db62487da3e46) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - synced reactive variable was checking on truthiness of the first parameter to switch to getter behavious. It is now fixed to check on arguments length.
+
 ## 0.0.2
 
 ### Patch Changes
