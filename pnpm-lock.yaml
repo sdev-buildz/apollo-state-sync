@@ -331,7 +331,7 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
       '@changesets/cli':
-        specifier: ^3.0.0
+        specifier: ^3.0.1
         version: 3.0.1
       '@eslint/js':
         specifier: ^10.0.1
@@ -409,7 +409,7 @@ importers:
         specifier: 3.9.6
         version: 3.9.6
       serialize-javascript:
-        specifier: ^7.0.7
+        specifier: ^7.1.1
         version: 7.1.1
       ts-strict-utils:
         specifier: 'catalog:'
