@@ -1,5 +1,16 @@
 # apollo-state-sync
 
+## 1.0.0
+
+### Major Changes
+
+- [#41](https://github.com/sdev-buildz/apollo-state-sync/pull/41) [`1a7f780`](https://github.com/sdev-buildz/apollo-state-sync/commit/1a7f780c6dd02439b6ef836f45f13f609bee6179) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - First stable release.
+
+### Patch Changes
+
+- Updated dependencies [[`1a7f780`](https://github.com/sdev-buildz/apollo-state-sync/commit/1a7f780c6dd02439b6ef836f45f13f609bee6179), [`9995dbe`](https://github.com/sdev-buildz/apollo-state-sync/commit/9995dbe8b8df9d6bba1cbb9d0ee400e19c175010)]:
+  - apollo-shared-ws@1.0.0
+
 ## 0.1.1
 
 ### Patch Changes
