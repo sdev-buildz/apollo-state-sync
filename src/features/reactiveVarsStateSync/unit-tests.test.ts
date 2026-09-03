@@ -141,6 +141,51 @@ describe(`When reactive variable's value is changed`, () => {
         expectToBeBroadcasted: true,
         expectToBePersisted: false,
       },
+      {
+        testName: `syncs nested arrays.`,
+        config: {},
+        expectToBeBroadcasted: true,
+        expectToBePersisted: true,
+        testVarInitialValue: 'random',
+        testVarNewValue: ['array', 10, ['nested', 'random-value']],
+      },
+      {
+        testName: `syncs nested objects.`,
+        config: {},
+        expectToBeBroadcasted: true,
+        expectToBePersisted: true,
+        testVarInitialValue: 'random',
+        testVarNewValue: {
+          b: 3,
+          key1: {
+            m: 'n',
+            nested: {
+              123: 'random',
+            },
+          },
+        },
+      },
+      {
+        testName: `syncs nested objects and arrays.`,
+        config: {},
+        expectToBeBroadcasted: true,
+        expectToBePersisted: true,
+        testVarInitialValue: 'random',
+        testVarNewValue: {
+          b: 3,
+          a: [
+            'array',
+            10,
+            ['nested', { obj1: { obj2: {}, arr: [] } }, 'random-value'],
+          ],
+          key1: {
+            m: 'n',
+            nested: {
+              123: 'random',
+            },
+          },
+        },
+      },
     ].map((testParams: ShouldBroadcastTestParamType) => {
       if (
         !(
