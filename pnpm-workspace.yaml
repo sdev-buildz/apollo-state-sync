@@ -26,7 +26,9 @@ catalog:
   'tsdown': '^0.22.14'
   'tsx': '^4.23.13'
   'typescript': 'npm:@typescript/typescript6@^6.0.2'
-  'vitest': '^4.1.11'
+  'vitest': '^5.0.0'
+  '@vitest/ui': '^5.0.0'
+  '@vitest/coverage-v8': '^5.0.0'
 
 catalogs:
   peer-deps:
@@ -36,3 +38,10 @@ minimumReleaseAgeExclude:
   - graphql-shared-ws@0.0.0
   - ts-strict-utils@1.0.0
   - '@types/react-dom@19.2.7'
+  - '@vitest/coverage-v8@5.0.0'
+  - '@vitest/mocker@5.0.0'
+  - '@vitest/pretty-format@5.0.0'
+  - '@vitest/spy@5.0.0'
+  - '@vitest/ui@5.0.0'
+  - '@vitest/utils@5.0.0'
+  - vitest@5.0.0
