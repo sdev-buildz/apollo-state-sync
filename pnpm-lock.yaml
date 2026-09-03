@@ -278,8 +278,8 @@ catalogs:
       specifier: ^17.0.2
       version: 17.0.2
     graphql-shared-ws:
-      specifier: ^0.0.0
-      version: 0.0.0
+      specifier: ^1.0.0
+      version: 1.0.1
     graphql-ws:
       specifier: ^6.2.0
       version: 6.2.1
@@ -395,7 +395,7 @@ importers:
         version: 17.0.2
       graphql-shared-ws:
         specifier: 'catalog:'
-        version: 0.0.0(@typescript/typescript6@6.0.2)(graphql-ws@6.2.1(graphql@17.0.2)(ws@8.21.3))
+        version: 1.0.1(@typescript/typescript6@6.0.2)(graphql-ws@6.2.1(graphql@17.0.2)(ws@8.21.3))
       graphql-ws:
         specifier: 'catalog:'
         version: 6.2.1(graphql@17.0.2)(ws@8.21.3)
@@ -564,7 +564,7 @@ importers:
         version: 17.0.2
       graphql-shared-ws:
         specifier: 'catalog:'
-        version: 0.0.0(@typescript/typescript6@6.0.2)(graphql-ws@6.2.1(graphql@17.0.2)(ws@8.21.3))
+        version: 1.0.1(@typescript/typescript6@6.0.2)(graphql-ws@6.2.1(graphql@17.0.2)(ws@8.21.3))
       ts-morph:
         specifier: 'catalog:'
         version: 28.0.0
@@ -7223,10 +7223,10 @@ packages:
       cosmiconfig-toml-loader:
         optional: true
 
-  graphql-shared-ws@0.0.0:
+  graphql-shared-ws@1.0.1:
     resolution:
       {
-        integrity: sha512-353vFgNKWohaAVQttAe68EjhgMzJ018wEcLoV6UY1M0S8Kd1hRl2d53GKQrsplgli9BliWk4obvuc3ajGisB4w==,
+        integrity: sha512-xkAkc0agrHbE4ZUGek9f9DE+j9ugxD8d+jop7OoopWBsCnqbMm1bt2bQ385xb+8/676b28NhQySz2fBeofmDfg==,
       }
     engines: { node: 22.x || 24.x }
     peerDependencies:
@@ -15205,9 +15205,8 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  graphql-shared-ws@0.0.0(@typescript/typescript6@6.0.2)(graphql-ws@6.2.1(graphql@17.0.2)(ws@8.21.3)):
+  graphql-shared-ws@1.0.1(@typescript/typescript6@6.0.2)(graphql-ws@6.2.1(graphql@17.0.2)(ws@8.21.3)):
     dependencies:
-      '@changesets/cli': 3.0.1
       canonical-serialization: 1.0.0
       graphql: 17.0.2
       ts-strict-utils: 1.0.0(@typescript/typescript6@6.0.2)
