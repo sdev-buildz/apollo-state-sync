@@ -32,7 +32,7 @@ catalog:
 
 catalogs:
   peer-deps:
-    '@apollo/client': '^4.0.13'
+    '@apollo/client': '^4.0.0'
 
 minimumReleaseAgeExclude:
   - graphql-shared-ws@0.0.0
