@@ -8,9 +8,9 @@ import {
   persistReactiveVar,
 } from './util/persistance'
 import type {
-  ReactiveVarStateSynced,
-  RVarStateSyncConfigType,
-  SetReactiveVarOptionsType,
+  ReactiveVarSynced,
+  RVarSyncedConfigType,
+  SetRVarSyncedOptionsType,
 } from './util/types'
 
 /**
@@ -50,8 +50,8 @@ export class ChannelNames {
 export const makeVarSynced = <T>(
   value: T,
   uniqueName: string,
-  config?: RVarStateSyncConfigType<T>
-): ReactiveVarStateSynced<T> => {
+  config?: RVarSyncedConfigType<T>
+): ReactiveVarSynced<T> => {
   const persistedReactiveVars = getPersistedReactiveVars()
   /** The new reactive variable. */
   const reactiveVar = makeVar(value)
@@ -80,7 +80,7 @@ export const makeVarSynced = <T>(
   /** The reactive variable with its state synced across browsing contexts. */
   const reactiveVarStateSync = function (
     newValue?: T | undefined,
-    options?: SetReactiveVarOptionsType
+    options?: SetRVarSyncedOptionsType
   ) {
     if (arguments.length === 0) return reactiveVar()
 
@@ -133,5 +133,5 @@ export const makeVarSynced = <T>(
   reactiveVarStateSync.attachCache = reactiveVar.attachCache
   reactiveVarStateSync.forgetCache = reactiveVar.forgetCache
 
-  return reactiveVarStateSync as ReactiveVarStateSynced<T>
+  return reactiveVarStateSync as ReactiveVarSynced<T>
 }

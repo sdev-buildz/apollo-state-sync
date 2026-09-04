@@ -5,16 +5,16 @@ import { synchronizationDebouncer } from '../../util/synchronizationDebouncer'
 import { ChannelNames, makeVarSynced } from './makeVarSynced'
 import { persistReactiveVar } from './util/persistance'
 import type {
-  RVarStateSyncConfigType,
-  SetReactiveVarOptionsType,
+  RVarSyncedConfigType,
+  SetRVarSyncedOptionsType,
 } from './util/types'
 
 vi.useFakeTimers()
 
 type ShouldBroadcastTestParamType = {
   testName: string
-  config?: RVarStateSyncConfigType
-  updateOptions?: SetReactiveVarOptionsType
+  config?: RVarSyncedConfigType
+  updateOptions?: SetRVarSyncedOptionsType
   expectToBeBroadcasted: boolean
   expectToBePersisted: boolean
   testVarInitialValue?: unknown
