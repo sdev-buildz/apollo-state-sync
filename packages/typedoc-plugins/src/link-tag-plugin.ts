@@ -41,7 +41,16 @@ function parseAndRewriteLink(part: CommentDisplayPart) {
     return
   }
   if (typeof part.text === 'string') {
-    const [, textPart] = part.text.trim().split('|')
+    const [linkPart, textPart] = part.text.trim().split('|')
+
+    // If the link part is a valid URL, we don't need to modify.
+    try {
+      new URL(linkPart ?? '')
+      return
+    } catch (error) {
+      //
+    }
+
     if (textPart) {
       part.text = textPart.trim()
     }

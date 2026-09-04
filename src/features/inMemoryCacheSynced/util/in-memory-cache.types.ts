@@ -97,9 +97,9 @@ export const shouldNotBroadcastSymbol = Symbol('shouldNotBroadcast')
 export const shouldNotPersistSymbol = Symbol('shouldNotPersist')
 
 /**
- * Used to augment the options parameter of cache operations.
+ * Used to augment the parameters of cache operations.
  */
-export interface CacheSyncOptionsAugmentType {
+export type CacheSyncOptionsAugmentType = {
   [shouldNotBroadcastSymbol]?: boolean
   [shouldNotPersistSymbol]?: boolean
 }

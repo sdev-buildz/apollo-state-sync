@@ -2,15 +2,16 @@ import { globalConfig } from '../globalConfig'
 import { Debouncer } from '../lib/debouncer'
 
 /**
- * Used to debounce state synchronization.
- * It groups all the broadcasts belonging to the same UI rendering chain together.
+ * It is used to debounce state synchronization.
+ * It is used to group broadcasts belonging to same UI rendering chain together.
  *
- * Broadcasting when there are any in-flight graphql requests, could result in incorrect state.
+ * Broadcasting when there are any in-flight graphql requests, could result in
+ *  redundant network requests and invalid Apollo Client state.
  *  So we track the count of in-flight graphql requests.
  *
- * Broadcasting when the UI is rendering could also result in incorrect state.
+ * Broadcasting when the UI is rendering could also result in redundant network requests and invalid Apollo Client state.
  *  UI usually rerenders as soon as any GraphQL response is received.
- *  So once all the in-flight requests are completed, we wait for {@link globalConfig.synhnorizationDebounceTimeoutMs | some time}
+ *  So when all the in-flight requests get completed, we wait for {@link globalConfig.synhnorizationDebounceTimeoutMs | some time}
  *    until the UI finishes rendering before broadcasting.
  *  @example scenerio
  * ```plaintext

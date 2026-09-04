@@ -15,7 +15,7 @@ import { restorePersisted } from './util/persistance'
 
 /**
  * Listens to broadcasted cache operations emitted from other browsing contexts.
- * Replicates the operations in the current browsing context.
+ * Applies the operations in the current browsing context.
  */
 export const setupListeners = (
   inMemoryStore: InMemoryCacheSyncedType,

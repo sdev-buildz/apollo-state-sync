@@ -18,7 +18,7 @@ import { getDocumentInfo, getVariables } from './lib/apollo-client-lib-internal'
  * Overwrites the restart function returned by {@link ApolloClient.subscribe}.
  * It prevents the default behavior of the 'restart' function and instead
  *  invokes the {@link SharedClient.restartSubscription}.
- * It modifies the ApolloClient in place and also returns the modified ApolloClient.
+ * It modifies the ApolloClient in place and returns the ApolloClient.
  *
  * In case you are using {@link ApolloLink.split}, provide the
  *  {@link ClientResolver | sharedClientResolver} field in the options parameter.

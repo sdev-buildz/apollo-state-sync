@@ -10,6 +10,9 @@ export default {
   tsconfig: 'tsconfig.typedoc.json',
   plugin: ['@packages/typedoc-plugins/link-tag-plugin'],
   externalSymbolLinkMappings: {
+    'apollo-shared-ws': {
+      '*': 'https://www.npmjs.com/package/apollo-shared-ws',
+    },
     typescript: {
       SharedWorker:
         'https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker',
@@ -25,6 +28,8 @@ export default {
       '*': 'https://www.npmjs.com/package/graphql-shared-ws',
     },
     '@apollo/client': {
+      InMemoryCacheConfig:
+        'https://github.com/apollographql/apollo-client/blob/main/src/cache/inmemory/types.ts#L138',
       '*': 'https://www.apollographql.com/blog/announcing-apollo-client-4-0',
     },
     'canonical-serialization': {

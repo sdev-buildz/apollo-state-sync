@@ -4,16 +4,17 @@ import {
   type Reference,
 } from '@apollo/client'
 import type { Cache } from '@apollo/client/cache'
+import type { InMemoryCacheSynced } from '../InMemoryCacheSynced'
 import type {
   CacheSyncOptionsAugmentType,
-  shouldNotBroadcastSymbol,
   WrappedString,
 } from './in-memory-cache.types'
 
 /**
+ * Type for {@link InMemoryCacheSynced} class.
  * Typed {@link InMemoryCache} augmented with custom fields.
  * The first parameters of each of the cache operations are augmented
- *  with hidden non-iterable {@link shouldNotBroadcastSymbol} symbol key.
+ *  with {@link CacheSyncOptionsAugmentType}.
  */
 export declare class InMemoryCacheSyncedType extends InMemoryCache {
   override write<
