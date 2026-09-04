@@ -135,3 +135,9 @@ export const makeVarSynced = <T>(
 
   return reactiveVarStateSync as ReactiveVarSynced<T>
 }
+
+/**
+ * @alias
+ * @deprecated Use makeVarSynced instead.
+ */
+export const makeVarStateSynced = makeVarSynced

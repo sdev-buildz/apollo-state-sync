@@ -3,6 +3,10 @@
   "noStandardTags": false,
   "tagDefinitions": [
     {
+      "tagName": "@alias",
+      "syntaxKind": "block"
+    },
+    {
       "tagName": "@author",
       "syntaxKind": "block"
     },
