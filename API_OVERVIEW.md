@@ -9,7 +9,7 @@ The migration utility applies all the API mentioned in this documentation (excep
 
 For advanced configurations (such as selective syncing based on dynamic conditions), refer to this [API reference](https://sdev-buildz.github.io/apollo-state-sync).
 
-### InMemoryCacheSynced
+### [InMemoryCacheSynced](https://sdev-buildz.github.io/apollo-state-sync/classes/src.InMemoryCacheSynced.html)
 
 Apollo in-memory cache synchronized across browsing contexts.\
 A drop-in ApolloClient [InMemoryCache](https://github.com/apollographql/apollo-client/blob/70e3a11d93c8ef8d64aa2a7d12b02b773a57c7ca/src/cache/inmemory/inMemoryCache.ts#L45) wrapper.
@@ -29,7 +29,7 @@ const apolloClient = new ApolloClient({
 })
 ```
 
-### makeVarSynced
+### [makeVarSynced](https://sdev-buildz.github.io/apollo-state-sync/functions/src.makeVarSynced.html)
 
 Creates a reactive variable synchronized across browsing contexts.\
 A swap-in [makeVar](https://www.apollographql.com/docs/react/v3/local-state/reactive-variabless) wrapper.
