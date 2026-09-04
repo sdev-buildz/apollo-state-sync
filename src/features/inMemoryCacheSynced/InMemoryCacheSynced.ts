@@ -19,13 +19,14 @@ import { persistInMemoryCache, restorePersisted } from './util/persistance'
  * import { InMemoryCacheSynced, stateSyncLink } from 'apollo-state-sync'
  * import { terminatingLink } from './util/terminatingLink'
  *
- * // use InMemoryCacheSynced as Apollo Cache.
- * const apolloCache = new InMemoryCacheSynced()
- *
  * const apolloClient = new ApolloClient({
- *    //  use stateSyncLink. It is a non-terminating link.
+ *
+ *    //  stateSyncLink must be used, as a non-terminating link.
  *    ApolloLink.from([stateSyncLink, terminatingLink]),
- *    cache: apolloCache,
+ *
+ *   // use InMemoryCacheSynced as Apollo Cache.
+ *   cache: new InMemoryCacheSynced(),
+ *
  * })
  * ```
  */

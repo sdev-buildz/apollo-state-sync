@@ -16,7 +16,7 @@ export type ClientResolverOperation = Omit<
  *
  * It is useful only when {@link ApolloLink.split} is used.
  * It should return the {@link SharedClient} associatad with the {@link GraphQLWsLink}
- *      routed to by {@link ApolloLink.split} for the same operation.
+ *      routed to by {@link ApolloLink.split} for the given operation.
  * @returns The client if it is a {@link SharedClient}, undefined otherwise.
  * @example
  * ```ts
