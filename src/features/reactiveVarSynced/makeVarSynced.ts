@@ -36,7 +36,7 @@ export class ChannelNames {
 
 /**
  *  Creates a reactive variable synchronized across browsing contexts.
- *  Internally, it wraps {@link makeVar}.
+ *  It is a swap-in {@link makeVar} wrapper.
  *  @param value - The initial value of the reactive variable.
  *  @param uniqueName - A unique name for the reactive variable.
  *  @example
