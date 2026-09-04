@@ -34,7 +34,7 @@ const apolloClient = new ApolloClient({
 Creates a reactive variable synchronized across browsing contexts.\
 A swap-in [makeVar](https://www.apollographql.com/docs/react/v3/local-state/reactive-variabless) wrapper.
 
-@param value - The initial value of the reactive variable.
+@param value - The initial value of the reactive variable.\
 @param uniqueName - A unique name for the reactive variable.
 
 @returns synchronized reactive variable
