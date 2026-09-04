@@ -8,7 +8,7 @@ import {
   persistReactiveVar,
 } from './util/persistance'
 import type {
-  ReactiveVarStateSync,
+  ReactiveVarStateSynced,
   RVarStateSyncConfigType,
   SetReactiveVarOptionsType,
 } from './util/types'
@@ -42,16 +42,16 @@ export class ChannelNames {
  *  @example
  * ```ts
  * import { useReactiveVar } from '@apollo/client/react'
- * import { makeVarStateSynced } from 'apollo-state-sync'
+ * import { makeVarSynced } from 'apollo-state-sync'
  *
- * const rVarSynced = makeVarStateSynced('random-value','a-unique-name')
+ * const rVarSynced = makeVarSynced('random-value','a-unique-name')
  * ```
  */
-export const makeVarStateSynced = <T>(
+export const makeVarSynced = <T>(
   value: T,
   uniqueName: string,
   config?: RVarStateSyncConfigType<T>
-): ReactiveVarStateSync<T> => {
+): ReactiveVarStateSynced<T> => {
   const persistedReactiveVars = getPersistedReactiveVars()
   /** The new reactive variable. */
   const reactiveVar = makeVar(value)
@@ -133,5 +133,5 @@ export const makeVarStateSynced = <T>(
   reactiveVarStateSync.attachCache = reactiveVar.attachCache
   reactiveVarStateSync.forgetCache = reactiveVar.forgetCache
 
-  return reactiveVarStateSync as ReactiveVarStateSync<T>
+  return reactiveVarStateSync as ReactiveVarStateSynced<T>
 }

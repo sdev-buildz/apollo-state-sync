@@ -41,9 +41,9 @@ A swap-in [makeVar](https://www.apollographql.com/docs/react/v3/local-state/reac
 
 ```ts
 import { useReactiveVar } from '@apollo/client/react'
-import { makeVarStateSynced } from 'apollo-state-sync'
+import { makeVarSynced } from 'apollo-state-sync'
 
-const rVarSynced = makeVarStateSynced('random-value', 'a-unique-name')
+const rVarSynced = makeVarSynced('random-value', 'a-unique-name')
 ```
 
 ### [apollo-shared-ws](https://www.npmjs.com/package/apollo-shared-ws)

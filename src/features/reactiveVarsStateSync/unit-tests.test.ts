@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, test, vi } from 'vitest'
 import { globalConfig } from '../../globalConfig'
 import { MockBroadcastChannel } from '../../lib/MockBroadcastChannel'
 import { synchronizationDebouncer } from '../../util/synchronizationDebouncer'
-import { ChannelNames, makeVarStateSynced } from './makeVarStateSynced'
+import { ChannelNames, makeVarSynced } from './makeVarSynced'
 import { persistReactiveVar } from './util/persistance'
 import type {
   RVarStateSyncConfigType,
@@ -41,7 +41,7 @@ const testVarData = {
 it('includes the features of normal reactive variables.', () => {
   const initialValue = 'initValue'
 
-  const var1 = makeVarStateSynced<string | boolean>(initialValue, 'var1')
+  const var1 = makeVarSynced<string | boolean>(initialValue, 'var1')
   expect(var1()).toBe(initialValue)
   expect(var1()).toBe(initialValue)
 
@@ -61,7 +61,7 @@ it('includes the features of normal reactive variables.', () => {
 
 test('restores persisted reactive variables during initialization', () => {
   persistReactiveVar(testVarData.name, testVarData.value)
-  const testVar = makeVarStateSynced(1, testVarData.name)
+  const testVar = makeVarSynced(1, testVarData.name)
   expect(testVar()).toBe(testVarData.value)
 })
 
@@ -70,7 +70,7 @@ test('should not restore expired reactive variables.', () => {
   setTimeout(
     () => {
       const originalValue = 1
-      const testVar = makeVarStateSynced(originalValue, testVarData.name)
+      const testVar = makeVarSynced(originalValue, testVarData.name)
       expect(testVar()).toBe(originalValue)
     },
     (globalConfig.persistedCacheExpiryMilliseconds ?? 0) + 2
@@ -204,7 +204,7 @@ describe(`When reactive variable's value is changed`, () => {
     const testVarName = testVarData.name
 
     //  creating reactive variable
-    const testVar = makeVarStateSynced(
+    const testVar = makeVarSynced(
       testParams.testVarInitialValue,
       testVarName,
       testParams.config
@@ -237,7 +237,7 @@ describe(`When reactive variable's value is changed`, () => {
 
 test('listener applies incoming operations without re-broadcasting or persisting', () => {
   const testVarName = testVarData.name
-  const testVar = makeVarStateSynced(1, testVarName)
+  const testVar = makeVarSynced(1, testVarName)
   const bc = MockBroadcastChannel.getBroadcastChannel()
   const postSpy = vi.spyOn(bc, 'postMessage')
 
@@ -263,7 +263,7 @@ test.each<{ shouldDebounce: boolean; expectToBeBroadcasted: boolean }>([
   `if isSubscriptionRes is true, should broadcast only if debouncer's timer is running.`,
   async (testParams) => {
     const testVarName = testVarData.name
-    const testVar = makeVarStateSynced<number>(1, testVarName)
+    const testVar = makeVarSynced<number>(1, testVarName)
 
     if (testParams.shouldDebounce)
       synchronizationDebouncer.graphqlRequestStarted()

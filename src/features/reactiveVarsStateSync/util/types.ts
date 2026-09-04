@@ -1,8 +1,8 @@
 import type { ReactiveVar } from '@apollo/client'
-import type { makeVarStateSynced } from '../makeVarStateSynced'
+import type { makeVarSynced } from '../makeVarSynced'
 
 /**
- * Configuration parameter for {@link makeVarStateSynced}
+ * Configuration for state synced reactive variable.
  */
 export type RVarStateSyncConfigType<T = unknown> = {
   /**
@@ -37,7 +37,7 @@ export type RVarStateSyncConfigType<T = unknown> = {
 }
 
 /**
- * Options passed while updated reactive variable whose state is synced across browsing contexts.
+ * Options passed when updated state synced reactive variable.
  */
 export type SetReactiveVarOptionsType = {
   /**
@@ -64,8 +64,8 @@ export type SetReactiveVarOptionsType = {
 
 /**
  * Reactive variable with its state synced across browsing contexts.
- * See {@link makeVarStateSynced}
+ * See {@link makeVarSynced}
  */
-export interface ReactiveVarStateSync<T> extends ReactiveVar<T> {
+export type ReactiveVarStateSynced<T> = ReactiveVar<T> & {
   (newValue?: T, options?: SetReactiveVarOptionsType): T
 }

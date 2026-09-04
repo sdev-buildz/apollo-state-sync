@@ -19,7 +19,7 @@ export const migrateMakeVar = (project: Project) => {
         if (callExpression.getExpression().getText() !== 'makeVar') return
         addManipulationCb(() => {
           callExpression.replaceWithText(
-            `makeVarCacheSync(${callExpression.getChildAtIndex(2).getText()}, 'rVar${rVarCount++}')`
+            `makeVarSynced(${callExpression.getChildAtIndex(2).getText()}, 'rVar${rVarCount++}')`
           )
         })
         noteImportStmtToAdd([
@@ -28,7 +28,7 @@ export const migrateMakeVar = (project: Project) => {
             declarationStructures: [
               {
                 moduleSpecifier: 'apollo-state-sync',
-                namedImports: ['makeVarCacheSync'],
+                namedImports: ['makeVarSynced'],
               },
             ],
           },
