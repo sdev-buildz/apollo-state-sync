@@ -1,10 +1,10 @@
 import type { ReactiveVar } from '@apollo/client'
-import type { makeVarStateSynced } from '../makeVarStateSynced'
+import type { makeVarSynced } from '../makeVarSynced'
 
 /**
- * Configuration parameter for {@link makeVarStateSynced}
+ * Configuration for state synced reactive variable.
  */
-export type RVarStateSyncConfigType<T = unknown> = {
+export type RVarSyncedConfigType<T = unknown> = {
   /**
    * Return true if the reactive variable update should not be broadcasted.
    * @example
@@ -31,15 +31,15 @@ export type RVarStateSyncConfigType<T = unknown> = {
    *
    *   The comparison is necessary to avoid indefinite back-and-forth broadcating between browsing contexts.
    *   So do not set this to true, unless you pass a custom comparison function in
-   *     {@link RVarStateSyncConfigType.shouldNotBroadcastFilter | shouldNotBroadcastFilter}.
+   *     {@link RVarSyncedConfigType.shouldNotBroadcastFilter | shouldNotBroadcastFilter}.
    */
   skipDefaultComparison?: boolean
 }
 
 /**
- * Options passed while updated reactive variable whose state is synced across browsing contexts.
+ * Options passed when updated state synced reactive variable.
  */
-export type SetReactiveVarOptionsType = {
+export type SetRVarSyncedOptionsType = {
   /**
    * Set to true, if this update is done in response to a graphql subscription's response.
    * This is used to avoid unnecessary broadcasts, since socket connection would have
@@ -64,8 +64,8 @@ export type SetReactiveVarOptionsType = {
 
 /**
  * Reactive variable with its state synced across browsing contexts.
- * See {@link makeVarStateSynced}
+ * See {@link makeVarSynced}
  */
-export interface ReactiveVarStateSync<T> extends ReactiveVar<T> {
-  (newValue?: T, options?: SetReactiveVarOptionsType): T
+export type ReactiveVarSynced<T> = ReactiveVar<T> & {
+  (newValue?: T, options?: SetRVarSyncedOptionsType): T
 }

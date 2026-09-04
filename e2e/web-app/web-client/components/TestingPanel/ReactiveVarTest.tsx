@@ -1,5 +1,5 @@
 import { useReactiveVar } from '@apollo/client/react'
-import { makeVarStateSynced } from 'apollo-state-sync'
+import { makeVarSynced } from 'apollo-state-sync'
 import { canonicalSerialization } from 'canonical-serialization'
 import { useState } from 'react'
 
@@ -32,11 +32,8 @@ const initialValue2: ElementType[] = [
  */
 export type ReactiveVarTestElementType = ElementType[]
 
-const reactiveVarList1 = makeVarStateSynced(
-  initialValue1,
-  'reactiveVar1ForTest'
-)
-const reactiveVarList2 = makeVarStateSynced<ReactiveVarTestElementType>(
+const reactiveVarList1 = makeVarSynced(initialValue1, 'reactiveVar1ForTest')
+const reactiveVarList2 = makeVarSynced<ReactiveVarTestElementType>(
   initialValue2,
   'reactiveVar2ForTest'
 )
@@ -57,13 +54,13 @@ const sampleFunction2 = (): Exclude<
 /**
  * Has a function as value.
  */
-const functionReactiveVar = makeVarStateSynced<() => string | number>(
+const functionReactiveVar = makeVarSynced<() => string | number>(
   sampleFunction1,
   'sampleFunctionForTest'
 )
 
-const rVarStr2 = makeVarStateSynced('second-text', 'rVarStr2')
-const rVarStr1 = makeVarStateSynced('first-string', 'rVarStr1')
+const rVarStr2 = makeVarSynced('second-text', 'rVarStr2')
+const rVarStr1 = makeVarSynced('first-string', 'rVarStr1')
 
 /**
  * All the products available
