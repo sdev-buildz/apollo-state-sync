@@ -1,5 +1,11 @@
 # apollo-shared-ws
 
+## 1.0.1
+
+### Patch Changes
+
+- [#54](https://github.com/sdev-buildz/apollo-state-sync/pull/54) [`17c71e2`](https://github.com/sdev-buildz/apollo-state-sync/commit/17c71e275982f36f63b111d734d62059da65506d) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - Improved typedoc comments.
+
 ## 1.0.0
 
 ### Major Changes

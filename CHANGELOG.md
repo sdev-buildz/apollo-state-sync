@@ -1,5 +1,24 @@
 # apollo-state-sync
 
+## 1.1.0
+
+### Minor Changes
+
+- [#54](https://github.com/sdev-buildz/apollo-state-sync/pull/54) [`17c71e2`](https://github.com/sdev-buildz/apollo-state-sync/commit/17c71e275982f36f63b111d734d62059da65506d) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - shortened the name of function which creates synced reactive variables. Renamed from makeVarStateSynced to makeVarSynced
+
+### Patch Changes
+
+- [#54](https://github.com/sdev-buildz/apollo-state-sync/pull/54) [`17c71e2`](https://github.com/sdev-buildz/apollo-state-sync/commit/17c71e275982f36f63b111d734d62059da65506d) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - Improved typedoc comments.
+
+- [#54](https://github.com/sdev-buildz/apollo-state-sync/pull/54) [`213ccff`](https://github.com/sdev-buildz/apollo-state-sync/commit/213ccffb312948d154299cfd9cb954bfbd70e456) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - added API_OVERVIEW.md for quick start.
+  Added more typedoc.config externalSymbolLinkMappings.
+
+- [#48](https://github.com/sdev-buildz/apollo-state-sync/pull/48) [`e22f517`](https://github.com/sdev-buildz/apollo-state-sync/commit/e22f517976e38b366dbe664e1142d250069e1760) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - dependency versions updated.
+
+- [#54](https://github.com/sdev-buildz/apollo-state-sync/pull/54) [`17c71e2`](https://github.com/sdev-buildz/apollo-state-sync/commit/17c71e275982f36f63b111d734d62059da65506d) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - exported typescript types. This includes them in generated typedoc docs.
+- Updated dependencies [[`17c71e2`](https://github.com/sdev-buildz/apollo-state-sync/commit/17c71e275982f36f63b111d734d62059da65506d)]:
+  - apollo-shared-ws@1.0.1
+
 ## 1.0.0
 
 ### Major Changes

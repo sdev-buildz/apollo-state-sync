@@ -1,6 +1,6 @@
 {
   "name": "apollo-shared-ws",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Enables Apollo Clients to share a single WebSocket connection across browsing contexts (across browser tabs, windows, etc...).",
   "keywords": [
     "graphql",
