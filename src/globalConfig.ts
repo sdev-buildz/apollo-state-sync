@@ -30,12 +30,12 @@ export type CacheSyncerConfigType = {
   shouldBroadcastSubscriptionWrites?: boolean
 
   /**
-   * @return true, if the operation is not be broadcast.
+   * @return true, if the operation is not to be broadcast.
    */
   skipBroadcastFilter?: ShouldSkipFilter
 
   /**
-   * @return true, if the operation is not be persisted.
+   * @return true, if the operation is not to be persisted.
    */
   skipPersistFilter?: ShouldSkipFilter
 

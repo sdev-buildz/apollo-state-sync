@@ -40,7 +40,6 @@ export type WrappedString = {
 /**
  * The broadcast info about the cache operation.
  * It contains the operation name and the arguments for the operation function call.
- * @param broadcast - Whether the message is already broadcast or not.
  */
 export type CacheSyncMessageType<
   OperationName extends CacheOperationsToSyncType = CacheOperationsToSyncType,
