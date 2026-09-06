@@ -118,6 +118,7 @@ To know what the migration does, or to migrate manually, refer to this [API_OVER
 
 ## 🔌 API reference
 
+For most use cases, refer to the [API_OVERVIEW](./API_OVERVIEW.md) guide.\
 For advanced configurations, refer to this [API Reference](https://sdev-buildz.github.io/apollo-state-sync).
 
 ## 👥 Community & Support

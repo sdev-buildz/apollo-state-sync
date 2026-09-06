@@ -49,3 +49,7 @@ const rVarSynced = makeVarSynced('random-value', 'a-unique-name')
 ### [apollo-shared-ws](https://www.npmjs.com/package/apollo-shared-ws)
 
 To share WebSocket connections and to avoid duplicate subscription channels across browsing contexts refer to [apollo-shared-ws package](https://www.npmjs.com/package/apollo-shared-ws).
+
+## Architecture Diagram:
+
+![img](assets/architecture-diagram.svg)

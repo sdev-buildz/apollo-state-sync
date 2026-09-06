@@ -9,6 +9,8 @@ export default {
   skipErrorChecking: true,
   tsconfig: 'tsconfig.typedoc.json',
   plugin: ['@packages/typedoc-plugins/link-tag-plugin'],
+  // basePath: './assets',
+  basePath: './',
   externalSymbolLinkMappings: {
     'apollo-shared-ws': {
       '*': 'https://www.npmjs.com/package/apollo-shared-ws',
