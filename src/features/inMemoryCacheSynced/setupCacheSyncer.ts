@@ -14,7 +14,7 @@ import type { InMemoryCacheSyncedType } from './util/InMemoryCacheSyncedType'
 import { restorePersisted } from './util/persistance'
 
 /**
- * Listens to broadcasted cache operations emitted from other browsing contexts.
+ * Listens to broadcast cache operations emitted from other browsing contexts.
  * Applies the operations in the current browsing context.
  */
 export const setupListeners = (
@@ -22,25 +22,25 @@ export const setupListeners = (
   config?: Pick<GlobalConfig, 'skipListenedFilter'>
 ) => {
   cacheBroadcastChannel.addEventListener('message', (event) => {
-    const broadcastedOperation = event.data
+    const broadcastOperation = event.data
     if (
       config?.skipListenedFilter?.(
-        broadcastedOperation.operationName,
-        broadcastedOperation.args
+        broadcastOperation.operationName,
+        broadcastOperation.args
       )
     )
       return // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(inMemoryStore[broadcastedOperation.operationName] as any)(
+    ;(inMemoryStore[broadcastOperation.operationName] as any)(
       {
-        ...(typeof broadcastedOperation.args[0] !== 'string'
-          ? broadcastedOperation.args[0]
+        ...(typeof broadcastOperation.args[0] !== 'string'
+          ? broadcastOperation.args[0]
           : ({
-              value: broadcastedOperation.args[0],
+              value: broadcastOperation.args[0],
             } satisfies Parameters<typeof inMemoryStore.retain>[0])),
         [shouldNotBroadcastSymbol]: true,
         [shouldNotPersistSymbol]: true,
       },
-      ...broadcastedOperation.args.slice(1)
+      ...broadcastOperation.args.slice(1)
     )
   })
 }

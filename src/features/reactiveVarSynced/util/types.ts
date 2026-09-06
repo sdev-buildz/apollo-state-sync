@@ -6,10 +6,10 @@ import type { makeVarSynced } from '../makeVarSynced'
  */
 export type RVarSyncedConfigType<T = unknown> = {
   /**
-   * Return true if the reactive variable update should not be broadcasted.
+   * Return true if the reactive variable update should not be broadcast.
    * @example
    *  When a reactive variable could be updated both by gql query and gql subscription operations,
-   *    only the updates caused by gql query should be broadcasted.
+   *    only the updates caused by gql query should be broadcast.
    *    Because graphql subscriptions can be done using shared graphql-ws,
    *      which notifies the other browsing contexts directly.
    */
@@ -50,7 +50,7 @@ export type SetRVarSyncedOptionsType = {
   isSubscriptionRes?: boolean
 
   /**
-   * Set to true, if this update should not be broadcasted to other browsing contexts.
+   * Set to true, if this update should not be broadcast to other browsing contexts.
    * @default false
    */
   doNotBroadcast?: boolean

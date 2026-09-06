@@ -21,7 +21,7 @@ class CacheBroadcastChannel
   }
 
   /**
-   * Sets up a serializer which serializes the messages to be broadcasted.
+   * Sets up a serializer which serializes the messages to be broadcast.
    * It helps in serializing non-serializable elements such as functions, dates, etc.
    */
   override postMessage: CacheBroadcastChannelType['postMessage'] = (
@@ -30,7 +30,7 @@ class CacheBroadcastChannel
     super.postMessage(message)
   }
 
-  /** Sets up a debouncer on the broadcasted cache operations. */
+  /** Sets up a debouncer on the broadcast cache operations. */
   override addEventListener: CacheBroadcastChannelType['addEventListener'] = ((
     type: Parameters<CacheBroadcastChannelType['addEventListener']>[0],
     listener: Parameters<CacheBroadcastChannelType['addEventListener']>[1],

@@ -44,30 +44,30 @@ export class InMemoryCacheSynced
     this.setupListeners(stateSyncerConfig)
   }
 
-  /** Listens to broadcasted cache operations emitted from other browsing contexts. */
+  /** Listens to broadcast cache operations emitted from other browsing contexts. */
   protected setupListeners = (
     config?: Pick<GlobalConfig, 'skipListenedFilter'>
   ) => {
     cacheBroadcastChannel.addEventListener('message', (event) => {
-      const broadcastedOperation = event.data
+      const broadcastOperation = event.data
       if (
         config?.skipListenedFilter?.(
-          broadcastedOperation.operationName,
-          broadcastedOperation.args
+          broadcastOperation.operationName,
+          broadcastOperation.args
         )
       )
         return // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ;(this[broadcastedOperation.operationName] as any)(
+      ;(this[broadcastOperation.operationName] as any)(
         {
-          ...(typeof broadcastedOperation.args[0] !== 'string'
-            ? broadcastedOperation.args[0]
+          ...(typeof broadcastOperation.args[0] !== 'string'
+            ? broadcastOperation.args[0]
             : ({
-                value: broadcastedOperation.args[0],
+                value: broadcastOperation.args[0],
               } satisfies Parameters<typeof this.retain>[0])),
           [shouldNotBroadcastSymbol]: true,
           [shouldNotPersistSymbol]: true,
         },
-        ...broadcastedOperation.args.slice(1)
+        ...broadcastOperation.args.slice(1)
       )
     })
   }
