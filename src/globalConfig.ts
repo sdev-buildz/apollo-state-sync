@@ -24,6 +24,7 @@ export type CacheSyncerConfigType = {
    *
    *  Setting this to true could cause indefinite back-and-forth broadcasting between browsing contexts.
    *   To avoid that, provide a value for {@link GlobalConfig.skipBroadcastFilter}.
+   * @see [Diagram](assets/reactive-vars-and-sub-writes.png) - for detailed explanation on why reactive variables are broadcast only when the debounce timer is running.
    * @default false.
    */
   shouldBroadcastSubscriptionWrites?: boolean

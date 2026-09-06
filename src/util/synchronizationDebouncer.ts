@@ -13,6 +13,8 @@ import { Debouncer } from '../lib/debouncer'
  *  UI usually rerenders as soon as any GraphQL response is received.
  *  So when all the in-flight requests get completed, we wait for {@link globalConfig.synhnorizationDebounceTimeoutMs | some time}
  *    until the UI finishes rendering before broadcasting.
+ *
+ * Diagram for detailed explanation: [diagram](assets/sync-debouncer.png)
  *  @example scenerio
  * ```plaintext
  *  Suppose a cache write causes UI rerender which mounts a new UI component.
@@ -22,7 +24,6 @@ import { Debouncer } from '../lib/debouncer'
  *      So, the listening browsing contexts also reinitiate the fetch request causing duplicate network requests.
  *    So, we debounce the broadcasting until all the fetch requests get fulfilled.
  * ```
- * @see excallidraw diagram
  */
 export class SynchronizationDebouncer extends Debouncer {
   /**
