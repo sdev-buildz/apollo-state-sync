@@ -123,7 +123,7 @@ For advanced configurations, refer to this [API Reference](https://sdev-buildz.g
 
 ## 👥 Community & Support
 
-- 💬 _**Have an idea?**_ Suggest new features in [GitHub Discussions](../..//discussions).
+- 💬 _**Have an idea?**_ Suggest new features in [GitHub Discussions](../../discussions).
 
 - 🚀 _**Support me or my projects**_ through [donations](https://buymeacoffee.com/stevenx.dev).
 
