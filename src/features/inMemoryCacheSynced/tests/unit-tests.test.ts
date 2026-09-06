@@ -128,7 +128,7 @@ describe.each<{
     expect(postSpy).not.toHaveBeenCalled()
 
     vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
-    //  The write operation should be broadcasted
+    //  The write operation should be broadcast
     expect(postSpy).toHaveBeenCalledWith<[CacheSyncMessageTypeMap['write']]>({
       operationName: 'write',
       args: [
@@ -359,7 +359,7 @@ describe.each<{
   })
 
   test.each<CacheOperationsToSyncType>(cacheOperationsToSync)(
-    '%s operations with skipBroadcastFilter true, should not be broadcasted',
+    '%s operations with skipBroadcastFilter true, should not be broadcast',
     async (operationToSkip) => {
       await resetInMemoryCache({
         setupSyncFilters: {

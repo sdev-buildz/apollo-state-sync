@@ -15,7 +15,7 @@ type ShouldBroadcastTestParamType = {
   testName: string
   config?: RVarSyncedConfigType
   updateOptions?: SetRVarSyncedOptionsType
-  expectToBeBroadcasted: boolean
+  expectToBebroadcast: boolean
   expectToBePersisted: boolean
   testVarInitialValue?: unknown
   testVarNewValue?: unknown
@@ -83,37 +83,37 @@ describe(`When reactive variable's value is changed`, () => {
       {
         testName: `should broadcast and persist.`,
         config: {},
-        expectToBeBroadcasted: true,
+        expectToBebroadcast: true,
         expectToBePersisted: true,
       },
       {
-        testName: `If shouldNotBroadcastFilter returns false, should broadcasted.`,
+        testName: `If shouldNotBroadcastFilter returns false, should broadcast.`,
         config: { shouldNotBroadcastFilter: () => false },
-        expectToBeBroadcasted: true,
+        expectToBebroadcast: true,
         expectToBePersisted: true,
       },
       {
-        testName: `If shouldNotBroadcastFilter returns true, should not broadcasted.`,
+        testName: `If shouldNotBroadcastFilter returns true, should not broadcast.`,
         config: { shouldNotBroadcastFilter: () => true },
-        expectToBeBroadcasted: false,
+        expectToBebroadcast: false,
         expectToBePersisted: true,
       },
       {
         testName: `If shouldNotPersistFilter returns false, should persist.`,
         config: { shouldNotPersistFilter: () => false },
-        expectToBeBroadcasted: true,
+        expectToBebroadcast: true,
         expectToBePersisted: true,
       },
       {
         testName: `If shouldNotPersistFilter returns true, should not persist.`,
         config: { shouldNotPersistFilter: () => true },
-        expectToBeBroadcasted: true,
+        expectToBebroadcast: true,
         expectToBePersisted: false,
       },
       {
         testName: `If the new value is the same as the previous value, should neither broadcase nor persist.`,
         config: {},
-        expectToBeBroadcasted: false,
+        expectToBebroadcast: false,
         expectToBePersisted: false,
         testVarInitialValue: [],
         testVarNewValue: [],
@@ -124,7 +124,7 @@ describe(`When reactive variable's value is changed`, () => {
           skipDefaultComparison: true,
           shouldNotBroadcastFilter: () => false,
         },
-        expectToBeBroadcasted: true,
+        expectToBebroadcast: true,
         expectToBePersisted: true,
         testVarInitialValue: [],
         testVarNewValue: [],
@@ -132,19 +132,19 @@ describe(`When reactive variable's value is changed`, () => {
       {
         testName: `if doNotBroadcast option is true, should not broadcast.`,
         updateOptions: { doNotBroadcast: true },
-        expectToBeBroadcasted: false,
+        expectToBebroadcast: false,
         expectToBePersisted: true,
       },
       {
         testName: `if doNotPersist option is true, should not persist.`,
         updateOptions: { doNotPersist: true },
-        expectToBeBroadcasted: true,
+        expectToBebroadcast: true,
         expectToBePersisted: false,
       },
       {
         testName: `syncs nested arrays.`,
         config: {},
-        expectToBeBroadcasted: true,
+        expectToBebroadcast: true,
         expectToBePersisted: true,
         testVarInitialValue: 'random',
         testVarNewValue: ['array', 10, ['nested', 'random-value']],
@@ -152,7 +152,7 @@ describe(`When reactive variable's value is changed`, () => {
       {
         testName: `syncs nested objects.`,
         config: {},
-        expectToBeBroadcasted: true,
+        expectToBebroadcast: true,
         expectToBePersisted: true,
         testVarInitialValue: 'random',
         testVarNewValue: {
@@ -168,7 +168,7 @@ describe(`When reactive variable's value is changed`, () => {
       {
         testName: `syncs nested objects and arrays.`,
         config: {},
-        expectToBeBroadcasted: true,
+        expectToBebroadcast: true,
         expectToBePersisted: true,
         testVarInitialValue: 'random',
         testVarNewValue: {
@@ -215,7 +215,7 @@ describe(`When reactive variable's value is changed`, () => {
     //  updating the reactive variable
     testVar(testParams.testVarNewValue, testParams.updateOptions)
 
-    if (testParams.expectToBeBroadcasted)
+    if (testParams.expectToBebroadcast)
       expect(debounceSpy).toHaveBeenCalledTimes(1)
     else expect(debounceSpy).not.toHaveBeenCalled()
 
@@ -226,7 +226,7 @@ describe(`When reactive variable's value is changed`, () => {
 
     vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
 
-    if (testParams.expectToBeBroadcasted)
+    if (testParams.expectToBebroadcast)
       expect(postSpy).toHaveBeenCalledWith(testParams.testVarNewValue)
     else expect(postSpy).not.toHaveBeenCalled()
     if (testParams.expectToBePersisted)
@@ -250,14 +250,14 @@ test('listener applies incoming operations without re-broadcasting or persisting
   expect(localStorageSetSpy).not.toHaveBeenCalled()
 })
 
-test.each<{ shouldDebounce: boolean; expectToBeBroadcasted: boolean }>([
+test.each<{ shouldDebounce: boolean; expectToBebroadcast: boolean }>([
   {
     shouldDebounce: false,
-    expectToBeBroadcasted: false,
+    expectToBebroadcast: false,
   },
   {
     shouldDebounce: true,
-    expectToBeBroadcasted: true,
+    expectToBebroadcast: true,
   },
 ])(
   `if isSubscriptionRes is true, should broadcast only if debouncer's timer is running.`,
@@ -280,7 +280,7 @@ test.each<{ shouldDebounce: boolean; expectToBeBroadcasted: boolean }>([
 
     vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
 
-    if (testParams.expectToBeBroadcasted)
+    if (testParams.expectToBebroadcast)
       expect(postSpy).toHaveBeenCalledWith(testVarData.value)
     else expect(postSpy).not.toHaveBeenCalled()
   }

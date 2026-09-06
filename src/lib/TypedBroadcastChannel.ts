@@ -1,6 +1,6 @@
 /**
  * Wrapper around the {@link BroadcastChannel} API.
- * Enables adding types to broadcasted messages and channel name.
+ * Enables adding types to broadcast messages and channel name.
  */
 export class TypedBroadcastChannel<
   MessageType,

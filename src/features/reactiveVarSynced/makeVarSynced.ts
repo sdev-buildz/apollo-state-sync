@@ -16,7 +16,7 @@ import type {
 /**
  * Maintains unique names for reactive variables.
  *  1) to uniquely identify them in the local storage.
- *  2) to apply broadcasted changes to only the corresponding variable in listening browsing contexts.
+ *  2) to apply broadcast changes to only the corresponding variable in listening browsing contexts.
  */
 export class ChannelNames {
   static names: Set<string> = new Set([])

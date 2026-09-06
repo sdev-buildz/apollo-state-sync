@@ -3,7 +3,7 @@ import type { InMemoryCacheSyncedType } from '@features/inMemoryCacheSynced/util
 import type { SynchronizationDebouncer } from './util/synchronizationDebouncer'
 
 /**
- * @return true, if the operation should not be broadcasted, false otherwise.
+ * @return true, if the operation should not be broadcast, false otherwise.
  */
 export type ShouldSkipFilter = (
   operationName: CacheOperationsToSyncType,
@@ -16,11 +16,11 @@ export type ShouldSkipFilter = (
 export type CacheSyncerConfigType = {
   /**
    * Set to true, if the cache writes caused by graphql subscription operations
-   *   are to be broadcasted for syncing.
+   *   are to be broadcast for syncing.
    *
    * Since graphql subscriptions are handled by {@link https://www.npmjs.com/package/apollo-shared-ws | apollo-shared-ws} WebSocket connections,
    *    other browsing contexts also get notified of the subscription writes directly by the WebSocket connections itself.
-   *  So subscription writes are not broadcasted by default.
+   *  So subscription writes are not broadcast by default.
    *
    *  Setting this to true could cause indefinite back-and-forth broadcasting between browsing contexts.
    *   To avoid that, provide a value for {@link GlobalConfig.skipBroadcastFilter}.
@@ -30,7 +30,7 @@ export type CacheSyncerConfigType = {
   shouldBroadcastSubscriptionWrites?: boolean
 
   /**
-   * @return true, if the operation is not be broadcasted.
+   * @return true, if the operation is not be broadcast.
    */
   skipBroadcastFilter?: ShouldSkipFilter
 
@@ -40,7 +40,7 @@ export type CacheSyncerConfigType = {
   skipPersistFilter?: ShouldSkipFilter
 
   /**
-   * @return true, if the listened operation (which is broadcasted from a
+   * @return true, if the listened operation (which is broadcast from a
    *   different browsing context) is to be ignored and should not be processed.
    */
   skipListenedFilter?: ShouldSkipFilter
@@ -73,8 +73,8 @@ export const globalConfig: GlobalConfig = {
    *  Typically React's rerendering time should be within 16ms.
    *
    *  Syncing process of reactive variables take more time than that of in-memory cache operations.
-   *  When reactive variable changes are broadcasted, they are rebroadcasted back from the listening browsing contexts.
-   *    The rebroadcasted events are ignored and are not rebroadcasted again.
+   *  When reactive variable changes are broadcast, they are rebroadcast back from the listening browsing contexts.
+   *    The rebroadcast events are ignored and are not rebroadcast again.
    *    This process took 21ms most of the times during my experiments.
    *    So the default debouncing time is set at 24ms.
    */
