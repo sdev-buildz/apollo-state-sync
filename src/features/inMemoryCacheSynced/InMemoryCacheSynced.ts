@@ -13,7 +13,7 @@ import type { InMemoryCacheSyncedType } from './util/InMemoryCacheSyncedType'
 import { persistInMemoryCache, restorePersisted } from './util/persistance'
 
 /**
- * Apollo in-memory cache with its state synchronized across browsing contexts (such as browser tabs, windows, or iframes).
+ * Apollo in-memory cache with its state synchronized across browsing contexts such as browser tabs, windows, or iframes.
  * It is a drop-in replacement for Apollo's {@link InMemoryCache}.
  * @example
  * ```ts

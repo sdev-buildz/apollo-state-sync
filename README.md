@@ -22,7 +22,7 @@ Modern web apps often run across multiple browser tabs or windows within the sam
 - GraphQL subscriptions are duplicated across tabs
 - app state resets unexpectedly when a tab is reopened
 
-Apollo State Sync solves this by keeping state in sync across browsing contexts and user sessions while reusing a shared WebSocket connection and sharing active subscription channels.
+Apollo State Sync solves this by keeping state in sync across browsing contexts and user sessions, while [apollo-shared-ws](https://www.npmjs.com/package/apollo-shared-ws) reuses a shared WebSocket connection to share active subscription channels.
 
 ## ✨ Features
 
