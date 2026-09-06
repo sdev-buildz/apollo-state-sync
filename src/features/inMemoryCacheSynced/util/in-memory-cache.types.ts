@@ -38,9 +38,8 @@ export type WrappedString = {
 }
 
 /**
- * The broadcasted info about the cache operation.
+ * The broadcast info about the cache operation.
  * It contains the operation name and the arguments for the operation function call.
- * @param Broadcasted - Whether the message is already broadcasted or not.
  */
 export type CacheSyncMessageType<
   OperationName extends CacheOperationsToSyncType = CacheOperationsToSyncType,
@@ -49,7 +48,7 @@ export type CacheSyncMessageType<
   args: Parameters<InMemoryCacheSyncedType[OperationName]>
 }
 
-/** Maps the operation names to the corresponding broadcasted messages. */
+/** Maps the operation names to the corresponding broadcast messages. */
 export type CacheSyncMessageTypeMap = {
   [
     OperationName in CacheOperationsToSyncType
@@ -57,14 +56,14 @@ export type CacheSyncMessageTypeMap = {
 }
 
 /**
- * Used to specify if the cache operation should not be broadcasted.
- * Operation will not be broadcasted if it is set to true as shown in this following example.
+ * Used to specify if the cache operation should not be broadcast.
+ * Operation will not be broadcast if it is set to true as shown in this following example.
  * @example
  * ```ts
  * const inMemoryStore = new InMemoryCacheSynced(inMemoryCacheConfig)
  *
  * inMemoryStore.write({
- *  //  Since this is true, this operations will not be broadcasted.
+ *  //  Since this is true, this operations will not be broadcast.
  *  [shouldNotBroadcastSymbol]: true,
  *  query: gql('query { currentUser: { id } }'),
  *  result: {

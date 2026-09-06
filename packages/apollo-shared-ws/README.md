@@ -138,7 +138,7 @@ This is helpful for simple migration cases, but it has limitations. For example,
 
 ## 👥 Community & Support
 
-- 💬 _**Have an idea?**_ Suggest new features in [GitHub Discussions](../..//discussions).
+- 💬 _**Have an idea?**_ Suggest new features in [GitHub Discussions](../../discussions).
 
 - 🚀 _**Want to support the project?**_ Visit [this link](https://buymeacoffee.com/stevenx.dev).
 

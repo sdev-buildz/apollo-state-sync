@@ -28,7 +28,7 @@ export const broadcast = <OperationName extends CacheOperationsToSyncType>(
 }
 
 /**
- * @returns whether the cache operation should be broadcasted.
+ * @returns whether the cache operation should be broadcast.
  */
 export const getShouldBroadcast = <
   OperationName extends CacheOperationsToSyncType,
@@ -45,7 +45,7 @@ export const getShouldBroadcast = <
 
 /**
  * Broadcasts and persists the cache operation.
- * Handles whether the operation should be broadcasted or persisted.
+ * Handles whether the operation should be broadcast or persisted.
  */
 export const handleSyncing = <OperationName extends CacheOperationsToSyncType>(
   operationName: OperationName,
