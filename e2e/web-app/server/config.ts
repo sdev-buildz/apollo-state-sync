@@ -4,7 +4,7 @@
  */
 
 import { logger } from '@packages/logger'
-import sharedConfig from '@shared/config'
+import { sharedConfig } from '@packages/web-app-utils/shared'
 
 /**
  * The server's configuration object.
