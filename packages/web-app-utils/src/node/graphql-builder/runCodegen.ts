@@ -8,7 +8,6 @@ export async function runCodegen(config: CodegenConfig) {
   await generate(config)
 
   console.log('GraphQL types generated successfully!')
-  process.exit(0)
 }
 
 /**
