@@ -1,5 +1,5 @@
 import { buildGraphQL, getCodegenConfig } from '@packages/web-app-utils'
-import sharedConfig from '@shared/config'
+import { sharedConfig } from '@packages/web-app-utils/shared'
 import path from 'node:path'
 import { schema } from './server/schema'
 

@@ -351,6 +351,9 @@ importers:
       '@packages/typedoc-plugins':
         specifier: workspace:*
         version: link:packages/typedoc-plugins
+      '@packages/web-app-utils':
+        specifier: workspace:*
+        version: link:packages/web-app-utils
       '@playwright/test':
         specifier: ^1.62.1
         version: 1.62.1

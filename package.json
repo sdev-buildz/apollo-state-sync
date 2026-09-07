@@ -105,6 +105,7 @@
     "@packages/common-utils": "workspace:*",
     "@packages/migration": "workspace:*",
     "@packages/typedoc-plugins": "workspace:*",
+    "@packages/web-app-utils": "workspace:*",
     "@playwright/test": "^1.62.1",
     "@types/node": "catalog:",
     "@types/serialize-javascript": "^5.0.4",
