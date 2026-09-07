@@ -10,7 +10,7 @@
     "start-server": "tsx server/index.ts",
     "start-server-watch": "concurrently \"tsx --watch server/index.ts\" \"pnpm run codegen-watch\"",
     "start-react-watch": "tsx ./webpack/webpack.dev-server.ts",
-    "codegen": "graphql-codegen --config codegen.ts",
+    "codegen": "tsx ./codegen.ts",
     "codegen-watch": "pnpm run codegen --watch",
     "print-graphql-sdl": "tsx ./printSdl.ts",
     "build-graphql": "pnpm run print-graphql-sdl && pnpm run codegen"
@@ -38,7 +38,6 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "concurrently": "^10.0.5",
-    "ts-morph": "catalog:",
     "tsx": "catalog:",
     "typescript": "catalog:",
     "webpack": "^5.110.3"

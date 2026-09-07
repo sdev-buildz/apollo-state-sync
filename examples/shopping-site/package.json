@@ -1,0 +1,12 @@
+{
+  "name": "shopping-site",
+  "version": "0.0.0",
+  "description": "Signup, login add products to cart.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}
