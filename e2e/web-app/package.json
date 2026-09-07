@@ -10,7 +10,7 @@
     "start-server": "tsx server/index.ts",
     "start-server-watch": "concurrently \"tsx --watch server/index.ts\" \"pnpm run codegen-watch\"",
     "start-react-watch": "tsx ./webpack/webpack.dev-server.ts",
-    "codegen": "graphql-codegen --config codegen.ts",
+    "codegen": "tsx ./codegen.ts",
     "codegen-watch": "pnpm run codegen --watch",
     "print-graphql-sdl": "tsx ./printSdl.ts",
     "build-graphql": "pnpm run print-graphql-sdl && pnpm run codegen"
