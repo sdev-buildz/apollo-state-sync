@@ -14,17 +14,6 @@ const config = {
   sampleEnv: process.env.SAMPLE_ENV,
   ...sharedConfig,
 
-  /**
-   * Whether to print the schema.graphql file whenever the schema module gets executed.
-   */
-  printGraphqlSdl:
-    process.env.PRINT_GRAPHQL_SDL === 'true' ||
-    /**
-     * It is 'true' by default during development, in order to print on every hot reload.
-     * The printed file will be read by the codegen.
-     */
-    sharedConfig.environment === 'DEV',
-
   auth: {
     /**
      * Used in authorization header. The key must be 32 bytes (256 bits) for AES-256
