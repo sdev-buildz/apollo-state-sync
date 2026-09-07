@@ -10,6 +10,10 @@
     "./webpack-config": {
       "types": "./src/node/webpack.config.ts",
       "default": "./src/node/webpack.config.ts"
+    },
+    "./shared": {
+      "types": "./src/shared/index.ts",
+      "default": "./src/shared/index.ts"
     }
   },
   "scripts": {

@@ -2,7 +2,7 @@
  * @packageDocumentation
  *  {@inheritDoc getWebpackConfig}
  */
-import sharedConfig from '@shared/config'
+import { sharedConfig } from '@packages/web-app-utils/shared'
 import CopyPlugin from 'copy-webpack-plugin'
 import HtmlWebPackPlugin from 'html-webpack-plugin'
 import path from 'path'
