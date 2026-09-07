@@ -1,0 +1,12 @@
+import { buildGraphQL, getCodegenConfig } from '@packages/web-app-utils'
+import sharedConfig from '@shared/config'
+import path from 'node:path'
+import { schema } from './server/schema'
+
+const tsEmitFilePath = `${import.meta.dirname}/generated/typescript-react-apollo.tsx`
+
+buildGraphQL(
+  schema,
+  path.join(import.meta.dirname, sharedConfig.graphqlSdlPath),
+  getCodegenConfig(tsEmitFilePath, schema)
+)
