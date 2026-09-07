@@ -481,18 +481,6 @@ importers:
         specifier: github:uNetworking/uWebSockets.js#v20.69.0
         version: https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/dddd8ffd1b2c28a66022160923ca92f064cdacb4
     devDependencies:
-      '@graphql-codegen/cli':
-        specifier: ^7.4.0
-        version: 7.4.0(@types/node@26.4.1)(@typescript/typescript6@6.0.2)(graphql@17.0.2)(supports-color@10.2.2)
-      '@graphql-codegen/typescript':
-        specifier: ^6.1.0
-        version: 6.1.0(graphql@17.0.2)
-      '@graphql-codegen/typescript-operations':
-        specifier: ^6.1.6
-        version: 6.1.6(graphql@17.0.2)
-      '@graphql-codegen/typescript-react-apollo':
-        specifier: ^4.4.2
-        version: 4.4.2(graphql@17.0.2)
       '@packages/web-app-utils':
         specifier: workspace:*
         version: link:../../packages/web-app-utils
@@ -677,6 +665,9 @@ importers:
       css-loader:
         specifier: ^7.1.5
         version: 7.1.5(webpack@5.110.3)
+      graphql:
+        specifier: 'catalog:'
+        version: 17.0.2
       html-webpack-plugin:
         specifier: ^5.6.8
         version: 5.6.8(webpack@5.110.3)
