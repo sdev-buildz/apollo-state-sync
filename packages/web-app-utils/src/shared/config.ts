@@ -1,10 +1,7 @@
 /**
- * The host configurations such as host name and port number.
- *
- * This file is accessible by the client side code.
- * So, this file should not be used for secrets.
+ * {@inheritdoc sharedConfig}
+ * @packageDocumentation
  */
-
 import path from 'path'
 
 const apiServerPort: number = Number(
@@ -12,7 +9,13 @@ const apiServerPort: number = Number(
 )
 const webClientPort: number = Number(process.env.WEB_CLIENT_PORT ?? 3000)
 
-const sharedConfig = {
+/**
+ * The host configurations such as host name and port number.
+ *
+ * This file is accessible by both server and client side codes.
+ * So, this file should not be used for secrets.
+ */
+export const sharedConfig = {
   /** Whether this server is hosted with HTTPS protocol or not */
   https: Boolean(process.env.HTTPS ?? true),
 
@@ -28,7 +31,7 @@ const sharedConfig = {
   /** The endpoint of the GraphQL API */
   graphqlEndpoint: '',
 
-  graphqlSdlPath: './shared/schema.graphql',
+  graphqlSdlPath: './schema.graphql',
 
   webClientPort,
 
@@ -60,5 +63,3 @@ const sharedConfig = {
 }
 
 sharedConfig.graphqlEndpoint = sharedConfig.origin + '/api/graphql'
-
-export default sharedConfig

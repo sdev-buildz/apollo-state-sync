@@ -351,6 +351,9 @@ importers:
       '@packages/typedoc-plugins':
         specifier: workspace:*
         version: link:packages/typedoc-plugins
+      '@packages/web-app-utils':
+        specifier: workspace:*
+        version: link:packages/web-app-utils
       '@playwright/test':
         specifier: ^1.62.1
         version: 1.62.1
@@ -493,9 +496,6 @@ importers:
       concurrently:
         specifier: ^10.0.5
         version: 10.0.5
-      ts-morph:
-        specifier: 'catalog:'
-        version: 28.0.0
       tsx:
         specifier: 'catalog:'
         version: 4.23.13

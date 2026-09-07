@@ -1,4 +1,4 @@
-import sharedConfig from '../shared/config'
+import { sharedConfig } from '@packages/web-app-utils/shared'
 
 /**
  * The children of the head tag such as Script tags, Link tags, etc...

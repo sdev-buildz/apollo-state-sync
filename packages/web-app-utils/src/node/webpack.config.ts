@@ -2,12 +2,12 @@
  * @packageDocumentation
  *  {@inheritDoc getWebpackConfig}
  */
-import sharedConfig from '@shared/config'
 import CopyPlugin from 'copy-webpack-plugin'
 import HtmlWebPackPlugin from 'html-webpack-plugin'
 import path from 'path'
 import postCssPresetEnv from 'postcss-preset-env'
 import webpack from 'webpack'
+import { sharedConfig } from '../shared'
 import babelConfig from './babel.config'
 
 /**
