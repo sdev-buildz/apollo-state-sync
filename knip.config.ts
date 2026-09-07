@@ -14,6 +14,9 @@ const config: KnipConfig = {
       webpack: {
         config: ['./src/node/webpack.config.ts'],
       },
+      'graphql-codegen': {
+        config: ['./src/node/graphql-builder/codegenKnip.ts'],
+      },
     },
     'e2e/web-app': {
       webpack: {

@@ -10,10 +10,7 @@
     "start-server": "tsx server/index.ts",
     "start-server-watch": "concurrently \"tsx --watch server/index.ts\" \"pnpm run codegen-watch\"",
     "start-react-watch": "tsx ./webpack/webpack.dev-server.ts",
-    "codegen": "tsx ./codegen.ts",
-    "codegen-watch": "pnpm run codegen --watch",
-    "print-graphql-sdl": "tsx ./printSdl.ts",
-    "build-graphql": "pnpm run print-graphql-sdl && pnpm run codegen"
+    "build-graphql": "tsx ./buildGql.ts"
   },
   "dependencies": {
     "@apollo/client": "catalog:",
@@ -31,10 +28,6 @@
   },
   "devDependencies": {
     "@packages/web-app-utils": "workspace:*",
-    "@graphql-codegen/cli": "^7.4.0",
-    "@graphql-codegen/typescript": "^6.1.0",
-    "@graphql-codegen/typescript-operations": "^6.1.6",
-    "@graphql-codegen/typescript-react-apollo": "^4.4.2",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "concurrently": "^10.0.5",
