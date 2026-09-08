@@ -4,11 +4,7 @@ allowBuilds:
 
 packages:
   - '.'
-  - 'packages/common-utils'
-  - 'packages/migration'
-  - 'packages/typedoc-plugins'
-  - 'packages/apollo-shared-ws'
-  - 'packages/logger'
+  - 'packages/*'
   - 'e2e/web-app'
 
 catalog:

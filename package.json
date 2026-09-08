@@ -46,7 +46,7 @@
     "coverage": "vitest --coverage --ui",
     "coverage:ci": "vitest run --coverage",
     "unit-tests:with-update-snapshots": "vitest -u",
-    "clean": "pnx rimraf -g **/dist **/dist-tsc **/*.tsbuildinfo  **/generated **/.turbo coverage docs",
+    "clean": "pnx rimraf -g **/dist **/dist-tsc **/*.tsbuildinfo  **/generated **/*.graphql **/.turbo coverage docs",
     "clean:all": "pnpm run clean && pnx rimraf -g **/node_modules",
     "build:main": "tsdown",
     "build:gql-types": "pnpm --filter e2e-web-app run build-graphql && pnpm exec prettier --write **/*.graphql",
