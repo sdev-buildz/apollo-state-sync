@@ -54,22 +54,22 @@ export default defineConfig({
       },
     },
 
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    //   /**
-    //    * Firefox takes more time setting up
-    //    *  fixtures like BrowserContexts.
-    //    */
-    //   // timeout: 50 * 1000,
-    //   timeout: 150 * 1000,
-    // },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+      /**
+       * Firefox takes more time setting up
+       *  fixtures like BrowserContexts.
+       */
+      // timeout: 50 * 1000,
+      timeout: 150 * 1000,
+    },
 
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    //   timeout: 60 * 1000,
-    // },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+      timeout: 60 * 1000,
+    },
 
     // /* Test against mobile browsers. */
     // {
