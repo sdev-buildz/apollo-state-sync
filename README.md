@@ -22,7 +22,7 @@ Modern web apps often run across multiple browser tabs or windows within the sam
 - GraphQL subscriptions are duplicated across tabs
 - app state resets unexpectedly when a tab is reopened
 
-Apollo State Sync solves this by keeping state in sync across browsing contexts and user sessions, while [apollo-shared-ws](https://www.npmjs.com/package/apollo-shared-ws) reuses a shared WebSocket connection to share active subscription channels.
+Apollo State Sync solves this by keeping state in sync across browsing contexts and user sessions. [Apollo Shared WS](./package/apollo-shared-ws) reuses a shared WebSocket connection to share active subscription channels.
 
 ## ✨ Features
 
@@ -37,7 +37,7 @@ Apollo State Sync solves this by keeping state in sync across browsing contexts 
 - Minimizes duplicate network traffic by indexing GraphQL subscription channels by payload
 - Helps build multi-window and multi-tab apps without custom state plumbing
 
-❗ Apollo State Sync keeps Apollo state synchronized across tabs and windows. For shared GraphQL subscription channels and a single reused WebSocket connection across browsing contexts, install and configure [apollo-shared-ws npm package](https://www.npmjs.com/package/apollo-shared-ws).
+❗ Apollo State Sync keeps Apollo state synchronized across tabs and windows. For shared GraphQL subscription channels and a single reused WebSocket connection across browsing contexts, install and configure [Apollo Shared WS npm package](./package/apollo-shared-ws).
 
 ## 💻 Example use-cases
 
@@ -100,7 +100,7 @@ yarn add -W apollo-state-sync
 
 ## ⚙️ How it works ( Architecture )
 
-Apollo State Sync listens for state changes in Apollo Client and broadcasts them across browsing contexts using Broadcast Channels. It can also persist state in Local Storage so it remains available when the user reopens the app. It uses SharedWorkers to avoid duplicate GraphQL subscription channels.
+Apollo State Sync listens for state changes in Apollo Client and broadcasts them across browsing contexts using Broadcast Channels. It can also persist state in Local Storage so it remains available when the user reopens the app.
 
 ## 🤖 Migration Automation
 

@@ -4,14 +4,10 @@ import { catchError, map } from 'rxjs'
 import { synchronizationDebouncer } from '../../util/synchronizationDebouncer'
 
 /**
- * A non-terminating {@link ApolloLink}.  
- * Tracks the count of in-flight graphql requests.
- * It must be used when using the 'apollo-state-sync' library.
- *
- * This diagram explains the logic with an example:
- *    ![alt text](assets/sequence_diagram-debouncer.png)
- *    ![alt text](C://projects/gql-multiple-repos/apollo-state-sync/src/assets/sequence_diagram-debouncer.png)
- *    ![alt text](src/assets/architecture-diagram.svg)
+ * A non-terminating {@link ApolloLink}, which tracks the count of in-flight GraphQL requests.
+ * @remarks
+ * This link is **required** when using the `apollo-state-sync` library.
+ * @see [diagram](assets/sync-debouncer.png) that explains the logic with an example.
  * @example
  * ```ts
  * import { GraphQLWsLink } from '@apollo/client'
@@ -38,7 +34,7 @@ import { synchronizationDebouncer } from '../../util/synchronizationDebouncer'
  * ```
  */
 export const stateSyncLink = new ApolloLink((operation, forward) => {
-  /** GraphQL Subscriptions should be handled using {@link createSharedClient}. */
+  /** GraphQL Subscriptions should be handled using {@link createSharedClient | Apollo Shared WS}. */
   if (operation.operationType === 'subscription') return forward(operation)
 
   synchronizationDebouncer.graphqlRequestStarted()

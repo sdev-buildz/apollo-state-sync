@@ -15,13 +15,15 @@ import type { ClientResolver, ClientResolverOperation } from './ClientResolver'
 import { getDocumentInfo, getVariables } from './lib/apollo-client-lib-internal'
 
 /**
- * Overwrites the restart function returned by {@link ApolloClient.subscribe}.
- * It prevents the default behavior of the 'restart' function and instead
- *  invokes the {@link SharedClient.restartSubscription}.
- * It modifies the ApolloClient in place and returns the ApolloClient.
+ * Replaces the restart function returned by {@link ApolloClient.subscribe}.
  *
- * In case you are using {@link ApolloLink.split}, provide the
- *  {@link ClientResolver | sharedClientResolver} field in the options parameter.
+ * Instead of invoking Apollo's default restart behavior, this wrapper delegates
+ * to {@link SharedClient.restartSubscription}. The original Apollo client is
+ * mutated in place and returned.
+ *
+ * When using {@link ApolloLink.split}, pass a
+ * {@link ClientResolver | sharedClientResolver} in the options so the
+ * SharedClient can be resolved per operation.
  */
 export const setupRestartSubscription = (
   apolloClient: ApolloClient,
@@ -36,10 +38,10 @@ export const setupRestartSubscription = (
 ) => {
   const originalSubscribe = apolloClient.subscribe.bind(apolloClient)
 
-  // Wrapping ApolloClient.subscribe function.
-  //  The wrapper modifies the restart function returned, during each operation.
+  // Wrap ApolloClient.subscribe so each returned subscription can use the
+  // SharedClient's restart flow instead of Apollo's default restart behavior.
   apolloClient.subscribe = function (...args) {
-    /** The response of ApolloClient.subscribe */
+    /** The subscription object returned by ApolloClient.subscribe. */
     const subscribeRes = originalSubscribe(...args)
 
     const clientResolverOperation: ClientResolverOperation = {
@@ -71,7 +73,7 @@ export const setupRestartSubscription = (
       subscribeOptions.query
     )
 
-    // Creating ApolloLink.Operation
+    // Build the ApolloLink operation used when restarting the subscription.
     const { serverQuery } = getDocumentInfo(transformedQuery)
     const context = subscribeOptions.context
     const incrementalHandler =
@@ -94,7 +96,7 @@ export const setupRestartSubscription = (
       client: this,
     })
 
-    //  Overwriting the restart method
+    // Replace the subscription's restart method with the SharedClient.restart.
     const originalRestart = subscribeRes.restart
     subscribeRes.restart = () => {
       if (restartSubscriptionFn)

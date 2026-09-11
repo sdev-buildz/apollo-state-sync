@@ -14,16 +14,16 @@ import type {
 } from './util/types'
 
 /**
- * Maintains unique names for reactive variables.
- *  1) to uniquely identify them in the local storage.
- *  2) to apply broadcast changes to only the corresponding variable in listening browsing contexts.
+ * Maintains unique names for reactive variables to:
+ * 1) Ensure broadcast updates target only the corresponding variable in listening browsing contexts.
+ * 2) Uniquely identify each variable within local storage.
  */
 export class ChannelNames {
   static names: Set<string> = new Set([])
   static namesMap: WeakMap<ReactiveVar<unknown>, string> = new WeakMap()
   /**
-   * Used to ensure the uniqueness of the names.
-   * @throws when name is not unique.
+   * Checks if a name is unique.
+   * @throws when the name is not unique.
    */
   static validateUniqueness(name: string, reactiveVar: ReactiveVar<unknown>) {
     if (ChannelNames.namesMap.get(reactiveVar) === name) return
@@ -36,9 +36,9 @@ export class ChannelNames {
 
 /**
  *  Creates a reactive variable synchronized across browsing contexts.
- *  It is a swap-in {@link makeVar} wrapper.
- *  @param value - The initial value of the reactive variable.
- *  @param uniqueName - A unique name for the reactive variable.
+ *  It is a swap-in replacement for {@link makeVar}.
+ *  @param value - Initial value of the reactive variable.
+ *  @param uniqueName - A unique identifier used to synchronize the variable across contexts.
  *  @example
  * ```ts
  * import { useReactiveVar } from '@apollo/client/react'
