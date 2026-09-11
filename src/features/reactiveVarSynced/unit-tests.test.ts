@@ -224,7 +224,7 @@ describe(`When reactive variable's value is changed`, () => {
 
     //  awaiting debounce timeout
 
-    vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+    vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
 
     if (testParams.expectToBebroadcast)
       expect(postSpy).toHaveBeenCalledWith(testParams.testVarNewValue)
@@ -244,7 +244,7 @@ test('listener applies incoming operations without re-broadcasting or persisting
   bc.emitMessage(testVarData.value)
   expect(testVar()).toBe(testVarData.value)
 
-  vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+  vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
 
   expect(postSpy).not.toHaveBeenCalledWith()
   expect(localStorageSetSpy).not.toHaveBeenCalled()
@@ -278,7 +278,7 @@ test.each<{ shouldDebounce: boolean; expectToBebroadcast: boolean }>([
     const postSpy = vi.spyOn(bc, 'postMessage')
     expect(postSpy).not.toHaveBeenCalled()
 
-    vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+    vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
 
     if (testParams.expectToBebroadcast)
       expect(postSpy).toHaveBeenCalledWith(testVarData.value)

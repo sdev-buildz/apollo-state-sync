@@ -36,7 +36,8 @@ export class SynchronizationDebouncer extends Debouncer {
    *  Used to wait until UI completes getting rendered.
    */
   constructor(
-    timeoutMs: number | undefined = globalConfig.synhnorizationDebounceTimeoutMs
+    timeoutMs:
+      number | undefined = globalConfig.synchronizationDebounceTimeoutMs
   ) {
     super(timeoutMs)
   }
