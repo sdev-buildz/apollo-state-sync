@@ -2,14 +2,6 @@ import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { globalConfig } from '../globalConfig'
 import { synchronizationDebouncer } from './synchronizationDebouncer'
 
-vi.mock('../globalConfig', () => {
-  return {
-    globalConfig: {
-      synhnorizationDebounceTimeoutMs: 24,
-    },
-  }
-})
-
 vi.useFakeTimers()
 
 describe('synchronizationDebouncer', () => {
