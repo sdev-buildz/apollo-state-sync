@@ -54,6 +54,11 @@ export type GlobalConfig = {
    * The number of milliseconds to debounce the synchronization broadcasts.
    * @see {@link SynchronizationDebouncer}
    */
+  synchronizationDebounceTimeoutMs: number
+
+  /**
+   * @deprecated Use `synchronizationDebounceTimeoutMs` instead.
+   */
   synhnorizationDebounceTimeoutMs: number
 
   /**
@@ -78,7 +83,18 @@ export const globalConfig: GlobalConfig = {
    *    This process took 21ms most of the times during my experiments.
    *    So the default debouncing time is set at 24ms.
    */
-  synhnorizationDebounceTimeoutMs: 24,
+  synchronizationDebounceTimeoutMs: 24,
   persistedCacheExpiryMilliseconds: 2 * 60 * 60 * 1000,
   shouldBroadcastSubscriptionWrites: false,
-}
+} as GlobalConfig
+
+Object.defineProperty(globalConfig, 'synhnorizationDebounceTimeoutMs', {
+  get() {
+    return this.synchronizationDebounceTimeoutMs
+  },
+  set(value: number) {
+    this.synchronizationDebounceTimeoutMs = value
+  },
+  enumerable: true,
+  configurable: true,
+})
