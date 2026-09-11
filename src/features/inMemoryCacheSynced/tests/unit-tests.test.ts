@@ -92,7 +92,7 @@ describe.each<{
     initializeOperationSpies()
 
     await vi.advanceTimersByTimeAsync(
-      globalConfig.synhnorizationDebounceTimeoutMs
+      globalConfig.synchronizationDebounceTimeoutMs
     )
 
     vi.clearAllMocks()
@@ -127,7 +127,7 @@ describe.each<{
     expect(debounceSpy).toHaveBeenCalledTimes(1)
     expect(postSpy).not.toHaveBeenCalled()
 
-    vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+    vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
     //  The write operation should be broadcast
     expect(postSpy).toHaveBeenCalledWith<[CacheSyncMessageTypeMap['write']]>({
       operationName: 'write',
@@ -163,7 +163,7 @@ describe.each<{
       },
     })
 
-    vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+    vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
     expect(debounceSpy).not.toHaveBeenCalled()
     expect(postSpy).not.toHaveBeenCalled()
 
@@ -207,7 +207,7 @@ describe.each<{
     expect(debounceSpy).toHaveBeenCalledTimes(1)
     expect(postSpy).not.toHaveBeenCalled()
 
-    vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+    vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
 
     expect(postSpy).toHaveBeenCalledWith<[CacheSyncMessageTypeMap['evict']]>({
       operationName: 'evict',
@@ -227,7 +227,7 @@ describe.each<{
     expect(debounceSpy).toHaveBeenCalledTimes(1)
     expect(postSpy).not.toHaveBeenCalled()
 
-    vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+    vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
 
     expect(postSpy).toHaveBeenCalledWith<[CacheSyncMessageTypeMap['modify']]>(
       testData.modify.message
@@ -283,7 +283,7 @@ describe.each<{
 
       inMemoryCache.evict({ id: toBeEvictedCacheId })
 
-      vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+      vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
       vi.clearAllMocks()
 
       if (testProps.retain) {
@@ -292,7 +292,7 @@ describe.each<{
         expect(debounceSpy).toHaveBeenCalledTimes(1)
         expect(postSpy).not.toHaveBeenCalled()
 
-        vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+        vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
 
         // retain should have been broadcasted
         expect(postSpy).toHaveBeenLastCalledWith<
@@ -312,7 +312,7 @@ describe.each<{
         expect(debounceSpy).toHaveBeenCalledTimes(1)
         expect(postSpy).not.toHaveBeenCalled()
 
-        vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+        vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
 
         // release should have been broadcasted
         expect(postSpy).toHaveBeenLastCalledWith<
@@ -325,7 +325,7 @@ describe.each<{
       // performing gc operation
       const r = inMemoryCache.gc(...testData.gc.message.args)
 
-      vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+      vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
 
       expect(postSpy).toHaveBeenCalledWith<[CacheSyncMessageTypeMap['gc']]>(
         testData.gc.message
@@ -346,7 +346,7 @@ describe.each<{
     expect(debounceSpy).toHaveBeenCalledTimes(1)
     expect(postSpy).not.toHaveBeenCalled()
 
-    vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+    vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
 
     expect(postSpy).toHaveBeenCalledWith<[CacheSyncMessageTypeMap['reset']]>(
       testData.reset.message
@@ -376,7 +376,7 @@ describe.each<{
 
       //  awaiting debounce
 
-      vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+      vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
 
       // expect not to have been broadcasted
       expect(postSpy).not.toHaveBeenCalled()
@@ -412,7 +412,7 @@ describe.each<{
         ...testData[operationToSkip].message.args
       )
 
-      vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+      vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
 
       expect(localStorageSetSpy).not.toHaveBeenCalled()
       if (
@@ -466,7 +466,7 @@ describe.each<{
       // Simulating incoming message from different context
       bc.emitMessage(testData[operationName].message)
 
-      vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+      vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
 
       //  expect to have been processed by listeners
       expect(operationSpies[operationName]).toHaveBeenCalledTimes(1)
@@ -537,7 +537,7 @@ describe.each<{
 
       inMemoryCache.evict({ id: toBeEvictedCacheId })
 
-      vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+      vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
       vi.clearAllMocks()
 
       if (testProps.retain) {
@@ -547,7 +547,7 @@ describe.each<{
           args: [toBeGcedCacheId],
         })
 
-        vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+        vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
         expect(postSpy).not.toHaveBeenCalled()
       }
 
@@ -560,7 +560,7 @@ describe.each<{
           args: [toBeGcedCacheId],
         })
 
-        vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+        vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
 
         expect(postSpy).not.toHaveBeenCalled()
       }
@@ -570,7 +570,7 @@ describe.each<{
         args: testData.gc.message.args,
       })
 
-      vi.advanceTimersByTime(globalConfig.synhnorizationDebounceTimeoutMs)
+      vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
       expect(postSpy).not.toHaveBeenCalled()
 
       expect(localStorageSetSpy).not.toHaveBeenCalled()
