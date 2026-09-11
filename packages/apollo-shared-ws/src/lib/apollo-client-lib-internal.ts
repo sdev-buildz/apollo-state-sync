@@ -1,8 +1,10 @@
 /**
  * @packageDocumentation
- * The QueryManager class in ApolloClient library are not exported.
- * But their functionalities are required by 'apollo-state-sync'. So I copy pasted
- *  from ApolloClient library to this module and exported from this module.
+ * Re-exports a vendored implementation of Apollo Client's internal QueryManager.
+ * @remarks
+ * The `QueryManager` class is not publicly exported by the official `@apollo/client` library.
+ * Because its internal functionalities are strictly required by `apollo-state-sync`, the
+ * implementation has been vendored directly into this module to expose it safely.
  */
 import type { ApolloClient } from '@apollo/client'
 import { cacheSizes } from '@apollo/client/utilities'
@@ -71,7 +73,7 @@ export const getDocumentInfo = (document: DocumentNode) => {
 }
 
 /**
- *  Copy pasted from QueryManager.getVariables
+ *  Copy pasted from ApolloClient's QueryManager.getVariables
  */
 export const getVariables = (
   document: DocumentNode,
