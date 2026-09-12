@@ -6,7 +6,9 @@ import {
 } from '../../../util/persistedState'
 
 /**
- * Fetches the persisted reactive variables from local storage.
+ * Reads the persisted reactive variables from local storage.
+ * @returns the persisted reactive variables, or an empty object when none
+ * are available.
  */
 export function getPersistedReactiveVars(): PersistedStateType['reactiveVars'] {
   const persistedState = getPersistedState()
@@ -14,9 +16,10 @@ export function getPersistedReactiveVars(): PersistedStateType['reactiveVars'] {
 }
 
 /**
- * Saves the value of a reactive variable to local storage.
- * @param name - The unique key used to store the variable in `localStorage`.
- * @param value - The reactive variable instance or current value to be persisted.
+ * Persists the current value of a reactive variable in local storage.
+ * @param name - the unique key used to store the variable.
+ * @param name - the unique key used to store the variable.
+ * @param value - the current value to persist.
  */
 export function persistReactiveVar(
   name: string,

@@ -2,7 +2,7 @@ import type { NormalizedCacheObject } from '@apollo/client'
 import { globalConfig } from '../globalConfig'
 
 /**
- * Represents the structure of the Apollo Client state saved in persistent storage.
+ * Represents the Apollo Client state saved in local storage.
  */
 export type PersistedStateType = {
   cache: NormalizedCacheObject
@@ -11,7 +11,7 @@ export type PersistedStateType = {
 }
 
 /**
- * LocalStorage key for persisted state.
+ * Local storage key for the persisted Apollo Client state.
  */
 const persistedStateKey = 'apollo-persisted-state'
 
@@ -40,6 +40,7 @@ export const getPersistedState = (): PersistedStateType | undefined => {
  * By default, preserves the expiration time of the existing unexpired state.
  * Set `overwriteExpiresAt` to `true` to use the expiration time in `state`.
  * @param state - the complete state object to persist.
+ * @param state - the complete state object to persist.
  * @param overwriteExpiresAt - whether to replace an existing expiration time.
  */
 export const setPersistedState = (
@@ -60,6 +61,7 @@ export const setPersistedState = (
  * Missing cache and reactive variable values are taken from the existing state.
  * When no expiration time is available, one is derived from the configured
  * persisted-cache expiry interval.
+ * @param state - the state fields to add or replace.
  * @param state - the state fields to add or replace.
  */
 export const updatePersistedState = (

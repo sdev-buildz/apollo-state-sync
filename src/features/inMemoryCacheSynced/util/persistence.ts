@@ -5,8 +5,8 @@ import {
 } from '../../../util/persistedState'
 
 /**
- * Persists the state of the cache to the the local storage,
- *  so that new browsing contexts can rettore.
+ * Persists the cache state in local storage so it can be restored in a new
+ * browsing context.
  */
 export const persistInMemoryCache = (
   inMemoryStore: Pick<InMemoryCache, 'extract'>
@@ -18,7 +18,7 @@ export const persistInMemoryCache = (
 }
 
 /**
- * Restores from local storage. Used when web page loads.
+ * Restores the persisted cache.
  */
 export const restorePersisted = (
   inMemoryStore: Pick<InMemoryCache, 'extract' | 'restore'>
@@ -27,7 +27,7 @@ export const restorePersisted = (
     const persistedState = getPersistedState()
 
     if (!persistedState || Date.now() > persistedState.expiresAt) {
-      /** If the cache is expired, do not restore */
+      // Do not restore missing or expired cache state.
       return
     }
 
