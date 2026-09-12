@@ -6,6 +6,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import { Project, QuoteKind } from 'ts-morph'
 import { describe, expect, it, test, vi } from 'vitest'
+import { getMigrateOptionsFromFlags } from '../src'
 import { migrate, migrateProject } from '../src/migrate'
 import { areContentsSame, areFileStructuresSame } from './lib/compareDirs.ts'
 import { normalizeNewlines } from './lib/normalizeNewlines.ts'
@@ -108,7 +109,24 @@ describe('migrations', () => {
     20000
   )
 
-  it('migrates projects if tsconfig is given.', async () => {
+  test('getMigrateOptionsFromFlags handles positionals.', async (testParams) => {
+    const toMigrate: Parameters<typeof getMigrateOptionsFromFlags>[0] = {
+      restartSub: true,
+      graphqlWs: true,
+      stateSyncLink: true,
+      inMemoryCache: true,
+      makeVar: true,
+    }
+    const tsconfigPath = 'path/to/tsconfig.json'
+    expect(getMigrateOptionsFromFlags(toMigrate, [tsconfigPath])).toStrictEqual(
+      {
+        toMigrate,
+        tsConfigFilePath: tsconfigPath,
+      }
+    )
+  })
+
+  it('migrates projects if tsconfig is given.', async (testParams) => {
     vi.useRealTimers()
     const sourceDir: string = path.join(
       import.meta.dirname,

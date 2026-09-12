@@ -8,6 +8,7 @@ import type {
 } from '@stricli/core'
 import fs from 'node:fs'
 import path from 'node:path'
+import type { StrictOmit } from 'ts-strict-utils'
 import { migrate, type MigrateOptionsType } from './migrate'
 
 /**
@@ -20,12 +21,17 @@ export type FlagsType = Pick<MigrateOptionsType, 'tsConfigFilePath'> &
  * cli positional arguments type.
  */
 export type PositionalsType = [string?]
-const getMigrateOptionsFromFlags = (
-  flags: FlagsType,
+
+/**
+ *  Provides the migrate options from input flags.
+ */
+export const getMigrateOptionsFromFlags = (
+  flags: Partial<Pick<FlagsType, 'tsConfigFilePath'>> &
+    StrictOmit<FlagsType, 'tsConfigFilePath'>,
   positionals: PositionalsType
 ): MigrateOptionsType => {
   return {
-    tsConfigFilePath: flags.tsConfigFilePath,
+    tsConfigFilePath: (flags.tsConfigFilePath ?? positionals[0])!,
     toMigrate: {
       inMemoryCache: flags.inMemoryCache,
       makeVar: flags.makeVar,
