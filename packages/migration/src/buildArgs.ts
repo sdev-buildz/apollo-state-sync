@@ -31,7 +31,8 @@ export const getMigrateOptionsFromFlags = (
   positionals: PositionalsType
 ): MigrateOptionsType => {
   return {
-    tsConfigFilePath: (flags.tsConfigFilePath ?? positionals[0])!,
+    tsConfigFilePath:
+      flags.tsConfigFilePath ?? positionals[0] ?? './tsconfig.json',
     toMigrate: {
       inMemoryCache: flags.inMemoryCache,
       makeVar: flags.makeVar,
