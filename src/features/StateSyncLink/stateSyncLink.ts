@@ -1,6 +1,6 @@
 import { ApolloLink } from '@apollo/client'
 import type { createSharedClient } from 'graphql-shared-ws'
-import { catchError, map } from 'rxjs'
+import { catchError, finalize, map } from 'rxjs'
 import { synchronizationDebouncer } from '../../util/synchronizationDebouncer'
 
 /**
@@ -37,14 +37,18 @@ export const stateSyncLink = new ApolloLink((operation, forward) => {
   /** GraphQL Subscriptions should be handled using {@link createSharedClient | Apollo Shared WS}. */
   if (operation.operationType === 'subscription') return forward(operation)
 
-  synchronizationDebouncer.graphqlRequestStarted()
+  synchronizationDebouncer.graphqlRequestStarted(operation)
+
   return forward(operation).pipe(
     map((response) => {
-      synchronizationDebouncer.graphqlRequestCompleted()
+      synchronizationDebouncer.graphqlRequestCompleted(operation)
       return response
     }),
+    finalize(() => {
+      synchronizationDebouncer.graphqlRequestCompleted(operation)
+    }),
     catchError((err) => {
-      synchronizationDebouncer.graphqlRequestCompleted()
+      synchronizationDebouncer.graphqlRequestCompleted(operation)
       throw err
     })
   )

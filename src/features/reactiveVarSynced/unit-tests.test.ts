@@ -1,3 +1,4 @@
+import type { ApolloLink } from '@apollo/client'
 import { beforeEach, describe, expect, it, test, vi } from 'vitest'
 import { globalConfig } from '../../globalConfig'
 import { MockBroadcastChannel } from '../../lib/MockBroadcastChannel'
@@ -286,19 +287,17 @@ test.each<{ shouldDebounce: boolean; expectToBebroadcast: boolean }>([
   async (testParams) => {
     const testVarName = testVarData.name
     const testVar = makeVarSynced<number>(1, testVarName)
-
+    const operation: ApolloLink.Operation = {} as ApolloLink.Operation
     if (testParams.shouldDebounce)
-      synchronizationDebouncer.graphqlRequestStarted()
+      synchronizationDebouncer.graphqlRequestStarted(operation)
 
     testVar(testVarData.value, { isSubscriptionRes: true })
 
     if (testParams.shouldDebounce)
-      synchronizationDebouncer.graphqlRequestCompleted()
+      synchronizationDebouncer.graphqlRequestCompleted(operation)
 
     const bc = MockBroadcastChannel.getBroadcastChannel()
-
     const postSpy = vi.spyOn(bc, 'postMessage')
-    expect(postSpy).not.toHaveBeenCalled()
 
     vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
 

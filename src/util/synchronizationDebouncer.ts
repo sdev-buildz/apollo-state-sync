@@ -1,3 +1,4 @@
+import type { ApolloLink } from '@apollo/client'
 import { globalConfig } from '../globalConfig'
 import { Debouncer } from '../lib/debouncer'
 
@@ -34,9 +35,10 @@ import { Debouncer } from '../lib/debouncer'
  */
 export class SynchronizationDebouncer extends Debouncer {
   /**
-   * Count of in-flight GraphQL requests.
+   *  Tracks the in-flight GraphQL requests.
+   *  Maps the operations to their count.
    */
-  protected inFlightReqsCount: number = 0
+  public inflightOperations: Map<ApolloLink.Operation, number> = new Map()
 
   /**
    * @param timeoutMs - the debounce timeout in milliseconds.
@@ -53,28 +55,41 @@ export class SynchronizationDebouncer extends Debouncer {
    * @returns true if there are any pending broadcast, false otherwise.
    */
   public get isPending(): boolean {
-    return this.inFlightReqsCount !== 0 || super.isTimerRunning()
+    return this.inflightOperations.size !== 0 || super.isTimerRunning()
   }
 
   /**
    * Should be called when making GraphQL request.
    * Used to stop the timer until the corresponding response is received.
    */
-  public graphqlRequestStarted(): void {
-    this.inFlightReqsCount += 1
+  public graphqlRequestStarted(operation: ApolloLink.Operation): void {
+    if (this.inflightOperations.has(operation))
+      this.inflightOperations.set(
+        operation,
+        this.inflightOperations.get(operation)! + 1
+      )
+    else this.inflightOperations.set(operation, 1)
+
     this.cancelTimer()
   }
 
   /**
    * Should be called when GraphQL response is received.
    */
-  public graphqlRequestCompleted(): void {
-    if (this.inFlightReqsCount === 0)
-      throw new Error(
-        `graphqlRequestStarted must had beeen called when starting the request`
-      )
-    this.inFlightReqsCount -= 1
-    if (this.inFlightReqsCount === 0 && this.callbacks.length) this.resetTimer()
+  public graphqlRequestCompleted(operation: ApolloLink.Operation): void {
+    const trackedOperationCount = this.inflightOperations.get(operation)
+    if (!trackedOperationCount) return
+
+    if (trackedOperationCount > 1) {
+      this.inflightOperations.set(operation, trackedOperationCount - 1)
+      return
+    }
+
+    this.inflightOperations.delete(operation)
+
+    //  If all the requests are fulfilled, reset the timer
+    if (this.inflightOperations.size === 0 && this.callbacks.length)
+      this.resetTimer()
   }
 
   /**
@@ -83,7 +98,7 @@ export class SynchronizationDebouncer extends Debouncer {
    */
   public override debounce(callback: (typeof this.callbacks)[number]): void {
     super.debounce(callback)
-    if (this.inFlightReqsCount) this.cancelTimer()
+    if (this.inflightOperations.size) this.cancelTimer()
   }
 
   /**

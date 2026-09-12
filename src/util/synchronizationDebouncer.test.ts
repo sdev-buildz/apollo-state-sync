@@ -1,3 +1,4 @@
+import type { ApolloLink } from '@apollo/client'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 import { globalConfig } from '../globalConfig'
 import { synchronizationDebouncer } from './synchronizationDebouncer'
@@ -69,12 +70,14 @@ describe('synchronizationDebouncer', () => {
     vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs - 1)
     expect(cbSpy).not.toHaveBeenCalled()
 
-    synchronizationDebouncer.graphqlRequestStarted()
+    const operation: ApolloLink.Operation = {} as ApolloLink.Operation
+
+    synchronizationDebouncer.graphqlRequestStarted(operation)
 
     vi.advanceTimersByTime(2 * globalConfig.synchronizationDebounceTimeoutMs)
     expect(cbSpy).not.toHaveBeenCalled()
 
-    synchronizationDebouncer.graphqlRequestCompleted()
+    synchronizationDebouncer.graphqlRequestCompleted(operation)
 
     vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
     expect(cbSpy).toHaveBeenCalledTimes(1)
@@ -85,42 +88,44 @@ describe('synchronizationDebouncer', () => {
     synchronizationDebouncer.debounce(cbSpy)
     vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs - 1)
     expect(cbSpy).not.toHaveBeenCalled()
+    const operation1: ApolloLink.Operation = {} as ApolloLink.Operation
+    const operation2: ApolloLink.Operation = {} as ApolloLink.Operation
 
     //  First GraphQL request is started. It is currently in-flight.
-    synchronizationDebouncer.graphqlRequestStarted()
+    synchronizationDebouncer.graphqlRequestStarted(operation1)
 
     vi.advanceTimersByTime(2 * globalConfig.synchronizationDebounceTimeoutMs)
     expect(cbSpy).not.toHaveBeenCalled()
 
     //  Second GraphQL request is started. It is currently in-flight.
-    synchronizationDebouncer.graphqlRequestStarted()
+    synchronizationDebouncer.graphqlRequestStarted(operation1)
 
     vi.advanceTimersByTime(2 * globalConfig.synchronizationDebounceTimeoutMs)
     expect(cbSpy).not.toHaveBeenCalled()
 
     //  First GraphQL request is completed. It is not in-flight anymore.
-    synchronizationDebouncer.graphqlRequestCompleted()
+    synchronizationDebouncer.graphqlRequestCompleted(operation1)
 
     //  Since the response of the second GraphQL request is not yet received, the debounce timer should not be reset.
     vi.advanceTimersByTime(2 * globalConfig.synchronizationDebounceTimeoutMs)
     expect(cbSpy).not.toHaveBeenCalled()
 
     //  Third and fourth GraphQL requests are started. They are currently 3 requests in-flight.
-    synchronizationDebouncer.graphqlRequestStarted()
-    synchronizationDebouncer.graphqlRequestStarted()
+    synchronizationDebouncer.graphqlRequestStarted(operation2)
+    synchronizationDebouncer.graphqlRequestStarted(operation2)
 
     vi.advanceTimersByTime(2 * globalConfig.synchronizationDebounceTimeoutMs)
     expect(cbSpy).not.toHaveBeenCalled()
 
     //  2 requests are compoleted. There is still 1 request in-flight.
-    synchronizationDebouncer.graphqlRequestCompleted()
-    synchronizationDebouncer.graphqlRequestCompleted()
+    synchronizationDebouncer.graphqlRequestCompleted(operation2)
+    synchronizationDebouncer.graphqlRequestCompleted(operation1)
 
     vi.advanceTimersByTime(2 * globalConfig.synchronizationDebounceTimeoutMs)
     expect(cbSpy).not.toHaveBeenCalled()
 
     //  The last GraphQL request is completed. The debounce timer should be reset.
-    synchronizationDebouncer.graphqlRequestCompleted()
+    synchronizationDebouncer.graphqlRequestCompleted(operation2)
 
     vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
     expect(cbSpy).toHaveBeenCalledTimes(1)

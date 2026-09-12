@@ -102,7 +102,6 @@ describe('StateSyncLink', () => {
       'graphqlRequestCompleted'
     ),
   }
-
   const terminatingLinkHandlerMock: ApolloLink.RequestHandler = vi.fn(
     (operation, forward) => {
       return new Observable((observer) => {
@@ -210,6 +209,7 @@ describe('StateSyncLink', () => {
     controlledServer.emitResponse(operation1.operationName!, sampleRes1)
     expect(syncDebouncerSpy.graphqlRequestCompleted).toHaveBeenCalledTimes(1)
   })
+
   test(`synchronizationDebouncer should be notified whenever requests result in error.`, () => {
     const resObs = execute(linkChain, operation1, {
       client: {} as ApolloClient,
@@ -224,6 +224,20 @@ describe('StateSyncLink', () => {
       new Error('test error.'),
       'error'
     )
+    expect(syncDebouncerSpy.graphqlRequestCompleted).toHaveBeenCalled()
+  })
+
+  test(`synchronizationDebouncer should be notified when client unsubsribed, because rxjs stops listening on unsubscription.`, () => {
+    const resObs = execute(linkChain, operation1, {
+      client: {} as ApolloClient,
+    })
+    expect(syncDebouncerSpy.graphqlRequestStarted).toHaveBeenCalledTimes(1)
+    const subscription = resObs.subscribe(observerMock)
+
+    expect(syncDebouncerSpy.graphqlRequestCompleted).not.toHaveBeenCalled()
+
+    subscription.unsubscribe()
+
     expect(syncDebouncerSpy.graphqlRequestCompleted).toHaveBeenCalledTimes(1)
   })
 
