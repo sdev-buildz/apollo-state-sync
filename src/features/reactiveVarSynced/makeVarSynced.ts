@@ -76,19 +76,19 @@ export const makeVarSynced = <T>(
   reactiveVarBc.addEventListener('message', (event) => {
     reactiveVar(event.data)
   })
-
   /** The reactive variable with its state synced across browsing contexts. */
   const reactiveVarStateSync = function (
     newValue?: T | undefined,
     options?: SetRVarSyncedOptionsType
   ) {
+    const prevValue = reactiveVar()
     if (arguments.length === 0) return reactiveVar()
 
     const toReturn = reactiveVar(newValue)
     // If the old and new values are the same, do not broadcast.
     if (
       !config?.skipDefaultComparison &&
-      canonicalSerialization(value) === canonicalSerialization(newValue)
+      canonicalSerialization(prevValue) === canonicalSerialization(newValue)
     )
       return toReturn
 
@@ -102,7 +102,7 @@ export const makeVarSynced = <T>(
       !config?.shouldNotBroadcastFilter?.(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         newValue as any,
-        value,
+        prevValue,
         uniqueName,
         synchronizationDebouncer.isPending
       )
@@ -116,11 +116,16 @@ export const makeVarSynced = <T>(
 
     // Handling persistance of the reactive variable.
     if (
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      config?.shouldNotPersistFilter?.(newValue as any, value, uniqueName) ||
+      config?.shouldNotPersistFilter?.(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        newValue as any,
+        prevValue,
+        uniqueName
+      ) ||
       options?.doNotPersist
     )
       return toReturn
+
     try {
       persistReactiveVar(uniqueName, newValue)
     } catch (err) {

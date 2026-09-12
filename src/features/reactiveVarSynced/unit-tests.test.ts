@@ -235,6 +235,28 @@ describe(`When reactive variable's value is changed`, () => {
   })
 })
 
+it('uses previous value instead of inital value in sync phases', async () => {
+  const rvar = makeVarSynced('initial', 'test-rvar')
+  const debounceSpy = vi.spyOn(synchronizationDebouncer, 'debounce')
+  const bc = MockBroadcastChannel.getBroadcastChannel()
+  const postSpy = vi.spyOn(bc, 'postMessage')
+
+  // setting new value
+  rvar('new')
+
+  // reverting back to initial value
+  vi.clearAllMocks()
+  rvar('initial')
+  expect(debounceSpy).toHaveBeenCalledTimes(1)
+
+  //  awaiting debounce timeout
+  vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
+
+  expect(postSpy).toHaveBeenCalledTimes(2)
+  expect(postSpy).toHaveBeenCalledWith('new')
+  expect(postSpy).toHaveBeenCalledWith('initial')
+})
+
 test('listener applies incoming operations without re-broadcasting or persisting', () => {
   const testVarName = testVarData.name
   const testVar = makeVarSynced(1, testVarName)
