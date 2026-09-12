@@ -126,6 +126,20 @@ describe('migrations', () => {
     )
   })
 
+  test('tsconfig path defaults to ./tsconfig.json.', async (testParams) => {
+    const toMigrate: Parameters<typeof getMigrateOptionsFromFlags>[0] = {
+      restartSub: true,
+      graphqlWs: true,
+      stateSyncLink: true,
+      inMemoryCache: true,
+      makeVar: true,
+    }
+    expect(getMigrateOptionsFromFlags(toMigrate, [])).toStrictEqual({
+      toMigrate,
+      tsConfigFilePath: './tsconfig.json',
+    })
+  })
+
   it('migrates projects if tsconfig is given.', async (testParams) => {
     vi.useRealTimers()
     const sourceDir: string = path.join(
