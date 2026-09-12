@@ -10,7 +10,7 @@ import {
   type CacheOperationsToSyncType,
 } from './util/in-memory-cache.types'
 import type { InMemoryCacheSyncedType } from './util/InMemoryCacheSyncedType'
-import { persistInMemoryCache } from './util/persistance'
+import { persistInMemoryCache } from './util/persistence'
 
 /**
  * Broadcasts the arguments of cache operations.

@@ -10,7 +10,7 @@ import {
   shouldNotPersistSymbol,
 } from './util/in-memory-cache.types'
 import type { InMemoryCacheSyncedType } from './util/InMemoryCacheSyncedType'
-import { persistInMemoryCache, restorePersisted } from './util/persistance'
+import { persistInMemoryCache, restorePersisted } from './util/persistence'
 
 /**
  * An **Apollo In-Memory Cache** that synchronizes its state automatically
