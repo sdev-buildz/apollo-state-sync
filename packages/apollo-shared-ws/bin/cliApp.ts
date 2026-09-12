@@ -11,6 +11,7 @@ import {
   buildArgs,
   cliAppConfig,
   getCommandFunction,
+  getMigrateOptionsFromFlags,
   type MigrateOptionsType,
 } from '@packages/migration'
 import { typedObjectEntries } from 'ts-strict-utils'
@@ -20,18 +21,20 @@ type FlagsType = Pick<MigrateOptionsType, 'tsConfigFilePath'> &
 
 type PositionalsType = [string?]
 
-const getMigrateOptionsFromFlags = (
-  flags: FlagsType,
+const getWsMigOptionsFromFlags: typeof getMigrateOptionsFromFlags = (
+  flags: Parameters<typeof getMigrateOptionsFromFlags>[0],
   positionals: PositionalsType
 ): MigrateOptionsType => {
+  const optionsForStateSync = getMigrateOptionsFromFlags(flags, positionals)
   return {
-    tsConfigFilePath: flags.tsConfigFilePath ?? './tsconfig.json',
+    ...optionsForStateSync,
     toMigrate: {
+      ...optionsForStateSync.toMigrate,
       inMemoryCache: false,
       makeVar: false,
       stateSyncLink: false,
-      graphqlWs: flags.graphqlWs ?? false,
-      restartSub: flags.restartSub ?? false,
+      graphqlWs: flags.graphqlWs,
+      restartSub: flags.restartSub,
     },
   }
 }
@@ -72,7 +75,7 @@ const rootMainCommand = buildCommand<FlagsType, PositionalsType>({
     positional: buildArgs.parameters.positional,
   },
 
-  func: getCommandFunction(getMigrateOptionsFromFlags),
+  func: getCommandFunction(getWsMigOptionsFromFlags),
 })
 
 /**
