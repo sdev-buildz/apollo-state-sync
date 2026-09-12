@@ -128,7 +128,7 @@ export class InMemoryCacheSynced
   override async reset(
     options: Parameters<InMemoryCacheSyncedType['reset']>[0]
   ) {
-    const result = super.reset(options)
+    const result = await super.reset(options)
 
     handleSyncing('reset', [options], this, this.stateSyncerConfig)
 
