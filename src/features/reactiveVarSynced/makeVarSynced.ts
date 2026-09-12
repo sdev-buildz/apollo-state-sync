@@ -137,7 +137,7 @@ export const makeVarSynced = <T>(
 }
 
 /**
- * @alias
+ * @alias makeVarSynced
  * @deprecated Use makeVarSynced instead.
  */
 export const makeVarStateSynced = makeVarSynced
