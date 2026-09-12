@@ -75,7 +75,7 @@ yarn add -W apollo-shared-ws
 ```ts
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { ApolloClient, ApolloLink, InMemoryCache } from '@apollo/client'
-import { setupRestartSubscription } from 'apollo-state-sync'
+import { setupRestartSubscription } from 'apollo-shared-ws'
 import { createSharedClient } from 'graphql-shared-ws'
 import { authLink } from './util/authLink'
 

@@ -3,55 +3,64 @@ import type { InMemoryCacheSyncedType } from '@features/inMemoryCacheSynced/util
 import type { SynchronizationDebouncer } from './util/synchronizationDebouncer'
 
 /**
- * @return true, if the operation should not be broadcast, false otherwise.
+ * Filters cache operations that should be skipped by a synchronization step.
+ *
+ * Return `true` when the operation should be ignored for that specific phase
+ * (for example, when broadcasting to other browsing contexts, persisting to
+ * storage, or applying incoming synchronized writes).
+ * @param operationName - The cache operation being evaluated.
+ * @param operationArgs - The arguments passed to that cache operation.
+ * @returns `true` to skip the operation, otherwise `false`.
  */
 export type ShouldSkipFilter = (
   operationName: CacheOperationsToSyncType,
-  args: Parameters<InMemoryCacheSyncedType[CacheOperationsToSyncType]>
+  operationArgs: Parameters<InMemoryCacheSyncedType[CacheOperationsToSyncType]>
 ) => boolean
 
 /**
- * The configuration options for cache syncer.
+ * Configuration options for synchronizing cache operations across different browsing contexts (e.g., tabs, windows).
  */
 export type CacheSyncerConfigType = {
   /**
-   * Set to true, if the cache writes caused by graphql subscription operations
-   *   are to be broadcast for syncing.
+   * Determines whether cache operations triggered by GraphQL subscriptions should be broadcast for synchronization.
+   * @remarks
+   * By default, this is `false` because WebSocket connections typically notify other browsing contexts
+   * directly about subscription updates.
    *
-   * Since graphql subscriptions are handled by {@link https://www.npmjs.com/package/apollo-shared-ws | apollo-shared-ws} WebSocket connections,
-   *    other browsing contexts also get notified of the subscription writes directly by the WebSocket connections itself.
-   *  So subscription writes are not broadcast by default.
-   *
-   *  Setting this to true could cause indefinite back-and-forth broadcasting between browsing contexts.
-   *   To avoid that, provide a value for {@link GlobalConfig.skipBroadcastFilter}.
-   * @see [Diagram](assets/reactive-vars-and-sub-writes.png) - for detailed explanation on why reactive variables are broadcast only when the debounce timer is running.
-   * @default false.
+   * **Warning:** Setting this to `true` can cause infinite back-and-forth broadcasts loops between browsing contexts.
+   * To prevent this, define a custom filter using {@link CacheSyncerConfigType.skipBroadcastFilter} and {@link CacheSyncerConfigType.skipPersistFilter}.
+   * @default false
+   * @see {@link https://www.npmjs.com/package/apollo-shared-ws | apollo-shared-ws} for deduplicating GraphQL subscription channels across browsing contexts.
+   * @see {@link File://assets/reactive-vars-and-sub-writes.png | Architecture Diagram} for why reactive variables updated by subscriptions are broadcast
+   *    only while the debounce timer runs.
    */
   shouldBroadcastSubscriptionWrites?: boolean
 
   /**
-   * @return true, if the operation is not to be broadcast.
+   * Callback to prevent specific operations from being broadcast to other browsing contexts.
+   * @return `true` if the operation should **not** be broadcast; otherwise, `false`.
    */
   skipBroadcastFilter?: ShouldSkipFilter
 
   /**
-   * @return true, if the operation is not to be persisted.
+   * Callback to prevent specific cache operations from being persisted to local storage.
+   * @return `true` if the operation should **not** be persisted; otherwise, `false`.
    */
   skipPersistFilter?: ShouldSkipFilter
 
   /**
-   * @return true, if the listened operation (which is broadcast from a
-   *   different browsing context) is to be ignored and should not be processed.
+   * Callback to ignore incoming operations broadcast by other browsing contexts.
+   * @return `true` if the incoming operation should be ignored and dropped; otherwise, `false`.
    */
   skipListenedFilter?: ShouldSkipFilter
 }
 
 /**
- * The configuration options
+ * Global configuration options for the `Apollo State Sync` library.
  */
 export type GlobalConfig = {
   /**
-   * The number of milliseconds to debounce the synchronization broadcasts.
+   * The number of milliseconds to debounce synchronization broadcasts.
    * @see {@link SynchronizationDebouncer}
    */
   synchronizationDebounceTimeoutMs: number
@@ -63,13 +72,13 @@ export type GlobalConfig = {
 
   /**
    * The time in milliseconds after which the persisted cache expires.
-   * Set to 0 to disable persistance.
+   * Set to `0` to completely disable persistence.
    */
   persistedCacheExpiryMilliseconds: number
 } & CacheSyncerConfigType
 
 /**
- * The global configuration.
+ * Global configuration options for the `Apollo State Sync` library.
  */
 export const globalConfig: GlobalConfig = {
   /**
@@ -77,7 +86,7 @@ export const globalConfig: GlobalConfig = {
    *
    *  Typically React's rerendering time should be within 16ms.
    *
-   *  Syncing process of reactive variables take more time than that of in-memory cache operations.
+   *  Syncing process of reactive variables takes more time than that of in-memory cache operations.
    *  When reactive variable changes are broadcast, they are rebroadcast back from the listening browsing contexts.
    *    The rebroadcast events are ignored and are not rebroadcast again.
    *    This process took 21ms most of the times during my experiments.
