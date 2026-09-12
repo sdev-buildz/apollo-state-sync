@@ -156,7 +156,7 @@ const setupBroadcastorForResets = (
 ) => {
   const originalFn = inMemoryStore['reset']
   inMemoryStore['reset'] = async (...args) => {
-    await originalFn.apply(inMemoryStore, [])
+    await originalFn.apply(inMemoryStore, args)
     const shouldBroadcast: boolean = getShouldBroadcast('reset', args, config)
     const shouldPersist: boolean = getShouldPersist('reset', args, config)
     if (shouldBroadcast) broadcast('reset', args)
