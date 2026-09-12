@@ -13,10 +13,8 @@ import type { InMemoryCacheSyncedType } from './util/InMemoryCacheSyncedType'
 import { persistInMemoryCache, restorePersisted } from './util/persistance'
 
 /**
- * An **Apollo In-Memory Cache** that synchronizes its state automatically
- * across browsing contexts (such as browser tabs, windows, or iframes).
- * @remarks
- * This class is a **drop-in replacement** for Apollo Client's standard {@link InMemoryCache}.
+ * Apollo in-memory cache with its state synchronized across browsing contexts such as browser tabs, windows, or iframes.
+ * It is a drop-in replacement for Apollo's {@link InMemoryCache}.
  * @example
  * ```ts
  * import { InMemoryCacheSynced, stateSyncLink } from 'apollo-state-sync'

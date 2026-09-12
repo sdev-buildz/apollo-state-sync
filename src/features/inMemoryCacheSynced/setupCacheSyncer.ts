@@ -14,11 +14,8 @@ import type { InMemoryCacheSyncedType } from './util/InMemoryCacheSyncedType'
 import { restorePersisted } from './util/persistance'
 
 /**
- * Synchronizes the local cache with updates from other browsing contexts.
- *
- * This listener handles broadcasted cache operations (such as changes from other
- * tabs, or windows) and applies them to the current browsing context
- * to ensure data consistency.
+ * Listens to broadcast cache operations emitted from other browsing contexts.
+ * Applies the operations in the current browsing context.
  */
 export const setupListeners = (
   inMemoryStore: InMemoryCacheSyncedType,
@@ -50,6 +47,7 @@ export const setupListeners = (
 
 /**
  * Sets up synchronization and persistance of Apollo Client's in-memory cache.
+ * Internally, it uses {@link BroadcastChannel} and local storage.
  * @example
  * ```ts
  * import { InMemoryCache } from '@apollo/client'

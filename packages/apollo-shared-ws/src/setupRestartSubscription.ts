@@ -15,15 +15,13 @@ import type { ClientResolver, ClientResolverOperation } from './ClientResolver'
 import { getDocumentInfo, getVariables } from './lib/apollo-client-lib-internal'
 
 /**
- * Replaces the restart function returned by {@link ApolloClient.subscribe}.
+ * Overwrites the restart function returned by {@link ApolloClient.subscribe}.
+ * It prevents the default behavior of the 'restart' function and instead
+ *  invokes the {@link SharedClient.restartSubscription}.
+ * It modifies the ApolloClient in place and returns the ApolloClient.
  *
- * Instead of invoking Apollo's default restart behavior, this wrapper delegates
- * to {@link SharedClient.restartSubscription}. The original Apollo client is
- * mutated in place and returned.
- *
- * When using {@link ApolloLink.split}, pass a
- * {@link ClientResolver | sharedClientResolver} in the options so the
- * SharedClient can be resolved per operation.
+ * In case you are using {@link ApolloLink.split}, provide the
+ *  {@link ClientResolver | sharedClientResolver} field in the options parameter.
  */
 export const setupRestartSubscription = (
   apolloClient: ApolloClient,
@@ -38,10 +36,10 @@ export const setupRestartSubscription = (
 ) => {
   const originalSubscribe = apolloClient.subscribe.bind(apolloClient)
 
-  // Wrap ApolloClient.subscribe so each returned subscription can use the
-  // SharedClient's restart flow instead of Apollo's default restart behavior.
+  // Wrapping ApolloClient.subscribe function.
+  //  The wrapper modifies the restart function returned, during each operation.
   apolloClient.subscribe = function (...args) {
-    /** The subscription object returned by ApolloClient.subscribe. */
+    /** The response of ApolloClient.subscribe */
     const subscribeRes = originalSubscribe(...args)
 
     const clientResolverOperation: ClientResolverOperation = {
@@ -73,7 +71,7 @@ export const setupRestartSubscription = (
       subscribeOptions.query
     )
 
-    // Build the ApolloLink operation used when restarting the subscription.
+    // Creating ApolloLink.Operation
     const { serverQuery } = getDocumentInfo(transformedQuery)
     const context = subscribeOptions.context
     const incrementalHandler =
@@ -96,7 +94,7 @@ export const setupRestartSubscription = (
       client: this,
     })
 
-    // Replace the subscription's restart method with the SharedClient.restart.
+    //  Overwriting the restart method
     const originalRestart = subscribeRes.restart
     subscribeRes.restart = () => {
       if (restartSubscriptionFn)

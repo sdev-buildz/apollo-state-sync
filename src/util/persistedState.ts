@@ -2,7 +2,7 @@ import type { NormalizedCacheObject } from '@apollo/client'
 import { globalConfig } from '../globalConfig'
 
 /**
- * Represents the structure of the Apollo Client state saved in persistent storage.
+ * The apollo client's state persisted in local storage.
  */
 export type PersistedStateType = {
   cache: NormalizedCacheObject
@@ -11,16 +11,12 @@ export type PersistedStateType = {
 }
 
 /**
- * LocalStorage key for persisted state.
+ * The local storage key of the persisted state.
  */
 const persistedStateKey = 'apollo-persisted-state'
 
 /**
- * Reads the persisted Apollo Client state from local storage.
- *
- * Returns `undefined` when local storage is unavailable, no state has been
- * saved, or the saved state has expired.
- * @returns the unexpired persisted state, if available.
+ * returns the persisted state from the local storage.
  */
 export const getPersistedState = (): PersistedStateType | undefined => {
   if (typeof window === 'undefined') return undefined
@@ -35,12 +31,7 @@ export const getPersistedState = (): PersistedStateType | undefined => {
 }
 
 /**
- * Saves Apollo Client state to local storage.
- *
- * By default, preserves the expiration time of the existing unexpired state.
- * Set `overwriteExpiresAt` to `true` to use the expiration time in `state`.
- * @param state - the complete state object to persist.
- * @param overwriteExpiresAt - whether to replace an existing expiration time.
+ * sets the persisted state in the local storage
  */
 export const setPersistedState = (
   state: PersistedStateType,
@@ -55,12 +46,7 @@ export const setPersistedState = (
 }
 
 /**
- * Merges a partial update into the persisted Apollo Client state.
- *
- * Missing cache and reactive variable values are taken from the existing state.
- * When no expiration time is available, one is derived from the configured
- * persisted-cache expiry interval.
- * @param state - the state fields to add or replace.
+ * Updates the persisted state in the local storage by merging the already persisted state values with new values.
  */
 export const updatePersistedState = (
   state: Partial<PersistedStateType>

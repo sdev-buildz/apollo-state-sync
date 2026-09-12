@@ -2,35 +2,28 @@ import { globalConfig } from '../globalConfig'
 import { Debouncer } from '../lib/debouncer'
 
 /**
- * Debounces state synchronization to optimize UI rendering and network performance.
+ * It is used to debounce state synchronization.
+ * It is used to group broadcasts belonging to same UI rendering chain together.
  *
- * Purpose:
- * Group broadcasts belonging to the same UI rendering chain together. This prevents
- * race conditions, redundant network requests, and invalid Apollo Client state.
+ * Broadcasting when there are any in-flight graphql requests, could result in
+ *  redundant network requests and invalid Apollo Client state.
+ *  So we track the count of in-flight graphql requests.
  *
- * How it works:
- * 1. Track In-Flight GraphQL Requests: Broadcasting while requests are in-flight
- *    can corrupt Apollo Client state or trigger duplicate requests. We actively
- *    track the count of active network requests.
- * 2. Account for UI Rendering: UI components usually rerender immediately after
- *    receiving a GraphQL response. Broadcasting during this render phase causes
- *    similar state invalidation.
- * 3. Debounce Post-Request: Once all in-flight requests drop to zero, we wait for
- *    {@link globalConfig.synchronizationDebounceTimeoutMs} to ensure the UI has completely
- *    finished its rendering cycle before safely executing the broadcast.
- * @see For a detailed visual lifecycle, refer to the  [architecture diagram](assets/sync-debouncer.png)
- * @example
- * // Scenario: Preventing duplicate requests during component mounting
- * //
- * // 1. A cache write triggers a UI rerender, which mounts a new UI component.
- * // 2. The newly mounted component immediately initiates a new GraphQL query.
- * // 3. Without debouncing:
- * //    The cache write broadcasts and syncs before the new network request resolves.
- * //    Other listening browsing contexts receive the broadcast and also trigger
- * //    the same fetch request, resulting in duplicate network traffic across tabs.
- * // 4. With debouncing:
- * //    Broadcasting is delayed until all outstanding fetch requests are fulfilled,
- * //    ensuring a unified and stable state across the application.
+ * Broadcasting when the UI is rendering could also result in redundant network requests and invalid Apollo Client state.
+ *  UI usually rerenders as soon as any GraphQL response is received.
+ *  So when all the in-flight requests get completed, we wait for {@link globalConfig.synhnorizationDebounceTimeoutMs | some time}
+ *    until the UI finishes rendering before broadcasting.
+ *
+ * Diagram for detailed explanation: [diagram](assets/sync-debouncer.png)
+ *  @example scenerio
+ * ```plaintext
+ *  Suppose a cache write causes UI rerender which mounts a new UI component.
+ *    The new component makes a gql query request.
+ *    If the turn around time of the network request is more than the debounce expiry time,
+ *      the state would have got broadcasted and synced before the fetch request is fulfilled.
+ *      So, the listening browsing contexts also reinitiate the fetch request causing duplicate network requests.
+ *    So, we debounce the broadcasting until all the fetch requests get fulfilled.
+ * ```
  */
 export class SynchronizationDebouncer extends Debouncer {
   /**
@@ -57,7 +50,7 @@ export class SynchronizationDebouncer extends Debouncer {
   }
 
   /**
-   * Should be called when making GraphQL request.
+   * Called whenever any GraphQL request is made.
    * Used to stop the timer until the corresponding response is received.
    */
   public graphqlRequestStarted(): void {
@@ -65,9 +58,7 @@ export class SynchronizationDebouncer extends Debouncer {
     this.cancelTimer()
   }
 
-  /**
-   * Should be called when GraphQL response is received.
-   */
+  /** Called whenever any GraphQL response is received. */
   public graphqlRequestCompleted(): void {
     if (this.inFlightReqsCount === 0)
       throw new Error(
@@ -77,19 +68,11 @@ export class SynchronizationDebouncer extends Debouncer {
     if (this.inFlightReqsCount === 0 && this.callbacks.length) this.resetTimer()
   }
 
-  /**
-   * Debounces the provided callback function.
-   * @param callback - the cb to be debounced.
-   */
   public override debounce(callback: (typeof this.callbacks)[number]): void {
     super.debounce(callback)
     if (this.inFlightReqsCount) this.cancelTimer()
   }
 
-  /**
-   * Sets the number of milliseconds to debounce synchronization.
-   * @param newValue - the new timeout value in milliseconds.
-   */
   public override setTimeoutMs(newValue: number) {
     if (newValue < 24)
       throw new Error(

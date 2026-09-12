@@ -1,10 +1,10 @@
-# Contributing to Apollo State Sync
+# Contributing to ts-strict-utils
 
 Thank you for your interest in contributing! This document explains how to file issues, propose changes, and submit pull requests so we can review and merge them quickly.
 
 ## Code of Conduct
 
-Please follow a respectful, collaborative, and inclusive tone in all discussions, issues, and pull requests. By participating, you agree to follow the project's Code of Conduct.
+Please follow a respectful, collaborative, and inclusive tone in all discussions, issues, and pull requests. By participating, you agree to follow the project's Code of Conduct. If the repository doesn't include one yet, please behave according to common community standards.
 
 ## How you can help
 
@@ -32,6 +32,7 @@ Please follow a respectful, collaborative, and inclusive tone in all discussions
 3. Run linters, type checks, and tests locally before opening a PR:
 
 ```shell
+   pnpm run unit-tests
    pnpm run check
 ```
 
@@ -40,7 +41,7 @@ Adjust the above commands if this repository uses yarn or pnpm.
 ## Project conventions
 
 - Language: TypeScript. Keep types strict and enable/maintain strict compiler settings where applicable.
-- Formatting: Use Prettier and do not commit formatting-only diffs.
+- Formatting: Use Prettier (or the repo's formatter) and do not commit formatting-only diffs.
 - Linting: Follow ESLint rules configured in the repo. Fix lint errors before submitting a PR.
 
 ## Commits
@@ -56,7 +57,7 @@ This helps generate changelogs and manage releases.
 ## Pull requests
 
 - Open a PR from a branch in your fork to the repository's default branch.
-- Make sure your PR contains a clear title and a description that explains what was changed, why it was changed, and any implementation details reviewers should know.
+- Make sure your branch contains a clear title and description describing the change and the motivation.
 - Link any related issue (e.g., "Fixes #123").
 - Ensure all CI checks pass (lint, typecheck, tests).
 - Keep changes focused and small — one logical change per PR.
@@ -65,12 +66,12 @@ This helps generate changelogs and manage releases.
 ## Testing
 
 - Add unit tests for bug fixes and features. Prefer small, deterministic tests.
-- Run the full test suite before submitting
+- Run the full test suite before submitting: npm test
 - If you add behavior that touches public API, document it and include tests covering edge cases.
 
 ## Releases and versioning
 
-This repository follows semantic versioning. Releases are managed by maintainers. If you think your change warrants a major/minor/patch bump, explain why either by running `pnpm change` or in the PR description.
+This repository follows semantic versioning. Releases are managed by maintainers. If you think your change warrants a major/minor/patch bump, explain why either by running `npx changeset` or in the PR description.
 
 ## CI and automation
 
@@ -82,7 +83,13 @@ If you discover a security vulnerability, please do NOT open a public issue. Ins
 
 ## Reporting issues
 
-Please report bugs or request features by opening a new issue in the [GitHub Issues tab](../../issues) of this repository.
+When opening an issue, include:
+
+- A clear, descriptive title
+- Steps to reproduce
+- Expected vs actual behavior
+- Minimal code sample or link to a repo demonstrating the problem
+- Node/TS/npm versions if relevant
 
 ## Thank you
 

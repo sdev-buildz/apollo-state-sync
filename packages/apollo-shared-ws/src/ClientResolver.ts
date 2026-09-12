@@ -3,7 +3,7 @@ import type { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import type { SharedClient } from 'graphql-shared-ws'
 
 /**
- * Parameter for {@link ClientResolver}
+ * @see {@link ClientResolver}
  */
 export type ClientResolverOperation = Omit<
   ApolloLink.Operation,
@@ -12,13 +12,12 @@ export type ClientResolverOperation = Omit<
   Partial<Pick<ApolloLink.Operation, 'extensions' | 'variables'>>
 
 /**
- * Resolves the {@link SharedClient} to use for a GraphQL operation.
+ * Given a graphql operation, returns the {@link SharedClient} to use.
  *
- * This is primarily intended for use with {@link ApolloLink.split}. The
- * resolver should return the {@link SharedClient} associated with the
- * {@link GraphQLWsLink} selected for the given operation.
- * @param operation - The GraphQL operation to resolve.
- * @returns The matching {@link SharedClient}, or `undefined` if no client applies.
+ * It is useful only when {@link ApolloLink.split} is used.
+ * It should return the {@link SharedClient} associatad with the {@link GraphQLWsLink}
+ *      routed to by {@link ApolloLink.split} for the given operation.
+ * @returns The client if it is a {@link SharedClient}, undefined otherwise.
  * @example
  * ```ts
  * import { ApolloClient, ApolloLink, InMemoryCache } from '@apollo/client'
@@ -28,14 +27,14 @@ export type ClientResolverOperation = Omit<
  * import { createSharedClient } from 'graphql-shared-ws'
  * import { setupRestartSubscription } from 'apollo-shared-ws'
  *
- * // GraphQL API endpoint served over wss.
+ * //   GraphQL API endpoint served over wss.
  * const apiSharedClient = createSharedClient({ url: 'wss://api.example.com/graphql' })
  *
- * // GraphQL performance reporting endpoint served over wss.
+ * //   GraphQL performance reporting endpoint served over wss.
  * const perfSharedClient = createSharedClient({ url: 'wss://perf.example.com/graphql' })
  *
- * // Return the SharedClient associated with the GraphQLWsLink that will handle
- * // the operation.
+ * //   Given an operation, returns the SharedClient associated with
+ * //       the GraphQLWsLink which will be invoked for this operation.
  * const clientResolver: ClientResolver = (operation) => {
  *   if (operation.operationType !== OperationTypeNode.SUBSCRIPTION) return undefined
  *
@@ -69,6 +68,7 @@ export type ClientResolverOperation = Omit<
  * })
  *
  * setupRestartSubscription(client, {
+ *   // Provide the clientResolver to the setupRestartSubscription function.
  *   sharedClientResolver: clientResolver,
  * })
  * ```

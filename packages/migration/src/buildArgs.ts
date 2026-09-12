@@ -86,10 +86,10 @@ export const getCommandFunction = <
  */
 export const buildArgs = {
   docs: {
-    brief: `CLI for migrating Apollo Client TypeScript projects to apollo-state-sync.`,
+    brief: `CLI used to migrate ApolloClient TypeScript projects to apollo-state-sync.`,
     fullDescription: `Requires ts-morph to be installed.
-  If you are using npm, run "npm i --save-dev ts-morph".
-  If you are using pnpm, run "pnpm add --save-dev ts-morph".
+  If you are using npm, run "npm i -g ts-morph".
+  If you are using pnpm, run "pnpm add -g ts-morph".
 `,
   },
   parameters: {
@@ -98,32 +98,33 @@ export const buildArgs = {
         kind: 'parsed',
         parse: String,
         default: './tsconfig.json',
-        brief: `Path to the tsconfig.json file of the project to migrate.`,
+        brief: `Path to the tsconfig.json file of the project to be migrated.`,
       },
       inMemoryCache: {
         kind: 'boolean',
         default: true,
-        brief: 'Migrate Apollo InMemoryCache usage.',
+        brief: 'Whether to migrate InMemoryCache.',
       },
       makeVar: {
         kind: 'boolean',
         default: true,
-        brief: 'Migrate reactive variables created with makeVar.',
+        brief: 'Whether to migrate reactive variables.',
       },
       stateSyncLink: {
         kind: 'boolean',
         default: true,
-        brief: 'Insert stateSyncLink into the ApolloClient constructor.',
+        brief:
+          'Whether to insert stateSyncLink to ApolloClient constructor parameter.',
       },
       graphqlWs: {
         kind: 'boolean',
         default: false,
-        brief: 'Migrate GraphQL-WS clients to GraphQL-Shared-WS.',
+        brief: 'Whether to migrate GraphQLWsLink ( WebSocket ).',
       },
       restartSub: {
         kind: 'boolean',
         default: false,
-        brief: `Migrate ApolloClient to enable Subscription.restart.`,
+        brief: `Whether to migrate ApolloClient to enable 'Subscription.restart'.`,
       },
     },
     aliases: {
@@ -142,7 +143,7 @@ export const buildArgs = {
           optional: true,
           parse: String,
           default: './tsconfig.json',
-          brief: `Path to the tsconfig.json file of the project to migrate.`,
+          brief: `Path to the tsconfig.json file of the project to be migrated.`,
         },
       ],
     },
