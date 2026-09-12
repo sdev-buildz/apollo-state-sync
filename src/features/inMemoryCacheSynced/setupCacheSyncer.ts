@@ -11,7 +11,7 @@ import {
   shouldNotPersistSymbol,
 } from './util/in-memory-cache.types'
 import type { InMemoryCacheSyncedType } from './util/InMemoryCacheSyncedType'
-import { restorePersisted } from './util/persistence'
+import { restorePersisted } from './util/persistance'
 
 /**
  * Synchronizes the local cache with updates from other browsing contexts.
@@ -49,7 +49,7 @@ export const setupListeners = (
 }
 
 /**
- * Sets up synchronization and persistence of Apollo Client's in-memory cache.
+ * Sets up synchronization and persistance of Apollo Client's in-memory cache.
  * @example
  * ```ts
  * import { InMemoryCache } from '@apollo/client'

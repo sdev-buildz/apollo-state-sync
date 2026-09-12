@@ -6,7 +6,7 @@ import { synchronizationDebouncer } from '../../util/synchronizationDebouncer'
 import {
   getPersistedReactiveVars,
   persistReactiveVar,
-} from './util/persistence'
+} from './util/persistance'
 import type {
   ReactiveVarSynced,
   RVarSyncedConfigType,
@@ -114,7 +114,7 @@ export const makeVarSynced = <T>(
       })
     }
 
-    // Handling persistence of the reactive variable.
+    // Handling persistance of the reactive variable.
     if (
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       config?.shouldNotPersistFilter?.(newValue as any, value, uniqueName) ||

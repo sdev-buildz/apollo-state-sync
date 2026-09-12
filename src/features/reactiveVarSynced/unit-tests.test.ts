@@ -3,7 +3,7 @@ import { globalConfig } from '../../globalConfig'
 import { MockBroadcastChannel } from '../../lib/MockBroadcastChannel'
 import { synchronizationDebouncer } from '../../util/synchronizationDebouncer'
 import { ChannelNames, makeVarSynced } from './makeVarSynced'
-import { persistReactiveVar } from './util/persistence'
+import { persistReactiveVar } from './util/persistance'
 import type {
   RVarSyncedConfigType,
   SetRVarSyncedOptionsType,

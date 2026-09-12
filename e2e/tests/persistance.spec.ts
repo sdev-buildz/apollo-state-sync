@@ -25,7 +25,7 @@ type GqlRequestsCountsType = {
  * Initializes Page fixtures.
  * Creates pages under same context and navigates both to localhost:3000.
  */
-const initFixturesForpersistenceTest = (baseParam: typeof base) => {
+const initFixturesForPersistanceTest = (baseParam: typeof base) => {
   return baseParam.extend<{
     pageFixtures: {
       page1: Page
@@ -84,9 +84,9 @@ const initFixturesForpersistenceTest = (baseParam: typeof base) => {
   })
 }
 
-const test = initFixturesForpersistenceTest(base)
+const test = initFixturesForPersistanceTest(base)
 
-test.describe('persistence', () => {
+test.describe('persistance', () => {
   test('in-memory cache should be persisted and reused.', async ({
     pageFixtures: { page1, page2, page3, context, gqlRequestsCounts },
   }) => {

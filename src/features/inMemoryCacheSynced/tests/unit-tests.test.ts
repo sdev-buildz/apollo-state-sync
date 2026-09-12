@@ -7,7 +7,7 @@ import {
   updatePersistedState,
 } from '../../../util/persistedState'
 import { setupCacheSyncer } from '../setupCacheSyncer'
-import { persistInMemoryCache, restorePersisted } from '../util/persistence'
+import { persistInMemoryCache, restorePersisted } from '../util/persistance'
 
 import { canonicalSerialization } from 'canonical-serialization'
 import { beforeEach, describe, expect, it, test, vi, type Mock } from 'vitest'
