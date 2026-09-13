@@ -666,6 +666,9 @@ importers:
       graphql:
         specifier: 'catalog:'
         version: 17.0.2
+      graphql-yoga:
+        specifier: ^5.21.3
+        version: 5.22.0(graphql@17.0.2)
       html-webpack-plugin:
         specifier: ^5.6.8
         version: 5.6.8(webpack@5.110.3)
@@ -684,6 +687,9 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: '@typescript/typescript6@6.0.2'
+      uWebSockets.js:
+        specifier: github:uNetworking/uWebSockets.js#v20.69.0
+        version: https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/dddd8ffd1b2c28a66022160923ca92f064cdacb4
       webpack:
         specifier: ^5.110.3
         version: 5.110.3(clean-css@5.3.3)(esbuild@0.28.2)(html-minifier-terser@6.1.0)(lightningcss@1.33.0)(postcss@8.5.26)(webpack-cli@6.0.1)

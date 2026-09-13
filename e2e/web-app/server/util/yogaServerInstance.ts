@@ -1,6 +1,8 @@
+import {
+  winstonYogaLogger,
+  type GraphqlContextType,
+} from '@packages/web-app-utils'
 import { createYoga } from 'graphql-yoga'
-import { type GraphqlContextType } from '../lib/types'
-import { winstonYogaLogger } from '../lib/winstonYogaLogger'
 import { schema } from '../schema'
 import { initGraphqlContext } from './initGraphqlContext'
 
