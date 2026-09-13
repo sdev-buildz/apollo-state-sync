@@ -4,8 +4,9 @@
  */
 import path from 'path'
 import { SSLApp } from 'uWebSockets.js'
-import { graphqlApiHandler } from './util/graphqlApiHandler'
+import { getGraphqlApiHandler } from './lib/graphqlApiHandler'
 import { graphqlWsHandler } from './util/graphqlWsHandler'
+import { yoga } from './util/yogaServerInstance'
 
 /**
  * The uWebSockets server app instance.
@@ -16,7 +17,7 @@ export const uWS = SSLApp({
   key_file_name: path.join(import.meta.dirname, `./cert/cert.key`),
 })
 
-uWS.any('/api/*', graphqlApiHandler).ws('/api/*', graphqlWsHandler)
+uWS.any('/api/*', getGraphqlApiHandler(yoga)).ws('/api/*', graphqlWsHandler)
 // .any('/.well-known/appspecific/com.chrome.devtools.json', (res, req) => {
 //   /**
 //    * This request is sent automatically by browser when developing using localhost.
