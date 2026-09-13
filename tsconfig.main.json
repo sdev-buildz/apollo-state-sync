@@ -25,6 +25,9 @@
     },
     {
       "path": "./e2e/web-app"
+    },
+    {
+      "path": "./examples/shopping-site"
     }
   ],
   "include": ["./src/**/*.ts", "./bin/**/*.ts", "./e2e/**/*.ts"]
