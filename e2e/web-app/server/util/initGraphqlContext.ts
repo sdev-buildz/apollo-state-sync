@@ -1,7 +1,11 @@
-import { authenticate } from '../lib/authenticate'
-import { type GraphqlContextType, isWsContext, type User } from '../lib/types'
+import {
+  authenticate,
+  type GraphqlContextType,
+  isWsContext,
+} from '@packages/web-app-utils'
 import type { CustomGraphqlContextType } from '../schema/lib/builder'
 import { pubsub } from './pubsub'
+import { type User } from './types'
 
 /**
  * To initialize the context object with our custom fields.
