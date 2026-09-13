@@ -45,7 +45,7 @@
     "style-loader": "^4.0.0",
     "ts-morph": "catalog:",
     "typescript": "catalog:",
-    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.69.0",
+    "uWebSockets.js": "catalog:",
     "webpack": "^5.110.3",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.6"
