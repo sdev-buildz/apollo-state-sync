@@ -12,7 +12,7 @@ export type ListeningStatusType = {
   acceptingNewConnections?: boolean
   listenSocket?: us_listen_socket
   shuttingDown?: boolean
-  reasonFoNotAccepting?: RecognizedString
+  reasonForNotAccepting?: RecognizedString
 }
 
 /**
