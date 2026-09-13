@@ -1,6 +1,6 @@
 import SchemaBuilder from '@pothos/core'
-import type { User } from '../../lib/types'
 import type { pubsub } from '../../util/pubsub'
+import type { User } from '../../util/types'
 
 /**
  *  The custom objects added to the context.

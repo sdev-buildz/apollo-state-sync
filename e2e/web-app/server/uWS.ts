@@ -2,10 +2,12 @@
  * @packageDocumentation
  * @see uWS - {@link uWS}
  */
+import {
+  getGraphqlApiHandler,
+  getGraphqlWsHandler,
+} from '@packages/web-app-utils'
 import path from 'path'
 import { SSLApp } from 'uWebSockets.js'
-import { getGraphqlApiHandler } from './lib/graphqlApiHandler'
-import { getGraphqlWsHandler } from './lib/graphqlWsHandler'
 import { yoga } from './util/yogaServerInstance'
 
 /**

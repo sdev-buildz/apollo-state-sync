@@ -4,14 +4,6 @@ import type {
   RecognizedString,
   us_listen_socket,
 } from 'uWebSockets.js'
-import type { CustomGraphqlContextType } from '../schema/lib/builder'
-
-/**
- * User
- */
-export type User = {
-  id: string
-}
 
 /**
  *  Info on whether the server is accepting new connections, shutting down, etc...
@@ -21,14 +13,16 @@ export type ListeningStatusType = {
   listenSocket?: us_listen_socket
   shuttingDown?: boolean
   reasonFoNotAccepting?: RecognizedString
-} /**
+}
+
+/**
  * The GraphQL context for HTTP requests.
  * Passed to GraphQL resolvers
  */
-type HttpContextType = {
+export type HttpContextType = {
   req: HttpRequest
   res: HttpResponse
-} & CustomGraphqlContextType
+}
 
 /**
  * The GraphQL context for web socket requests.
