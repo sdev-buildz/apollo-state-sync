@@ -1,6 +1,6 @@
 import { logger } from '@packages/logger'
 import { createYoga } from 'graphql-yoga'
-import { type GraphqlContextType } from '../lib/authenticate'
+import { type GraphqlContextType } from '../lib/types'
 import { schema } from '../schema'
 import { initGraphqlContext } from './initGraphqlContext'
 
