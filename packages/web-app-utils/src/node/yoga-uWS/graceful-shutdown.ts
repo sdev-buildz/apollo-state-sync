@@ -47,7 +47,7 @@ async function initiateGracefulShutdown(
 
   listeningStatus.acceptingNewConnections = false
   listeningStatus.shuttingDown = true
-  listeningStatus.reasonFoNotAccepting =
+  listeningStatus.reasonForNotAccepting =
     'The server is under graceful shutdown.'
 
   logger.info(

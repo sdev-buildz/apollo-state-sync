@@ -25,7 +25,7 @@ export const getGraphqlApiHandler =
       res.cork(() => {
         res.writeStatus('503 Service Unavailable')
         res.end(
-          `Server stopped listening. Reason: ${listeningStatus.reasonFoNotAccepting ?? 'Unknown'}`,
+          `Server stopped listening. Reason: ${listeningStatus.reasonForNotAccepting ?? 'Unknown'}`,
           true
         )
       })
