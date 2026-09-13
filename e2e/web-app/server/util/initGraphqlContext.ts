@@ -1,5 +1,5 @@
 import { authenticate } from '../lib/authenticate'
-import { type GraphqlContextType, isWsContext } from '../lib/types'
+import { type GraphqlContextType, isWsContext, type User } from '../lib/types'
 import type { CustomGraphqlContextType } from '../schema/lib/builder'
 import { pubsub } from './pubsub'
 
@@ -11,7 +11,7 @@ export const initGraphqlContext = (
   context: GraphqlContextType
 ): CustomGraphqlContextType => {
   return {
-    currentUser: authenticate(context),
+    currentUser: authenticate(context) as User,
     reqOrigin: isWsContext(context)
       ? context.extra.persistedRequest.headers.origin
       : context.res.reqOrigin,
