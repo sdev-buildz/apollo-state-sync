@@ -1,11 +1,11 @@
 import { decryptJwe } from './jwe'
 import type { GraphqlContextType } from './types'
-import { isWsContext, type User } from './types'
+import { isWsContext } from './types'
 
 /**
  *  Authenticates the user by parsing the bearer token in the HTTP Authorization header.
  */
-export const authenticate = (context: GraphqlContextType): User | undefined => {
+export const authenticate = (context: GraphqlContextType): unknown => {
   const authHeader = isWsContext(context)
     ? context.connectionParams?.headers?.authorization
     : context.res.authHeader
@@ -19,7 +19,5 @@ export const authenticate = (context: GraphqlContextType): User | undefined => {
 
   if (!jwtPayload) return
 
-  const user = JSON.parse(jwtPayload)
-  const currentUser = user
-  return currentUser
+  return JSON.parse(jwtPayload)
 }
