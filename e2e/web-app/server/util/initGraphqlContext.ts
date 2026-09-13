@@ -1,8 +1,5 @@
-import {
-  type GraphqlContextType,
-  authenticate,
-  isWsContext,
-} from '../lib/authenticate'
+import { authenticate } from '../lib/authenticate'
+import { type GraphqlContextType, isWsContext } from '../lib/types'
 import type { CustomGraphqlContextType } from '../schema/lib/builder'
 import { pubsub } from './pubsub'
 
