@@ -1,5 +1,5 @@
 import type { HttpRequest, HttpResponse, TemplatedApp } from 'uWebSockets.js'
-import type { ListeningStatusType } from '../lib/uWSHelpers'
+import type { ListeningStatusType } from '../lib/types'
 import { yoga } from './yogaServerInstance'
 
 // yoga's envelop may augment the `execute` and `subscribe` operations
