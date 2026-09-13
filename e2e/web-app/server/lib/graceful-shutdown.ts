@@ -4,7 +4,7 @@
  */
 import { logger } from '@packages/logger'
 import { us_listen_socket_close, type TemplatedApp } from 'uWebSockets.js'
-import type { ListeningStatusType } from './uWSHelpers'
+import type { ListeningStatusType } from './types'
 
 /**
  * Sets up the event listeners which initiate graceful shutdown.
