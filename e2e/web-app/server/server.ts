@@ -5,7 +5,7 @@
 import { logger } from '@packages/logger'
 import { config } from './config'
 import { setupGracefulShutdown } from './lib/graceful-shutdown'
-import { listeningStatus } from './util/graphqlApiHandler'
+import { listeningStatus } from './lib/graphqlApiHandler'
 import { uWS } from './uWS'
 
 uWS
