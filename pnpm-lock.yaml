@@ -567,7 +567,7 @@ importers:
         version: 19.2.8(react@19.2.8)
       uWebSockets.js:
         specifier: 'catalog:'
-        version: https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/dddd8ffd1b2c28a66022160923ca92f064cdacb4
+        version: https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/b1092c70692ddbcc87464a77da44848614f6342a
     devDependencies:
       '@packages/web-app-utils':
         specifier: workspace:*

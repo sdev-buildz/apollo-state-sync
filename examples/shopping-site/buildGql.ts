@@ -5,6 +5,11 @@ import { schema } from './server/schema'
 
 const tsEmitFilePath = `${import.meta.dirname}/generated/typescript-react-apollo.tsx`
 
+console.log(
+  `path.join(import.meta.dirname, sharedConfig.graphqlSdlPath) =`,
+  path.join(import.meta.dirname, sharedConfig.graphqlSdlPath)
+)
+
 buildGraphQL(
   schema,
   path.join(import.meta.dirname, sharedConfig.graphqlSdlPath),
