@@ -1,18 +1,17 @@
 import { createPubSub } from 'graphql-yoga'
+import type { Product } from './types'
+
+/**
+ * Product Update Events
+ */
+export type ProductUpdateType = Partial<Pick<Product, 'price' | 'stockCount'>> &
+  Pick<Product, 'id'>
 
 /**
  * The events that can be published or subscribed to
  */
 export type PubsubEventsType = {
-  testSub1: []
-  testSub2: [number]
-  testSubscription: [number]
-  stringEmitter: [string]
-  subscribeForError: [string]
-  subscribeForError2: [string]
-  testSub3: [number, { name: string }]
-  user: [number | string, { name: string }]
-  post: [number | string, { description: string }]
+  productUpdates: [ProductUpdateType]
 }
 
 /**

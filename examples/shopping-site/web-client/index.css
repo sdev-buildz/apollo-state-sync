@@ -1,1 +1,3 @@
 @import './App.css';
+@import './components/NavBar/NavBar.css';
+@import './components/ProductsPage/ProductsPage.css';

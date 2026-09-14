@@ -1,4 +1,5 @@
-import { HomePage } from './components/HomePage/HomePage'
+import { NavBar } from './components/NavBar/NavBar'
+import { ProductsPage } from './components/ProductsPage/ProductsPage'
 import { AppContext } from './contexts/AppContext'
 
 /**
@@ -9,12 +10,13 @@ export function App() {
   return (
     <div className='app'>
       <AppContext.Provider value={{}}>
+        <NavBar />
         <div>
           <header>
             <h1>Shopping Site</h1>
           </header>
         </div>
-        <HomePage />
+        <ProductsPage />
       </AppContext.Provider>
     </div>
   )
