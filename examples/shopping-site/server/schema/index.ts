@@ -1,5 +1,5 @@
-import './for-testing'
 import { builder } from './lib/builder'
+import './products'
 
 /**
  * The Pothos GraphQL Schema

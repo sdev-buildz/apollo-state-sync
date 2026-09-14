@@ -1,0 +1,39 @@
+.products-page {
+  .browse {
+    display: flex;
+    justify-content: space-between;
+    .product {
+      border: 1px solid black;
+      margin: 1rem;
+      padding: 1rem;
+      border-radius: 1.5rem;
+      img {
+        border-radius: 1.5rem;
+      }
+      data {
+        margin-inline-end: 1rem;
+      }
+      .addToCart,
+      .removeFromCart {
+        margin-inline-end: 1rem;
+        border-radius: 0.5rem;
+        width: 2rem;
+      }
+    }
+    .catalog {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .cart {
+      display: flex;
+      flex-direction: column;
+      .checkout {
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
+        /* margin-inline: auto; */
+        align-self: center;
+      }
+    }
+  }
+}
