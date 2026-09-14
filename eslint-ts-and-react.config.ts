@@ -156,7 +156,12 @@ export const eslintReactConfig: Parameters<typeof defineConfig>[number] = [
    * ReactJS and .tsx files.
    */
   {
-    files: [`e2e/web-app/web-client/**/*.{tsx,ts,jsx,js}`],
+    files: [
+      // `{e2e/web-app/web-client,examples/*/web-client}/**/*.{tsx,ts,jsx,js}`,
+      // `{e2e/web-app/web-client,examples/*/web-client}/**/*.{tsx,ts,jsx,js}`,
+      `e2e/web-app/web-client/**/*.{tsx,ts,jsx,js}`,
+      `examples/*/web-client/**/*.{tsx,ts,jsx,js}`,
+    ],
     plugins: {},
     extends: [
       reactNamingConvention.configs.recommended,
