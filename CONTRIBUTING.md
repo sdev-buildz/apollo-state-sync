@@ -82,7 +82,14 @@ If you discover a security vulnerability, please do NOT open a public issue. Ins
 
 ## Reporting issues
 
-Please report bugs or request features by opening a new issue in the [GitHub Issues tab](../../issues) of this repository.
+Please report bugs or request features by opening a new issue in the [GitHub Issues tab](../../issues) of this repository.\
+When opening an issue, include:
+
+- A clear, descriptive title
+- Steps to reproduce
+- Expected vs actual behavior
+- Minimal code sample or link to a repo demonstrating the problem
+- Node/TS/npm versions if relevant
 
 ## Thank you
 
