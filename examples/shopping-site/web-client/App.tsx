@@ -11,11 +11,6 @@ export function App() {
     <div className='app'>
       <AppContext.Provider value={defaultAppContext}>
         <NavBar />
-        <div>
-          <header>
-            <h1>Shopping Site</h1>
-          </header>
-        </div>
         <ProductsPage />
       </AppContext.Provider>
     </div>

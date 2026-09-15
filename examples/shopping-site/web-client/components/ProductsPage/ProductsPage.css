@@ -1,4 +1,5 @@
 .products-page {
+  display: contents;
   .notifications {
     position: fixed;
     top: 2rem;
@@ -17,13 +18,20 @@
   .browse {
     display: flex;
     justify-content: space-between;
+    gap: 1rem;
+    flex-grow: 1;
+    overflow: hidden;
     .product {
-      border: 1px solid black;
-      margin: 1rem;
+      background-color: rgb(246, 246, 246);
       padding: 1rem;
       border-radius: 1.5rem;
+      width: fit-content;
+      height: fit-content;
       img {
         border-radius: 1.5rem;
+        width: 18rem;
+        background-color: '#f0f0f0';
+        display: 'block';
       }
       data {
         margin-inline-end: 1rem;
@@ -35,14 +43,35 @@
         width: 2rem;
       }
     }
+
     .catalog {
+      flex-grow: 1;
       display: flex;
-      flex-direction: row;
       flex-wrap: wrap;
+      overflow-y: scroll;
+      gap: 1rem;
+      padding-right: 1rem;
     }
+
     .cart {
       display: flex;
       flex-direction: column;
+      overflow-y: scroll;
+      min-width: 18rem;
+      gap: 1rem;
+      .product {
+        font-size: 0.8rem;
+        align-self: center;
+        max-width: 12rem;
+        img {
+          width: 10rem;
+        }
+        overflow: hidden;
+        & > * {
+          text-wrap: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
       .checkout {
         padding: 0.5rem 1rem;
         border-radius: 1rem;

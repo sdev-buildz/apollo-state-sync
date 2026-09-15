@@ -127,7 +127,7 @@ export const ProductsPage = () => {
   return (
     <section className='products-page'>
       <hgroup>
-        <h2>Products Page</h2>
+        <h2>Products</h2>
         <p>Add Products to cart and click on checkout button</p>
       </hgroup>
 
@@ -151,14 +151,7 @@ export const ProductsPage = () => {
             <article key={product.id} className='product'>
               <img
                 src={product.imageUrl ?? undefined}
-                width={'250rem'}
                 alt={product.name ?? 'product image'}
-                style={{
-                  width: '20rem',
-                  minHeight: '15rem',
-                  backgroundColor: '#f0f0f0',
-                  display: 'block',
-                }}
               ></img>
               <h3>{product.name}</h3>
               <p>{product.summary}</p>
@@ -209,9 +202,12 @@ export const ProductsPage = () => {
             </article>
           ))}
         </section>
-
         {/* Cart */}
         <section className='cart'>
+          {/* Checkout button */}
+          <button className='checkout' type='button' onClick={() => checkout()}>
+            Checkout
+          </button>
           {cart.map(({ id, count }) => {
             const product = catalogResult.data?.products?.find(
               (p) => p.id === id
@@ -220,7 +216,6 @@ export const ProductsPage = () => {
               <article key={id} className='product'>
                 <img
                   src={product?.imageUrl ?? ''}
-                  width={'200rem'}
                   alt={product?.name ?? 'product image'}
                 ></img>
                 <h3>{product?.name}</h3>
@@ -236,11 +231,6 @@ export const ProductsPage = () => {
               </article>
             )
           })}
-
-          {/* Checkout button */}
-          <button className='checkout' type='button' onClick={() => checkout()}>
-            Checkout
-          </button>
         </section>
       </div>
     </section>
