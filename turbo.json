@@ -3,7 +3,7 @@
 
   "tasks": {
     "prettier:check": {
-      "dependsOn": ["build"]
+      "dependsOn": ["turbo-build"]
     },
     "lint": {},
 
@@ -37,10 +37,10 @@
       "inputs": ["pnpm-lock.yaml"]
     },
 
-    "build": {
+    "turbo-build": {
       "description": "Performs all the build tasks from building SharedWorker script to building final exported bundle.",
       "dependsOn": [
-        "^build",
+        "^turbo-build",
         "build:main",
         "build:gql-types",
         "prettier:pnpm-lock"
@@ -54,7 +54,7 @@
 
     "type-check": {
       "description": "Checks the TypeScript types.",
-      "dependsOn": ["build"],
+      "dependsOn": ["turbo-build"],
       "outputs": [
         "generated/tsc-root/**",
         "**/dist/**",
@@ -64,22 +64,22 @@
     },
 
     "coverage": {
-      "dependsOn": ["build"],
+      "dependsOn": ["turbo-build"],
       "outputs": ["./coverage/**"],
       "persistent": true
     },
     "coverage:ci": {
-      "dependsOn": ["build"],
+      "dependsOn": ["turbo-build"],
       "outputs": ["./coverage/**"]
     },
     "knip": {
-      "dependsOn": ["build"]
+      "dependsOn": ["turbo-build"]
     },
     "knip:ci": {
-      "dependsOn": ["build"]
+      "dependsOn": ["turbo-build"]
     },
     "e2e": {
-      "dependsOn": ["build"],
+      "dependsOn": ["turbo-build"],
       "persistent": true,
       "inputs": [
         "$TURBO_DEFAULT$",
@@ -90,7 +90,7 @@
       ]
     },
     "e2e:ci": {
-      "dependsOn": ["build"],
+      "dependsOn": ["turbo-build"],
       "persistent": true,
       "inputs": [
         "$TURBO_DEFAULT$",

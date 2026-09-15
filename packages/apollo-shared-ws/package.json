@@ -41,7 +41,8 @@
     }
   },
   "scripts": {
-    "build": "tsdown",
+    "turbo-build": "tsdown",
+    "build": "pnpm run turbo-build",
     "dev": "tsdown --watch"
   },
   "dependencies": {

@@ -40,7 +40,8 @@
     "apollo-state-sync": "./dist/bin/bin.mjs"
   },
   "scripts": {
-    "check": "turbo build prettier:check lint type-check coverage:ci e2e:ci knip:ci",
+    "check": "turbo turbo-build prettier:check lint type-check coverage:ci e2e:ci knip:ci",
+    "build": "turbo turbo-build",
     "release": "pnpm run clean && pnpm run check && git checkout -- pnpm-lock.yaml && pnpm publish -r",
     "unit-tests": "vitest",
     "coverage": "vitest --coverage --ui",
