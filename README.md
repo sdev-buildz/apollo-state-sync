@@ -1,4 +1,4 @@
-<header align="center">
+<hgroup>
     <h1 align="center">Apollo State Sync</h1>
     <p align="center">
         Synchronize Apollo Client state effortlessly across all browsing contexts, such as browser tabs, windows, and iframes.  
@@ -9,8 +9,7 @@
     <p align="center">
         It syncs Apollo's in-memory cache and reactive variables across contexts, and can persist state between sessions so users can resume where they left off. It also avoids duplicate GraphQL subscription channels across contexts.
     </p>
-
-</header>
+</hgroup>
 
 ## 💡 Why use it?
 
