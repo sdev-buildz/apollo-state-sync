@@ -16,6 +16,9 @@ const config: KnipConfig = {
       },
     },
   },
+  compilers: {
+    css: (text: string) => [...text.matchAll(/(?<=@)import[^;]+/g)].join('\n'),
+  },
 }
 
 export default config
