@@ -1,6 +1,28 @@
+import CssBaseline from '@mui/material/CssBaseline'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { NavBar } from './components/NavBar/NavBar'
 import { ProductsPage } from './components/ProductsPage/ProductsPage'
 import { AppContext, defaultAppContext } from './contexts/AppContext'
+
+const theme = createTheme({
+  colorSchemes: {
+    dark: true,
+    light: true,
+  },
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#E2A0FF',
+    },
+    secondary: {
+      main: '#90F3FF',
+    },
+    background: {
+      default: '#000000',
+      paper: '#111111',
+    },
+  },
+})
 
 /**
  * The React App with the navbar, pages, routing, etc...
@@ -9,15 +31,13 @@ import { AppContext, defaultAppContext } from './contexts/AppContext'
 export function App() {
   return (
     <div className='app'>
-      <AppContext.Provider value={defaultAppContext}>
-        <NavBar />
-        <div>
-          <header>
-            <h1>Shopping Site</h1>
-          </header>
-        </div>
-        <ProductsPage />
-      </AppContext.Provider>
+      <ThemeProvider theme={theme} defaultMode='dark'>
+        <CssBaseline enableColorScheme />
+        <AppContext.Provider value={defaultAppContext}>
+          <NavBar />
+          <ProductsPage />
+        </AppContext.Provider>
+      </ThemeProvider>
     </div>
   )
 }

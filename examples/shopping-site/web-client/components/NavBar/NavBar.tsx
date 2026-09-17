@@ -3,10 +3,15 @@ import LoginIcon from '@mui/icons-material/Login'
 import LogoutIcon from '@mui/icons-material/Logout'
 import AppBar from '@mui/material/AppBar'
 import Button from '@mui/material/Button'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import { useColorScheme } from '@mui/material/styles'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
+import { visuallyHidden } from '@mui/utils'
 import { useContext } from 'react'
 import { AppContext } from '../../contexts/AppContext'
+import { ColorModeSwitch } from './ColorModeSwitch'
+
 /**
  * The top NavBar component.
  */
@@ -14,12 +19,38 @@ export const NavBar = () => {
   const { isLoggedIn } = useContext(AppContext)
   const isLoggedInState = useReactiveVar(isLoggedIn)
 
+  const { mode, setMode, systemMode } = useColorScheme()
+
+  const getActualMode = (): NonNullable<typeof systemMode> => {
+    const currMode = mode === 'system' ? systemMode : mode
+    return currMode as ReturnType<typeof getActualMode>
+  }
+
   return (
-    <AppBar position='static'>
+    <AppBar position='static' variant='elevation' color='transparent'>
       <Toolbar>
         <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
           Shopping Site
         </Typography>
+
+        <FormControlLabel
+          control={
+            <ColorModeSwitch
+              onChange={(event) => {
+                setMode(getActualMode() === 'dark' ? 'light' : 'dark')
+              }}
+              sx={{ m: 1 }}
+              value={getActualMode() === 'dark' ? 'checked' : undefined}
+              checked={getActualMode() === 'dark'}
+            />
+          }
+          label='Toggle Dark Mode'
+          slotProps={{
+            typography: {
+              style: visuallyHidden,
+            },
+          }}
+        />
         <Button
           color='inherit'
           onClick={() => isLoggedIn(!isLoggedIn())}
@@ -29,13 +60,5 @@ export const NavBar = () => {
         </Button>
       </Toolbar>
     </AppBar>
-    // <nav id='nav-bar'>
-    //   <div className='login-box'>
-    //     {isLoggedInState ? 'Logged In' : 'Logged Out'}
-    //     <button type='button' onClick={() => isLoggedIn(!isLoggedIn())}>
-    //       {isLoggedInState ? 'Log out' : 'Log In'}
-    //     </button>
-    //   </div>
-    // </nav>
   )
 }
