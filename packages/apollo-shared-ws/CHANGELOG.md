@@ -1,5 +1,13 @@
 # apollo-shared-ws
 
+## 1.0.2
+
+### Patch Changes
+
+- [#74](https://github.com/sdev-buildz/apollo-state-sync/pull/74) [`dbba64f`](https://github.com/sdev-buildz/apollo-state-sync/commit/dbba64f14444538c934c8f189f6d2f010e7bb7a0) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - fix and improve readme and typedoc comments. Improve descriptions in migration util's --help output.
+
+- [#79](https://github.com/sdev-buildz/apollo-state-sync/pull/79) [`6f65d3a`](https://github.com/sdev-buildz/apollo-state-sync/commit/6f65d3a9c459112e653cbfe2897279cda6e30fc4) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - fix(migration): accept tsconfig.json path provided as positional argument. tsconfig.json path should default to './tsconfig.json'.
+
 ## 1.0.1
 
 ### Patch Changes
