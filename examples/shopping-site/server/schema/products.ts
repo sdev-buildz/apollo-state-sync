@@ -36,6 +36,39 @@ const availableProducts: Product[] = [
     imageUrl:
       'https://images.unsplash.com/photo-1636352709172-ca33daf4daec?w=400&h=300',
   },
+  {
+    id: '4',
+    name: 'Bluetooth Speaker',
+    summary: 'Portable waterproof speaker.',
+    description:
+      'Deep bass and crystal clear sound with 20-hour playtime and IPX7 rating.',
+    price: 59,
+    stockCount: 25,
+    imageUrl:
+      'https://images.unsplash.com/photo-1643385958950-8f0b8852171a?w=400&h=300',
+  },
+  {
+    id: '5',
+    name: 'Ergonomic Mouse',
+    summary: 'Wireless mouse for comfort.',
+    description:
+      'Reduce wrist strain with this vertical ergonomic wireless mouse.',
+    price: 49,
+    stockCount: 18,
+    imageUrl:
+      'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=300',
+  },
+  {
+    id: '6',
+    name: 'Laptop Stand',
+    summary: 'Adjustable aluminum stand.',
+    description:
+      'Elevate your laptop to eye level for better posture and cooling.',
+    price: 35,
+    stockCount: 60,
+    imageUrl:
+      'https://images.unsplash.com/photo-1629317480826-910f729d1709?w=400&h=300',
+  },
 ]
 
 const ProductRef = builder.objectRef<Product>('Product')
