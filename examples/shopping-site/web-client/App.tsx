@@ -1,6 +1,6 @@
 import { NavBar } from './components/NavBar/NavBar'
 import { ProductsPage } from './components/ProductsPage/ProductsPage'
-import { AppContext } from './contexts/AppContext'
+import { AppContext, defaultAppContext } from './contexts/AppContext'
 
 /**
  * The React App with the navbar, pages, routing, etc...
@@ -9,7 +9,7 @@ import { AppContext } from './contexts/AppContext'
 export function App() {
   return (
     <div className='app'>
-      <AppContext.Provider value={{}}>
+      <AppContext.Provider value={defaultAppContext}>
         <NavBar />
         <div>
           <header>
