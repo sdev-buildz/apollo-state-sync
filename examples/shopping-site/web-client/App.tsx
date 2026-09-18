@@ -17,6 +17,9 @@ const theme = createTheme({
     secondary: {
       main: '#90F3FF',
     },
+    tertiary: {
+      main: '#0e6fff', // Replace with your tertiary color hex
+    },
     background: {
       default: '#000000',
       paper: '#111111',
