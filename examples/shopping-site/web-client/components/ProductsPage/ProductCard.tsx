@@ -58,9 +58,13 @@ export const ProductCard = ({
       ></img>
       <h3>{product.name}</h3>
       <p>{product.summary}</p>
-      <data className='price' value={product.price ?? undefined}>
-        ${product.price}
-      </data>
+      <Typography
+        className='price'
+        component='data'
+        value={product.price ?? undefined}
+      >
+        <strong>${product.price}</strong>
+      </Typography>
       {/* 
           The product cards in catalog display stock counts and have 
             buttons to add or remove from cart
@@ -81,10 +85,18 @@ export const ProductCard = ({
           >
             <AddShoppingCart />
           </IconButton>
-          {cart.find((p) => p.id === product.id)?.count ?? 0}
+
+          {/* Count of the product in cart */}
+          <Typography
+            className='cartCountInputValue'
+            color='secondary'
+            component='strong'
+          >
+            {cart.find((p) => p.id === product.id)?.count ?? 0}
+          </Typography>
+
           <IconButton
             className='removeFromCart'
-            color='secondary'
             size='small'
             onClick={() =>
               setCartVar({ id: product.id!, remove: true }, products ?? [])
@@ -96,7 +108,7 @@ export const ProductCard = ({
           <br />
           <Typography
             variant='body2'
-            color='text.secondary'
+            // color='tertiaryVariant'
             component='data'
             value={product.stockCount ?? undefined}
           >

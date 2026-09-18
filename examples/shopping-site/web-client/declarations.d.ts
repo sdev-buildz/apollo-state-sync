@@ -4,9 +4,13 @@ import '@mui/material'
 declare module '@mui/material/styles' {
   interface Palette {
     tertiary: Palette['primary']
+    secondaryVariant: Palette['primary']
+    tertiaryVariant: Palette['primary']
   }
   interface PaletteOptions {
     tertiary?: PaletteOptions['primary']
+    secondaryVariant?: PaletteOptions['primary']
+    tertiaryVariant?: PaletteOptions['primary']
   }
 }
 
@@ -14,6 +18,15 @@ declare module '@mui/material/styles' {
 declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {
     tertiary: true
+    secondaryVariant: true
+    tertiaryVariant: true
+  }
+}
+declare module '@mui/material/IconButton' {
+  interface IconButtonPropsColorOverrides {
+    tertiary: true
+    secondaryVariant: true
+    tertiaryVariant: true
   }
 }
 export {}
