@@ -52,7 +52,8 @@ export const NavBar = () => {
           }}
         />
         <Button
-          color='inherit'
+          color='tertiary'
+          variant='outlined'
           onClick={() => isLoggedIn(!isLoggedIn())}
           startIcon={isLoggedInState ? <LoginIcon /> : <LogoutIcon />}
         >
