@@ -43,7 +43,7 @@
       }
       .addToCart,
       .removeFromCart {
-        margin-inline-end: 1rem;
+        margin-inline: 0.2rem;
         border-radius: 0.5rem;
         width: 2rem;
       }
