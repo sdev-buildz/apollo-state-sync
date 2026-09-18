@@ -60,12 +60,70 @@ export const ProductsPage = () => {
     }
   )
 
+  const [notifications, setNotifications] = useState<string[]>([])
+
+  //  Subsribe to product updates on price and stock quantities
+  useSubscription(
+    gql`
+      subscription productUpdates {
+        productUpdates {
+          id
+          price
+          stockCount
+        }
+      }
+    ` as TypedDocumentNode<Pick<Subscription, 'productUpdates'>>,
+    {
+      fetchPolicy: 'network-only',
+      onData: ({ data }) => {
+        const productUpdates = data.data?.productUpdates
+        if (!productUpdates) return
+        productUpdates.forEach((product) => {
+          for (const attr of ['price', 'stockCount'] satisfies Array<
+            keyof Product
+          >) {
+            const productData = catalogResult.data?.products?.find(
+              (p) => p.id === product.id
+            )
+            if (attr in product && product[attr] !== productData?.[attr]) {
+              {
+                setNotifications((notifications) => [
+                  ...notifications,
+                  `${productData?.name}'s new ${attr === 'stockCount' ? 'stock count' : 'price'} is ${product[attr]}`,
+                ])
+                setTimeout(() => {
+                  setNotifications((notifications) => [
+                    ...notifications.slice(1),
+                  ])
+                }, 2000)
+              }
+            }
+          }
+        })
+      },
+    }
+  )
+
   return (
     <section className='products-page'>
       <hgroup>
         <h2>Products Page</h2>
         <p>Add Products to cart and click on checkout button</p>
       </hgroup>
+
+      <ul className='notifications'>
+        {notifications.map((notification) => (
+          <li
+            role='status'
+            aria-live='polite'
+            aria-atomic='true'
+            className='notification'
+          >
+            {notification}
+          </li>
+        ))}
+      </ul>
+
       <div className='browse'>
         {/* Catalog */}
         <section className='catalog'>
@@ -116,7 +174,8 @@ export const ProductsPage = () => {
                 value={product.stockCount ?? undefined}
               >
                 {product.stockCount}
-              </data>
+              </data>{' '}
+              in stock
             </article>
           ))}
         </section>

@@ -1,4 +1,3 @@
-import type { ProductUpdateType } from '../util/pubsub'
 import type { Product } from '../util/types'
 import { builder } from './lib/builder'
 
@@ -94,7 +93,7 @@ builder.mutationField('checkout', (t) =>
     args: {
       cart: t.arg({ type: [CheckoutInput], required: true }),
     },
-    resolve: (_, { cart }) => {
+    resolve: (_, { cart }, ctx) => {
       for (const { id, count } of cart) {
         const product = availableProducts.find((p) => p.id === id)
         if (!(product && product.stockCount >= count)) {
@@ -102,23 +101,18 @@ builder.mutationField('checkout', (t) =>
         }
         product.stockCount -= count
       }
+      ctx.pubsub.publish(
+        'productUpdates',
+        availableProducts.filter((p) => !!cart.find((c) => c.id === p.id))
+      )
       return availableProducts
     },
   })
 )
 
-const ProductUpdateRef = builder.objectRef<ProductUpdateType>('ProductUpdate')
-ProductUpdateRef.implement({
-  fields: (t) => ({
-    id: t.exposeID('id'),
-    stockCount: t.exposeInt('stockCount', { nullable: true }),
-    price: t.exposeInt('price', { nullable: true }),
-  }),
-})
-
 builder.subscriptionField('productUpdates', (t) =>
   t.field({
-    type: ProductUpdateRef,
+    type: [ProductRef],
     description: 'Updates the available stock in real-time.',
     subscribe: (_parent, _args, ctx) => ctx.pubsub.subscribe('productUpdates'),
     resolve: (value) => value,

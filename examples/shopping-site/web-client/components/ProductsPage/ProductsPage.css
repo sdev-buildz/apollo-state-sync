@@ -1,4 +1,19 @@
 .products-page {
+  .notifications {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    .notification {
+      &:has(+ .notification) {
+        margin-bottom: 1rem;
+      }
+      list-style: none;
+      padding: 0.2rem 1rem;
+      border: 1px solid black;
+      border-radius: 1rem;
+      background-color: white;
+    }
+  }
   .browse {
     display: flex;
     justify-content: space-between;
