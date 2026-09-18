@@ -1,48 +1,68 @@
 import { gql, type TypedDocumentNode } from '@apollo/client'
-import { useMutation, useQuery } from '@apollo/client/react'
-import type { Mutation, Product } from '@types-gen-react-apollo'
-import { useReducer } from 'react'
+import {
+  useMutation,
+  useQuery,
+  useReactiveVar,
+  useSubscription,
+} from '@apollo/client/react'
+import type { Mutation, Product, Subscription } from '@types-gen-react-apollo'
+import { makeVarSynced } from 'apollo-state-sync'
+import { useState } from 'react'
 import { productsQuery } from '../../util/docNodes'
+
+type CartItem = {
+  id: NonNullable<Product['id']>
+  count: number
+}
+
+/** The cart in a Apollo Reactive Variable. It's synced across browsing contexts. */
+const cartVar = makeVarSynced<CartItem[]>([], 'cart')
+const setCartVar = (
+  action: {
+    id: NonNullable<Product['id']>
+    remove?: boolean
+  },
+  catalog: Product[]
+) => {
+  const prev = cartVar()
+  const inCart = prev.find((p) => p.id === action.id)
+
+  // Remove from cart
+  if (action.remove) {
+    if (!inCart) return prev
+    if (inCart.count === 1)
+      return cartVar([...prev.filter((p) => p.id !== action.id)])
+    return cartVar(
+      prev.map((p) => (p.id === action.id ? { ...p, count: p.count - 1 } : p))
+    )
+  }
+
+  // Add to cart
+  const stockCount = catalog.find((p) => p.id === action.id)?.stockCount
+
+  if (inCart) {
+    return cartVar(
+      prev.map((p) => {
+        if (p.id !== action.id) return p
+        if (p.count === stockCount) return p
+        return { ...p, count: p.count + 1 }
+      })
+    )
+  }
+
+  if (stockCount === 0) return prev
+  cartVar([...prev, { id: action.id, count: 1 }])
+}
 
 /**
  * The page has a list of available products, a cart and a checkout button.
  */
 export const ProductsPage = () => {
-  const productsResult = useQuery(productsQuery, {
+  const catalogResult = useQuery(productsQuery, {
     fetchPolicy: 'network-only',
   })
 
-  const [cart, cartDispatch] = useReducer<
-    Array<{ id: NonNullable<Product['id']>; count: number }>,
-    [{ id: NonNullable<Product['id']>; remove?: boolean }]
-  >((prev, action) => {
-    const inCart = prev.find((p) => p.id === action.id)
-
-    // Remove from cart
-    if (action.remove) {
-      if (!inCart) return prev
-      if (inCart.count === 1) return prev.filter((p) => p.id !== action.id)
-      return prev.map((p) =>
-        p.id === action.id ? { ...p, count: p.count - 1 } : p
-      )
-    }
-
-    // Add to cart
-    const stockCount = productsResult.data?.products?.find(
-      (p) => p.id === action.id
-    )?.stockCount
-
-    if (inCart) {
-      return prev.map((p) => {
-        if (p.id !== action.id) return p
-        if (p.count === stockCount) return p
-        return { ...p, count: p.count + 1 }
-      })
-    }
-
-    if (stockCount === 0) return prev
-    return [...prev, { id: action.id, count: 1 }]
-  }, [])
+  const cart = useReactiveVar(cartVar)
 
   const [checkout] = useMutation(
     gql`
@@ -127,7 +147,7 @@ export const ProductsPage = () => {
       <div className='browse'>
         {/* Catalog */}
         <section className='catalog'>
-          {productsResult.data?.products?.map((product) => (
+          {catalogResult.data?.products?.map((product) => (
             <article key={product.id} className='product'>
               <img
                 src={product.imageUrl ?? undefined}
@@ -147,7 +167,12 @@ export const ProductsPage = () => {
               </data>
               <button
                 className='addToCart'
-                onClick={() => cartDispatch({ id: product.id! })}
+                onClick={() =>
+                  setCartVar(
+                    { id: product.id! },
+                    catalogResult.data?.products ?? []
+                  )
+                }
                 disabled={
                   product.stockCount === 0
                     ? true
@@ -161,7 +186,12 @@ export const ProductsPage = () => {
               </button>
               <button
                 className='removeFromCart'
-                onClick={() => cartDispatch({ id: product.id!, remove: true })}
+                onClick={() =>
+                  setCartVar(
+                    { id: product.id!, remove: true },
+                    catalogResult.data?.products ?? []
+                  )
+                }
                 disabled={
                   cart.find((p) => p.id === product.id) ? undefined : true
                 }
@@ -183,7 +213,7 @@ export const ProductsPage = () => {
         {/* Cart */}
         <section className='cart'>
           {cart.map(({ id, count }) => {
-            const product = productsResult.data?.products?.find(
+            const product = catalogResult.data?.products?.find(
               (p) => p.id === id
             )
             return (
