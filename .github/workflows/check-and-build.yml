@@ -28,7 +28,7 @@ jobs:
       - run: pnpm ci
       - run: pnpm exec prettier --write ./pnpm-lock.yaml
 
-      - run: pnpm run check
+      - run: pnpm run check:ci
 
       - name: Upload to pkgprnew
         id: pkgprnew
