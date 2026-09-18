@@ -21,12 +21,6 @@ type Product {
   summary: String
 }
 
-type ProductUpdate {
-  id: ID
-  price: Int
-  stockCount: Int
-}
-
 """The schema root for fetching data."""
 type Query {
   """To fetch product by id."""
@@ -39,5 +33,5 @@ type Query {
 """The schema root for subscriptions"""
 type Subscription {
   """Updates the available stock in real-time."""
-  productUpdates: ProductUpdate
+  productUpdates: [Product!]
 }
