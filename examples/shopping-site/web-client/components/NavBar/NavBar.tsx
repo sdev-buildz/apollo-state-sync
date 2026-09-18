@@ -2,6 +2,7 @@ import { useReactiveVar } from '@apollo/client/react'
 import LoginIcon from '@mui/icons-material/Login'
 import LogoutIcon from '@mui/icons-material/Logout'
 import AppBar from '@mui/material/AppBar'
+import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import { useColorScheme } from '@mui/material/styles'
@@ -51,6 +52,19 @@ export const NavBar = () => {
             },
           }}
         />
+        {isLoggedInState ? (
+          <Avatar
+            sx={{
+              bgcolor: 'white',
+              width: '2rem',
+              height: '2rem',
+              marginInline: '1rem',
+            }}
+            src='static/assets/avatar-1.svg'
+          />
+        ) : (
+          <></>
+        )}
         <Button
           color='tertiary'
           variant='outlined'
