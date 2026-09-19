@@ -16,12 +16,12 @@ import babelConfig from './babel.config'
 export const getWebpackConfig = (
   sharedConfig: typeof defaultConfig = defaultConfig
 ) => {
-  // const publicEnv = {
-  //   NODE_ENV: process.env.NODE_ENV,
-  //   PORT: String(sharedConfig.port),
-  //   ORIGIN: sharedConfig.origin,
-  //   WEB_CLIENT_ORIGIN: sharedConfig.webClientOrigin,
-  // }
+  const publicEnv = {
+    NODE_ENV: process.env.NODE_ENV,
+    PORT: String(sharedConfig.port),
+    ORIGIN: sharedConfig.origin,
+    WEB_CLIENT_ORIGIN: sharedConfig.webClientOrigin,
+  }
 
   const config: webpack.Configuration = {
     mode: 'development',
@@ -152,10 +152,10 @@ export const getWebpackConfig = (
         template: './public/index.html',
       }),
 
+      /** Providing a safe subset of process.env as a global variable. */
       new webpack.DefinePlugin({
         process: {
-          // env: JSON.stringify(publicEnv),
-          env: JSON.stringify(process.env),
+          env: JSON.stringify(publicEnv),
         },
         'globalThis.__DEV__': true,
       }),
