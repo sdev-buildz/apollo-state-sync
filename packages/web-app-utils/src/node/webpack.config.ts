@@ -151,10 +151,10 @@ export const getWebpackConfig = (
         template: './public/index.html',
       }),
 
+      /** Providing a safe subset of process.env as a global variable. */
       new webpack.DefinePlugin({
         process: {
-          // env: JSON.stringify(publicEnv),
-          env: JSON.stringify(process.env),
+          env: JSON.stringify(publicEnv),
         },
         'globalThis.__DEV__': true,
       }),
