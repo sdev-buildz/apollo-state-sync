@@ -3,7 +3,7 @@
  * {@inheritDoc getWebpackConfig}
  */
 
-import { getWebpackConfig } from '@packages/web-app-utils'
+import { getWebpackConfig } from '@packages/web-app-utils/webpack-config'
 import sharedConfig from '@shared/config'
 import type webpack from 'webpack'
 

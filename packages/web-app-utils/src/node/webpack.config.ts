@@ -2,12 +2,12 @@
  * @packageDocumentation
  *  {@inheritDoc getWebpackConfig}
  */
-import defaultConfig from '@shared/config'
 import CopyPlugin from 'copy-webpack-plugin'
 import HtmlWebPackPlugin from 'html-webpack-plugin'
 import path from 'path'
 import postCssPresetEnv from 'postcss-preset-env'
 import webpack from 'webpack'
+import defaultConfig from '../shared/config'
 import babelConfig from './babel.config'
 
 /**
@@ -19,8 +19,6 @@ export const getWebpackConfig = (
   const publicEnv = {
     NODE_ENV: process.env.NODE_ENV,
   }
-  console.log('process.env =')
-  console.log(process.env)
 
   const config: webpack.Configuration = {
     mode: 'development',
