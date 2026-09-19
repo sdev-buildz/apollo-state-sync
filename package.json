@@ -41,7 +41,7 @@
   },
   "scripts": {
     "check": "turbo turbo-build prettier:check lint type-check coverage:ci e2e:ci knip:ci",
-    "check-e2e": "turbo turbo-build  e2e:ci",
+    "check-e2e": "turbo turbo-build type-check e2e:ci",
     "check-knip": "turbo turbo-build  knip:ci",
     "build": "turbo turbo-build",
     "release": "pnpm run clean && pnpm run check && git checkout -- pnpm-lock.yaml && pnpm publish -r",
