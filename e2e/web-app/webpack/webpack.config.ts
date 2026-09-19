@@ -6,5 +6,10 @@
 import { getWebpackConfig } from '@packages/web-app-utils'
 import type webpack from 'webpack'
 
+/**
+ * the webpack config
+ */
+export const config = getWebpackConfig()
+
 /** For knip */
-export default getWebpackConfig() as webpack.Configuration
+export default config as webpack.Configuration

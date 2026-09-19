@@ -41,6 +41,7 @@
     "ts-morph": "catalog:",
     "tsx": "catalog:",
     "typescript": "catalog:",
-    "webpack": "^5.110.3"
+    "webpack": "^5.110.3",
+    "webpack-dev-server": "^5.2.6"
   }
 }
