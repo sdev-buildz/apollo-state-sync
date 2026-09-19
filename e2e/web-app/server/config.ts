@@ -4,7 +4,7 @@
  */
 
 import { logger } from '@packages/logger'
-import sharedConfig from '@shared/config'
+import { sharedConfig } from '@shared'
 
 /**
  * The server's configuration object.

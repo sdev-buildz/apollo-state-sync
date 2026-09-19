@@ -1,38 +1,28 @@
-import type { HttpRequest, HttpResponse } from 'uWebSockets.js'
-import type { CustomGraphqlContextType } from '../schema/lib/builder'
-import { decryptJwe } from './jwe'
-import type { User } from './types'
+import type {
+  HttpRequest,
+  HttpResponse,
+  RecognizedString,
+  us_listen_socket,
+} from 'uWebSockets.js'
 
 /**
- *  Authenticates the user by parsing the bearer token in the HTTP Authorization header.
+ *  Info on whether the server is accepting new connections, shutting down, etc...
  */
-export const authenticate = (context: GraphqlContextType): User | undefined => {
-  const authHeader = isWsContext(context)
-    ? context.connectionParams?.headers?.authorization
-    : context.res.authHeader
-
-  if (!authHeader) return
-  const bearerToken = authHeader.startsWith('bearer ')
-    ? authHeader.slice('bearer '.length)
-    : authHeader
-
-  const jwtPayload = decryptJwe(bearerToken)
-
-  if (!jwtPayload) return
-
-  const user = JSON.parse(jwtPayload)
-  const currentUser = user
-  return currentUser
+export type ListeningStatusType = {
+  acceptingNewConnections?: boolean
+  listenSocket?: us_listen_socket
+  shuttingDown?: boolean
+  reasonForNotAccepting?: RecognizedString
 }
 
 /**
  * The GraphQL context for HTTP requests.
  * Passed to GraphQL resolvers
  */
-type HttpContextType = {
+export type HttpContextType = {
   req: HttpRequest
   res: HttpResponse
-} & CustomGraphqlContextType
+}
 
 /**
  * The GraphQL context for web socket requests.

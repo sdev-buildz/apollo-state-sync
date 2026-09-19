@@ -1,5 +1,5 @@
+import { sharedConfig } from '@packages/web-app-utils/shared'
 import { defineConfig, devices } from '@playwright/test'
-import sharedConfig from './e2e/web-app/shared/config'
 
 /**
  * See https://playwright.dev/docs/test-configuration.

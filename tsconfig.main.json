@@ -21,7 +21,13 @@
       "path": "./packages/logger"
     },
     {
+      "path": "./packages/web-app-utils"
+    },
+    {
       "path": "./e2e/web-app"
+    },
+    {
+      "path": "./examples/shopping-site"
     }
   ],
   "include": ["./src/**/*.ts", "./bin/**/*.ts", "./e2e/**/*.ts"]

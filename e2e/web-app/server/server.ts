@@ -3,9 +3,8 @@
  * @packageDocumentation
  */
 import { logger } from '@packages/logger'
+import { listeningStatus, setupGracefulShutdown } from '@packages/web-app-utils'
 import config from './config'
-import { setupGracefulShutdown } from './lib/graceful-shutdown'
-import { listeningStatus } from './util/graphqlApiHandler'
 import { uWS } from './uWS'
 
 uWS

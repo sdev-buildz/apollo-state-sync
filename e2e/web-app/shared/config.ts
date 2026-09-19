@@ -12,7 +12,10 @@ const apiServerPort: number = Number(
 )
 const webClientPort: number = Number(process.env.WEB_CLIENT_PORT ?? 3000)
 
-const sharedConfig = {
+/**
+ * sfgd
+ */
+export const sharedConfig = {
   /** Whether this server is hosted with HTTPS protocol or not */
   https: Boolean(process.env.HTTPS ?? true),
 
@@ -60,5 +63,3 @@ const sharedConfig = {
 }
 
 sharedConfig.graphqlEndpoint = sharedConfig.origin + '/api/graphql'
-
-export default sharedConfig
