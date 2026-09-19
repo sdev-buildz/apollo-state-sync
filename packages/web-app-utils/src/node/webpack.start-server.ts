@@ -5,7 +5,8 @@
 import { logger } from '@packages/logger'
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
-import { config } from './webpack.config'
+import { getWebpackConfig } from './webpack.config'
+const config = getWebpackConfig()
 
 /**
  *  Runs the development server with hot module reload.
@@ -55,4 +56,3 @@ export const startWebpackServer = () => {
 
   process.on('SIGTERM', gracefullyShutdown)
 }
-startWebpackServer()

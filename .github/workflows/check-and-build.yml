@@ -3,6 +3,7 @@ name: CI/CD Pipeline
 on:
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -28,6 +29,8 @@ jobs:
       - run: pnpm ci
       - run: pnpm exec prettier --write ./pnpm-lock.yaml
 
+      # - run: pnpm run check-knip
+      # - run: pnpm run check-e2e
       - run: pnpm run check
 
       - name: Upload to pkgprnew
