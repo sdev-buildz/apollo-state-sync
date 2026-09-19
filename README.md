@@ -11,6 +11,9 @@
     </p>
 </hgroup>
 
+ <img width="2612" height="1606" alt="Shopping Site Example - Demo Thumbnail" src="https://github.com/user-attachments/assets/eb964c85-6d6b-42c8-90da-9e42d166c698" />
+
+
 ## 💡 Why use it?
 
 Modern web apps often run across multiple browser tabs or windows within the same workflow. Without shared state synchronization, users can end up with inconsistent data:
