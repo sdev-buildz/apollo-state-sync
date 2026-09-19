@@ -19,6 +19,8 @@ export const getWebpackConfig = (
   const publicEnv = {
     NODE_ENV: process.env.NODE_ENV,
   }
+  console.log('process.env =')
+  console.log(process.env)
 
   const config: webpack.Configuration = {
     mode: 'development',
