@@ -30,11 +30,11 @@
     "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.69.0"
   },
   "devDependencies": {
-    "@packages/web-app-utils": "workspace:*",
     "@graphql-codegen/cli": "^7.4.0",
     "@graphql-codegen/typescript": "^6.1.0",
     "@graphql-codegen/typescript-operations": "^6.1.6",
     "@graphql-codegen/typescript-react-apollo": "^4.4.2",
+    "@packages/web-app-utils": "workspace:*",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "concurrently": "^10.0.5",
@@ -42,6 +42,7 @@
     "tsx": "catalog:",
     "typescript": "catalog:",
     "webpack": "^5.110.3",
+    "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.6"
   }
 }
