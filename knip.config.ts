@@ -10,6 +10,14 @@ const config: KnipConfig = {
     config: ['./typedoc.{config,dev}.js'],
   },
   workspaces: {
+    'packages/web-app-utils': {
+      webpack: {
+        config: ['./src/node/webpack.config.ts'],
+      },
+      'graphql-codegen': {
+        config: ['./src/node/graphql-builder/codegenKnip.ts'],
+      },
+    },
     'e2e/web-app': {
       webpack: {
         config: ['./webpack/webpack.config.ts'],

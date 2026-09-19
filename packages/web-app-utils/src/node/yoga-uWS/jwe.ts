@@ -1,9 +1,9 @@
 import { logger } from '@packages/logger'
 import crypto from 'crypto'
-import config from '../config'
+import { serverConfig } from '../serverConfig'
 
 // The key must be 32 bytes (256 bits) for AES-256
-const key = Buffer.from(config.auth.jweKey)
+const key = Buffer.from(serverConfig.auth.jweKey)
 
 /**
  * Decrypts the given JWE token.

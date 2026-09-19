@@ -2,11 +2,11 @@ import type { ApolloCache } from '@apollo/client'
 import { ApolloClient, ApolloLink, HttpLink } from '@apollo/client'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { LocalState } from '@apollo/client/local-state'
+import { sharedConfig } from '@packages/web-app-utils/shared'
 import { setupRestartSubscription } from 'apollo-shared-ws'
 import { stateSyncLink } from 'apollo-state-sync'
 import { OperationTypeNode } from 'graphql'
 import { createSharedClient } from 'graphql-shared-ws'
-import sharedConfig from '../../shared/config'
 import { inMemoryStore } from '../lib/inMemoryStore.ts'
 import {
   connErrorTesterOperationName,
