@@ -5,6 +5,7 @@
 import defaultConfig from '@shared/config'
 import CopyPlugin from 'copy-webpack-plugin'
 import HtmlWebPackPlugin from 'html-webpack-plugin'
+import path from 'path'
 import postCssPresetEnv from 'postcss-preset-env'
 import webpack from 'webpack'
 import babelConfig from './babel.config'
@@ -54,8 +55,8 @@ export const getWebpackConfig = (
     },
     resolveLoader: {
       modules: [
-        // 'node_modules',
-        // path.resolve(import.meta.dirname, '../../node_modules'),
+        'node_modules',
+        path.resolve(import.meta.dirname, '../../node_modules'),
       ],
     },
     module: {
