@@ -25,9 +25,15 @@
       "description": "Generates gql sdl files and gql types for tests (and website if present).",
       "outputs": [
         "**/*.graphql",
-        "e2e/web-app/generated/typescript-react-apollo.tsx"
+        "e2e/web-app/generated/typescript-react-apollo.tsx",
+        "examples/*/generated/typescript-react-apollo.tsx"
       ],
-      "inputs": ["e2e/web-app/server/schema", "pnpm-lock.yaml", "package.json"]
+      "inputs": [
+        "e2e/web-app/server/schema",
+        "examples/*/server/schema",
+        "pnpm-lock.yaml",
+        "package.json"
+      ]
     },
 
     "prettier:pnpm-lock": {
