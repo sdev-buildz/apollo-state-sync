@@ -6,13 +6,15 @@ import { logger } from '@packages/logger'
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import { getWebpackConfig } from './webpack.config'
-const config = getWebpackConfig()
+const defaultConfig = getWebpackConfig()
 
 /**
  *  Runs the development server with hot module reload.
  *  When process.env.CI=true, hot module reload will be disabled.
  */
-export const startWebpackServer = () => {
+export const startWebpackServer = (
+  config: typeof defaultConfig = defaultConfig
+) => {
   const compiler = webpack(config)
 
   if (!compiler) {
