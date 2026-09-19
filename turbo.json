@@ -79,7 +79,7 @@
       "dependsOn": ["turbo-build"]
     },
     "e2e": {
-      "dependsOn": ["turbo-build"],
+      "dependsOn": ["turbo-build", "type-check"],
       "persistent": true,
       "inputs": [
         "$TURBO_DEFAULT$",
@@ -90,7 +90,7 @@
       ]
     },
     "e2e:ci": {
-      "dependsOn": ["turbo-build"],
+      "dependsOn": ["turbo-build", "type-check"],
       "persistent": true,
       "inputs": [
         "$TURBO_DEFAULT$",
