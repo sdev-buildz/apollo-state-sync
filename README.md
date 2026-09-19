@@ -11,7 +11,11 @@
     </p>
 </hgroup>
 
- <img width="2612" height="1606" alt="Shopping Site Example - Demo Thumbnail" src="https://github.com/user-attachments/assets/eb964c85-6d6b-42c8-90da-9e42d166c698" />
+https://github.com/user-attachments/assets/22c00bb6-35d3-41d9-80b8-4e900baded53
+
+
+ 
+
 
 
 ## 💡 Why use it?
