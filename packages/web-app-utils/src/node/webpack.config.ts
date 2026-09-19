@@ -2,7 +2,7 @@
  * @packageDocumentation
  *  {@inheritDoc getWebpackConfig}
  */
-import sharedConfig from '@shared/config'
+import defaultConfig from '@shared/config'
 import CopyPlugin from 'copy-webpack-plugin'
 import HtmlWebPackPlugin from 'html-webpack-plugin'
 import path from 'path'
@@ -13,7 +13,9 @@ import babelConfig from './babel.config'
 /**
  * Provides the webpack configuration object.
  */
-export const getWebpackConfig = () => {
+export const getWebpackConfig = (
+  sharedConfig: typeof defaultConfig = defaultConfig
+) => {
   const publicEnv = {
     NODE_ENV: process.env.NODE_ENV,
   }
