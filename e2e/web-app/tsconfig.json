@@ -4,12 +4,17 @@
     "jsx": "react-jsx",
     "outDir": "./dist",
     "paths": {
-      "@types-gen-react-apollo": ["./generated/typescript-react-apollo"]
+      "@types-gen-react-apollo": ["./generated/typescript-react-apollo"],
+      "@shared/*": ["./shared/*"],
+      "@shared": ["./shared"]
     }
   },
   "references": [
     {
       "path": "./server"
+    },
+    {
+      "path": "./shared"
     }
   ],
   "include": ["./**/*.ts", "./**/*.tsx", "./*.js"]

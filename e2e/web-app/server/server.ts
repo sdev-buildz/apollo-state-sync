@@ -4,7 +4,7 @@
  */
 import { logger } from '@packages/logger'
 import { listeningStatus, setupGracefulShutdown } from '@packages/web-app-utils'
-import { config } from './config'
+import config from './config'
 import { uWS } from './uWS'
 
 uWS
