@@ -40,6 +40,8 @@ Apollo State Sync solves this by keeping state in sync across browsing contexts 
 
 ## 💻 Example use-cases
 
+Explore the [examples](./examples) directory for video demos and sample projects showcasing Apollo State Sync and Apollo Shared WS in action.
+
 - User logs in from one tab and is automatically logged in on all other tabs
 - Shopping cart updates are shared instantly across every open tab
 - Chat applications, dashboards, live-location apps, or scoreboards can be opened in multiple windows without extra network load
