@@ -1,0 +1,35 @@
+{
+  "name": "@examples/shopping-site",
+  "version": "0.0.0",
+  "private": "true",
+  "description": "A full-stack e-commerce application featuring authentication (signup/login), shopping cart management, and checkout processing, with real-time product count updates driven by WebSockets.",
+  "type": "module",
+  "scripts": {
+    "start-server": "concurrently \"tsx server/index.ts\" \"tsx ./buildGql.ts\"",
+    "start-server-watch": "concurrently \"tsx --watch server/index.ts\" \"tsx --watch ./buildGql.ts\"",
+    "start-react-watch": "tsx ./webpack/webpack.dev-server.ts",
+    "build-graphql": "tsx ./buildGql.ts"
+  },
+  "dependencies": {
+    "@apollo/client": "catalog:",
+    "@packages/logger": "workspace:*",
+    "@pothos/core": "catalog:",
+    "apollo-shared-ws": "workspace:*",
+    "apollo-state-sync": "workspace:*",
+    "graphql": "catalog:",
+    "graphql-ws": "catalog:",
+    "graphql-yoga": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "uWebSockets.js": "catalog:"
+  },
+  "devDependencies": {
+    "@packages/web-app-utils": "workspace:*",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "concurrently": "^10.0.5",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "webpack": "catalog:"
+  }
+}

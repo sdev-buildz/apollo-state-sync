@@ -6,6 +6,7 @@ packages:
   - '.'
   - 'packages/*'
   - 'e2e/web-app'
+  - 'examples/*'
 
 catalog:
   '@apollo/client': '^4.2.12'
