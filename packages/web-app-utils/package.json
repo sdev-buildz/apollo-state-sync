@@ -2,6 +2,7 @@
   "name": "@packages/web-app-utils",
   "version": "0.0.0",
   "description": "Utilities to create web apps containing server and client. Tech Stack: webpack, React, Node.ts, GraphQL Yoga, Pothos and Apollo Client.",
+  "private": true,
   "exports": {
     ".": {
       "types": "./src/index.ts",
