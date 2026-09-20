@@ -13,7 +13,7 @@ This example showcases [Apollo State Sync](../../README.md) and [Apollo Shared W
 
 ## Watch the Demo Video:
 
-[<img src="../../assets/Shopping%20Site%20Example%20-%20Demo%20Thumbnail.png" width="400">](../../assets/Shopping%20Site%20Example%20-%20Demo.mp4)
+https://github.com/user-attachments/assets/18df5e73-f7a6-417f-8398-2bb8251ccc3e
 
 ## Prerequisites
 
