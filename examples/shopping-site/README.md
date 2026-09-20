@@ -5,17 +5,17 @@
 
 This example showcases [Apollo State Sync](../../README.md) and [Apollo Shared WS](../../packages/apollo-shared-ws/README.md) integrated into a functional e-commerce application. It demonstrates a unified user experience where state and data remain consistent across all open browser tabs and windows.
 
-### Key Synchronized Features:
+### 🔑 Key Synchronized Features:
 
 - **Authentication & Cart:** Login status and shopping cart contents stay in sync instantly.
 - **UI Preferences:** Dark/light mode settings are applied globally across the session.
 - **Shared Resources:** A unified in-memory cache and a single shared WebSocket connection for real-time product update notifications.
 
-## Watch the Demo Video:
+## 📺 Watch the Demo Video:
 
 https://github.com/user-attachments/assets/18df5e73-f7a6-417f-8398-2bb8251ccc3e
 
-## Prerequisites
+## 🛠️ Prerequisites
 
 - Node.js 22 or newer
 - pnpm
@@ -26,7 +26,7 @@ Install dependencies:
 pnpm ci
 ```
 
-## Run the example
+## 🚀 Run the example
 
 Start the API server:
 
@@ -50,7 +50,7 @@ server uses the self-signed certificates in `server/cert/`.
 
 To use different ports, set `PORT` for the API server and `WEB_CLIENT_PORT` for the client server in the `.env` file.
 
-## Try the Demo
+## 🧪 Try the Demo
 
 1. **Open Multiple Tabs:** Launch the application in two or more side-by-side browser windows.
 2. **Cross-Tab Synchronization:** Sign in or add items to the cart in one tab. Observe how the other tabs update instantly without a page refresh.
