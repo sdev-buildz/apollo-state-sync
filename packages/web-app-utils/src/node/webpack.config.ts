@@ -7,13 +7,13 @@ import HtmlWebPackPlugin from 'html-webpack-plugin'
 import path from 'path'
 import postCssPresetEnv from 'postcss-preset-env'
 import webpack from 'webpack'
-import { sharedConfig } from '../shared'
+import { sharedConfig as defaultSharedConfig } from '../shared'
 import babelConfig from './babel.config'
 
 /**
  * Provides the webpack configuration object.
  */
-export const getWebpackConfig = () => {
+export const getWebpackConfig = (sharedConfig = defaultSharedConfig) => {
   const publicEnv = {
     NODE_ENV: process.env.NODE_ENV,
     PORT: String(sharedConfig.port),

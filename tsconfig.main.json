@@ -28,6 +28,9 @@
     },
     {
       "path": "./examples/shopping-site"
+    },
+    {
+      "path": "./examples/social-media"
     }
   ],
   "include": ["./src/**/*.ts", "./bin/**/*.ts", "./e2e/**/*.ts"]
