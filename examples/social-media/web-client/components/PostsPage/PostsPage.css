@@ -15,41 +15,17 @@
       background-color: white;
     }
   }
-  .browse {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-grow: 1;
-    overflow: hidden;
-    .post {
-      background-color: rgb(246, 246, 246);
-      transition: background-color 0.3s ease;
-      /* &:hover {
-        background-color: hsl(from var(--base-color) h calc(s + 40%) l);
-      } */
-      padding: 1rem;
-      border-radius: 1.5rem;
-      width: fit-content;
-      min-height: fit-content;
-      height: fit-content;
-      img {
-        border-radius: 1.5rem;
-        width: 18rem;
-        background-color: '#f0f0f0';
-        display: 'block';
-      }
-      data {
-        margin-inline-end: 1ch;
-      }
-    }
 
-    .catalog {
-      flex-grow: 1;
-      display: flex;
-      flex-wrap: wrap;
-      overflow-y: scroll;
-      gap: 1rem;
-      padding-right: 1rem;
-    }
+  .posts {
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    gap: 1rem;
+    padding-right: 1rem;
   }
+}
+
+.post {
+  width: 20rem;
 }
