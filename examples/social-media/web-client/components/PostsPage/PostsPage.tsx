@@ -8,6 +8,20 @@ import { PostCard } from './PostCard'
  */
 export const PostsPage = () => {
   const postsResult = useQuery(postsQuery, {
+    variables: {
+      options: {
+        paginate: {
+          limit: 10,
+          page: 1,
+        },
+      },
+      commentsOptions: {
+        paginate: {
+          limit: 2,
+          page: 1,
+        },
+      },
+    },
     fetchPolicy: 'cache-first',
   })
 
