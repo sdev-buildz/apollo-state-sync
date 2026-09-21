@@ -164,6 +164,7 @@ export const getWebpackConfig = () => {
         path: false,
       },
       extensions: ['.tsx', '.ts', '.json', '.jsx', '.js'],
+      tsconfig: true,
     },
   }
 
