@@ -2,7 +2,15 @@
  * {@inheritdoc sharedConfig}
  * @packageDocumentation
  */
-import path from 'path'
+
+let path
+try {
+  path = await import('path')
+} catch (err) {
+  console.log(
+    'module node:path not found. So the current execution could be in browser. Falling back to execution without the `node:path` module.'
+  )
+}
 
 const apiServerPort: number = Number(
   process.env.PORT ?? (process.env.CI ? 3080 : 443)
@@ -59,7 +67,7 @@ export const sharedConfig = {
    * The path to the folder in which the frontend bundle is emitted by webpack
    */
   webClientBundlePath:
-    path?.resolve?.(import.meta.dirname, '../dist') ?? 'dist',
+    path?.resolve?.(import.meta.dirname, '../dist') ?? '../dist',
 }
 
 sharedConfig.graphqlEndpoint = sharedConfig.origin + '/api/graphql'
