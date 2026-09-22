@@ -41,7 +41,24 @@ export const PostsPage = () => {
         <h2>
           <GroupsIcon /> Posts
         </h2>
-        <p>Engage with the community by sharing posts and comments.</p>
+        <p>
+          Open this page in multiple tabs or windows to see synchronization in
+          action.
+        </p>
+        <ul>
+          <li>
+            Comments fetched in one tab are synchronized in real time across all
+            open tabs and windows.
+          </li>
+          <li>
+            The cache is persisted to local storage, so posts and comments
+            appear immediately when you reload the page.
+          </li>
+          <li>
+            Login status and theme preferences are synchronized across tabs and
+            windows as well.
+          </li>
+        </ul>
       </hgroup>
       {/* Posts */}
       <section className='posts'>

@@ -31,7 +31,10 @@ export const NavBar = () => {
     <AppBar position='static' variant='elevation' color='transparent'>
       <Toolbar>
         <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-          Social Media
+          Social Media built with{' '}
+          <a href='https://github.com/sdev-buildz/apollo-state-sync'>
+            Apollo State Sync
+          </a>
         </Typography>
 
         <FormControlLabel
