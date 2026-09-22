@@ -15,12 +15,6 @@ export const PostsPage = () => {
           page: 1,
         },
       },
-      commentsOptions: {
-        paginate: {
-          limit: 2,
-          page: 1,
-        },
-      },
     },
     fetchPolicy: 'cache-first',
   })
