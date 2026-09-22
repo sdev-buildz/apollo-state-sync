@@ -18,7 +18,6 @@
     "@mui/material": "^9.4.0",
     "@mui/utils": "^9.4.0",
     "apollo-state-sync": "workspace:*",
-    "colorthief": "^3.5.0",
     "graphql": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
