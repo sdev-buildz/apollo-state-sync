@@ -25,7 +25,6 @@ jobs:
           runtime: node@${{ matrix.node }}
           version: 11.27.0
 
-      - run: pnpm ci
       - run: pnpm exec prettier --write ./pnpm-lock.yaml
 
       - run: pnpm run check
@@ -49,8 +48,6 @@ jobs:
         with:
           runtime: node@24
           version: 11.27.0
-
-      - run: pnpm ci
 
       # Add the peer dependency with the version to be tested.
       - run: pnpm add --filter="e2e-web-app" @apollo/client@${{ matrix.apollo-client-peer }}
