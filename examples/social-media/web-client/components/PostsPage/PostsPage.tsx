@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client/react'
 import GroupsIcon from '@mui/icons-material/Groups'
 import Masonry from '@mui/lab/Masonry'
+import { Skeleton } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { postsQuery } from '../../util/docNodes'
 import { PostCard } from './PostCard'
@@ -42,15 +43,29 @@ export const PostsPage = () => {
         </h2>
         <p>Engage with the community by sharing posts and comments.</p>
       </hgroup>
-
       {/* Posts */}
       <section className='posts'>
         <Masonry columns={colsCount}>
-          <>
-            {postsResult.data?.posts?.data?.map((post, postIdx) => {
-              return post ? <PostCard post={post} key={post.id} /> : <></>
-            })}
-          </>
+          {postsResult.loading ? (
+            <>
+              {Array(4)
+                .fill(1)
+                .map((_, idx) => (
+                  <Skeleton
+                    key={idx}
+                    variant='rectangular'
+                    width={'364px'}
+                    height={`${(364 / 3) * 2}px`}
+                  />
+                ))}
+            </>
+          ) : (
+            <>
+              {postsResult.data?.posts?.data?.map((post, postIdx) => {
+                return post ? <PostCard post={post} key={post.id} /> : <></>
+              })}
+            </>
+          )}
         </Masonry>
       </section>
     </section>

@@ -4,6 +4,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  Skeleton,
   Typography,
 } from '@mui/material'
 import { type Post } from '@types-gen-react-apollo'
@@ -41,19 +42,40 @@ export const PostCard = ({ post }: { post: Post }) => {
         <p>{post.body}</p>
 
         {!commentsResult.data ? (
-          <CardActions>
-            {/* 'Fetch Comments' button */}
-            <Button
-              variant='outlined'
-              color='secondary'
-              onClick={() => {
-                setShouldQueryComments(!shouldQueryComments)
-                commentsResult.refetch()
-              }}
-            >
-              Fetch Comments
-            </Button>
-          </CardActions>
+          <>
+            <CardActions>
+              {/* 'Fetch Comments' button */}
+              <Button
+                variant='outlined'
+                color='secondary'
+                disabled={commentsResult.loading}
+                onClick={() => {
+                  setShouldQueryComments(!shouldQueryComments)
+                  commentsResult.refetch()
+                }}
+              >
+                Fetch Comments
+              </Button>
+            </CardActions>
+            {commentsResult.loading ? (
+              <>
+                {Array(2)
+                  .fill(1)
+                  .map((_, idx) => (
+                    <Skeleton
+                      key={idx}
+                      variant='rectangular'
+                      style={{
+                        marginBlock: '1rem',
+                      }}
+                      height={`${4 * 16}px`}
+                    />
+                  ))}
+              </>
+            ) : (
+              <></>
+            )}
+          </>
         ) : (
           <>
             {/* Comments */}
