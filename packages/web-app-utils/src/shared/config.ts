@@ -66,8 +66,7 @@ export const sharedConfig = {
   /**
    * The path to the folder in which the frontend bundle is emitted by webpack
    */
-  webClientBundlePath:
-    path?.resolve?.(import.meta.dirname, '../dist') ?? '../dist',
+  webClientBundlePath: path?.resolve?.(process.cwd(), './dist') ?? '../dist',
 }
 
 sharedConfig.graphqlEndpoint = sharedConfig.origin + '/api/graphql'
