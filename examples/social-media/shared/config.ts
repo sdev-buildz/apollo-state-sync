@@ -1,4 +1,5 @@
 import { sharedConfig as defaultSharedConfig } from '@packages/web-app-utils/shared'
+import path from 'path'
 
 const apiServerOrigin = `https://graphqlzero.almansi.me`
 
@@ -9,4 +10,8 @@ export const sharedConfig = {
   ...defaultSharedConfig,
   origin: apiServerOrigin,
   graphqlEndpoint: `${apiServerOrigin}/api`,
+  webClientBundlePath: path?.resolve?.(
+    process.cwd(),
+    '../../docs/examples/posts'
+  ),
 } satisfies typeof defaultSharedConfig

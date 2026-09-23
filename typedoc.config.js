@@ -4,7 +4,7 @@ import packageJson from './package.json' with { type: 'json' }
 export default {
   name: `${packageJson?.name ?? 'apollo-state-sync.'} - API Reference (Users)`,
   entryPoints: ['src', 'packages/apollo-shared-ws/src'],
-  out: 'docs/generated/api-reference',
+  out: 'docs/api-reference',
   exclude: ['dist', 'docs', '**/generated', 'node_modules'],
   skipErrorChecking: true,
   tsconfig: 'tsconfig.typedoc.json',

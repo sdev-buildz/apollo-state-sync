@@ -4,5 +4,6 @@
  */
 
 import { webpackBundle } from '@packages/web-app-utils'
+import { sharedConfig } from '@shared'
 
-webpackBundle()
+webpackBundle(sharedConfig)

@@ -14,6 +14,7 @@ export default defineConfig([
       '**/dist*',
       '**/generated',
       'packages/migration/tests/test-source-files',
+      './docs',
     ],
   },
   eslintJsConfig,

@@ -4,13 +4,14 @@
  * @packageDocumentation
  */
 import webpack from 'webpack'
+import type { sharedConfig as defaultSharedConfig } from '../shared'
 import { getWebpackConfig } from './webpack.config.ts'
 
 /**
  * Bundles for production deployment.
  */
-export const webpackBundle = () => {
-  const config = getWebpackConfig(undefined, false)
+export const webpackBundle = (sharedConfig?: typeof defaultSharedConfig) => {
+  const config = getWebpackConfig(sharedConfig, false)
 
   webpack(config, (err, stats) => {
     if (err || stats?.hasErrors()) {
