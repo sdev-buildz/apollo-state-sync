@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start-react-watch": "tsx ./webpack/webpack.dev-server.ts",
+    "build": "tsx ./webpack/webpack.prod-bundler.ts",
     "build-graphql": "tsx ./buildGql.ts"
   },
   "dependencies": {

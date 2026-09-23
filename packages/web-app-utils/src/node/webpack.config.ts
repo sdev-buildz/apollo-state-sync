@@ -2,8 +2,11 @@
  * @packageDocumentation
  *  {@inheritDoc getWebpackConfig}
  */
+import CompressionPlugin from 'compression-webpack-plugin'
 import CopyPlugin from 'copy-webpack-plugin'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 import HtmlWebPackPlugin from 'html-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import path from 'path'
 import postCssPresetEnv from 'postcss-preset-env'
 import webpack from 'webpack'
@@ -13,7 +16,10 @@ import babelConfig from './babel.config'
 /**
  * Provides the webpack configuration object.
  */
-export const getWebpackConfig = (sharedConfig = defaultSharedConfig) => {
+export const getWebpackConfig = (
+  sharedConfig = defaultSharedConfig,
+  isDevServer = true
+) => {
   const publicEnv = {
     NODE_ENV: process.env.NODE_ENV,
     PORT: String(sharedConfig.port),
@@ -22,21 +28,27 @@ export const getWebpackConfig = (sharedConfig = defaultSharedConfig) => {
   }
 
   const config: webpack.Configuration = {
-    mode: 'development',
-    devtool: 'eval-source-map',
-    devServer: {
-      static: {
-        publicPath: sharedConfig.webClientBundlePath,
-      },
-      client: {
-        progress: true,
-      },
-      server: 'https',
-      hot: process.env.CI ? false : true,
-      open: process.env.PLAYWRIGHT_TEST == '1' ? false : true,
-      port: sharedConfig.webClientPort,
-      historyApiFallback: true,
-    },
+    ...(isDevServer
+      ? {
+          mode: 'development',
+          devtool: 'eval-source-map',
+          devServer: {
+            static: {
+              publicPath: sharedConfig.webClientBundlePath,
+            },
+            client: {
+              progress: true,
+            },
+            server: 'https',
+            hot: process.env.CI ? false : true,
+            open: process.env.PLAYWRIGHT_TEST == '1' ? false : true,
+            port: sharedConfig.webClientPort,
+            historyApiFallback: true,
+          },
+        }
+      : {
+          mode: 'production',
+        }),
     entry: {
       mainApp: './web-client/index.tsx',
     },
@@ -84,7 +96,7 @@ export const getWebpackConfig = (sharedConfig = defaultSharedConfig) => {
         {
           test: /\.css$/,
           use: [
-            'style-loader',
+            isDevServer ? 'style-loader' : MiniCssExtractPlugin.loader,
             'css-loader',
             {
               loader: 'postcss-loader',
@@ -140,6 +152,7 @@ export const getWebpackConfig = (sharedConfig = defaultSharedConfig) => {
           },
         },
       },
+      ...(isDevServer ? {} : { minimizer: [new CssMinimizerPlugin(), '...'] }),
     },
 
     plugins: [
@@ -157,6 +170,21 @@ export const getWebpackConfig = (sharedConfig = defaultSharedConfig) => {
         },
         'globalThis.__DEV__': true,
       }),
+      ...(isDevServer ? [] : [new MiniCssExtractPlugin({})]),
+      ...(isDevServer
+        ? []
+        : [
+            /**
+             * Compressing into brotli format.
+             */
+            new CompressionPlugin({
+              algorithm: 'brotliCompress',
+            }),
+            /**
+             * Compressing into gzip format for fallback.
+             */
+            new CompressionPlugin(),
+          ]),
     ],
     resolve: {
       fallback: {
