@@ -109,14 +109,20 @@ describe.each<{
 
   it('restores persisted cache during initialization.', () => {
     const persistedState: Parameters<typeof updatePersistedState>[0] = {
-      cache: {},
+      cache: {
+        'Post:1': {
+          body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto',
+          id: '1',
+          title:
+            'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+          __typename: 'Post',
+        },
+      },
     }
     updatePersistedState(persistedState)
-    inMemoryCache = new InMemoryCache()
-    const restoreSpy = vi.spyOn(inMemoryCache, 'restore')
+    inMemoryCache = cacheInitializer()
 
-    inMemoryCache = setupCacheSyncer(inMemoryCache)
-    expect(restoreSpy).toHaveBeenCalledWith(persistedState.cache)
+    expect(inMemoryCache.extract()).toStrictEqual(persistedState.cache)
   })
 
   test('when cache.write is called, should broadcast and persist', async () => {
