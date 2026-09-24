@@ -432,14 +432,13 @@ describe.each<{
 
   it(`doesn't restore expired persisted cache.`, async () => {
     const expiryMilliseconds = globalConfig.persistedCacheExpiryMilliseconds
-    const inMemoryStore = setupCacheSyncer(new InMemoryCache()) as InMemoryCache
     /** Persisting cache. */
-    persistInMemoryCache(inMemoryStore)
+    persistInMemoryCache(inMemoryCache)
     expect(localStorageSetSpy).toHaveBeenCalledTimes(1)
 
     vi.clearAllMocks()
     /** Restoring the persisted cache before cache expiry. */
-    restorePersisted(inMemoryStore)
+    restorePersisted(inMemoryCache)
     expect(localStorageGetSpy).toHaveBeenCalledTimes(1)
 
     // awaiting until cache expires
@@ -450,8 +449,8 @@ describe.each<{
     vi.clearAllMocks()
 
     // trying to restore after cache expired
-    const restoreSpy = vi.spyOn(inMemoryStore, 'restore')
-    restorePersisted(inMemoryStore)
+    const restoreSpy = vi.spyOn(inMemoryCache, 'restore')
+    restorePersisted(inMemoryCache)
 
     // expect not to have been restored
     expect(localStorageGetSpy).toHaveBeenCalledTimes(1)
