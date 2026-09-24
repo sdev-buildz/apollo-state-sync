@@ -1,5 +1,10 @@
 import type { InMemoryCache } from '@apollo/client'
-import type { CacheSyncMessageTypeMap } from '../util/in-memory-cache.types'
+import type { InMemoryCacheSynced } from '@root/dist/index.mjs'
+import { print } from 'graphql'
+import type {
+  CacheSyncMessageType,
+  CacheSyncMessageTypeMap,
+} from '../util/in-memory-cache.types'
 import { writeOptionsParams } from './writeOptionsParams'
 
 /**
@@ -50,7 +55,8 @@ export const initializeTestData = (store: InMemoryCache) => {
         args: [
           {
             id: existingFieldCacheId,
-            fields: function (value, { fieldName }) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            fields: function (value: any, { fieldName }: any) {
               if (fieldName === 'value')
                 return 'new value' satisfies typeof modifyValueTo
               return value
@@ -85,10 +91,32 @@ export const initializeTestData = (store: InMemoryCache) => {
     },
   } satisfies {
     [Operation in keyof CacheSyncMessageTypeMap]: {
-      message: CacheSyncMessageTypeMap[Operation]
+      message: {
+        operationName: Operation
+        args: Parameters<InMemoryCacheSynced[Operation]>
+      }
       data?: Record<string, unknown>
     }
   }
 
   return testData
+}
+
+/**
+ * Provides the broadcast message for the given cache operation
+ */
+export const getBroadcastMessage = (message: {
+  operationName: keyof CacheSyncMessageTypeMap
+  args: Parameters<InMemoryCacheSynced[keyof CacheSyncMessageTypeMap]>
+}): CacheSyncMessageType => {
+  if (message.operationName !== 'write') return message
+  return {
+    operationName: 'write',
+    args: [
+      {
+        ...message.args[0],
+        query: print(message.args[0].query),
+      },
+    ],
+  }
 }

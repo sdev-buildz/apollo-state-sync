@@ -1,4 +1,5 @@
-import type { InMemoryCache } from '@apollo/client'
+import type { Cache, InMemoryCache } from '@apollo/client'
+import { print } from 'graphql'
 import type { GlobalConfig } from '../../globalConfig'
 import { synchronizationDebouncer } from '../../util/synchronizationDebouncer'
 import type { InMemoryCacheSynced } from './InMemoryCacheSynced'
@@ -7,7 +8,9 @@ import {
   cacheOperationsToSync,
   shouldNotBroadcastSymbol,
   shouldNotPersistSymbol,
+  type BroadcastWriteType,
   type CacheOperationsToSyncType,
+  type CacheSyncMessageType,
 } from './util/in-memory-cache.types'
 import type { InMemoryCacheSyncedType } from './util/InMemoryCacheSyncedType'
 import { persistInMemoryCache } from './util/persistance'
@@ -17,7 +20,7 @@ import { persistInMemoryCache } from './util/persistance'
  */
 export const broadcast = <OperationName extends CacheOperationsToSyncType>(
   operationName: OperationName,
-  args: Parameters<InMemoryCacheSyncedType[OperationName]>
+  args: CacheSyncMessageType<OperationName>['args']
 ) => {
   synchronizationDebouncer.debounce(() => {
     cacheBroadcastChannel.postMessage({
@@ -58,8 +61,22 @@ export const handleSyncing = <OperationName extends CacheOperationsToSyncType>(
     args,
     config
   )
+
   const shouldPersist: boolean = getShouldPersist(operationName, args, config)
-  if (shouldBroadcast) broadcast(operationName, args)
+  if (shouldBroadcast) {
+    if (operationName === 'write') {
+      const arg: Cache.WriteOptions = args[0] as Cache.WriteOptions
+      const toBc: BroadcastWriteType = {
+        ...arg,
+        query: print(arg.query),
+      }
+      broadcast<'write'>(operationName, [toBc])
+    } else {
+      const typedOpName = operationName as Exclude<OperationName, 'write'>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      broadcast<typeof typedOpName>(typedOpName, args as any)
+    }
+  }
   if (shouldPersist) persistInMemoryCache(inMemoryCache)
 }
 
@@ -136,7 +153,23 @@ const setupOperationBroadcastor = (
       argsToBroadcast,
       config
     )
-    if (shouldBroadcast) broadcast(operationName, argsToBroadcast)
+    if (shouldBroadcast) {
+      if (operationName === 'write') {
+        const arg: Cache.WriteOptions = args[0] as Cache.WriteOptions
+        const toBc: BroadcastWriteType = {
+          ...arg,
+          query: print(arg.query),
+        }
+        broadcast<'write'>(operationName, [toBc])
+      } else {
+        const typedOpName = operationName as Exclude<
+          typeof operationName,
+          'write'
+        >
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        broadcast<typeof typedOpName>(typedOpName, args as any)
+      }
+    }
     if (shouldPersist) persistInMemoryCache(inMemoryStore)
     return result
   }

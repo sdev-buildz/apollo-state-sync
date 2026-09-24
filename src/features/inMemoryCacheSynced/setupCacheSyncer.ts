@@ -6,12 +6,9 @@ import {
 } from '../../globalConfig'
 import { setupBroadcastors } from './setupBroadcastors'
 import { cacheBroadcastChannel } from './util/cacheBroadcastChannel'
-import {
-  shouldNotBroadcastSymbol,
-  shouldNotPersistSymbol,
-} from './util/in-memory-cache.types'
 import type { InMemoryCacheSyncedType } from './util/InMemoryCacheSyncedType'
 import { restorePersisted } from './util/persistance'
+import { processIncomingArgs } from './util/processIncomingArgs'
 
 /**
  * Synchronizes the local cache with updates from other browsing contexts.
@@ -34,16 +31,7 @@ export const setupListeners = (
     )
       return // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(inMemoryStore[broadcastOperation.operationName] as any)(
-      {
-        ...(typeof broadcastOperation.args[0] !== 'string'
-          ? broadcastOperation.args[0]
-          : ({
-              value: broadcastOperation.args[0],
-            } satisfies Parameters<typeof inMemoryStore.retain>[0])),
-        [shouldNotBroadcastSymbol]: true,
-        [shouldNotPersistSymbol]: true,
-      },
-      ...broadcastOperation.args.slice(1)
+      ...processIncomingArgs(broadcastOperation)
     )
   })
 }

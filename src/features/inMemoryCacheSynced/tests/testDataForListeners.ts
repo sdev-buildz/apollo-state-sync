@@ -1,4 +1,7 @@
+import { gql } from '@apollo/client'
 import serializeJavascript from 'serialize-javascript'
+import type { StrictExtract } from 'ts-strict-utils'
+import type { InMemoryCacheSynced } from '../InMemoryCacheSynced'
 import type {
   CacheOperationsToSyncType,
   CacheSyncMessageType,
@@ -17,17 +20,32 @@ export const getListenedMessage = (message: CacheSyncMessageType) => {
     `(` + serializeJavascript(message) + ')'
   ) as CacheSyncMessageTypeMap[CacheOperationsToSyncType]
 
+  let processedArgs: Parameters<InMemoryCacheSynced[CacheOperationsToSyncType]>
+
+  if (bcedMessage.operationName === 'write') {
+    const typedArgs = bcedMessage.args as CacheSyncMessageType<'write'>['args']
+    processedArgs = [
+      {
+        ...typedArgs[0],
+        query: gql(typedArgs[0].query as string),
+      },
+    ]
+  } else
+    processedArgs = bcedMessage.args as CacheSyncMessageType<
+      StrictExtract<CacheOperationsToSyncType, 'write'>
+    >['args']
+
   return {
     ...bcedMessage,
     args: [
       {
-        ...(typeof bcedMessage.args[0] === 'string'
+        ...(typeof processedArgs[0] === 'string'
           ? { value: message.args[0] }
-          : bcedMessage.args[0]),
+          : processedArgs[0]),
         [shouldNotBroadcastSymbol]: true,
         [shouldNotPersistSymbol]: true,
       },
-      ...bcedMessage.args.slice(1),
+      ...processedArgs.slice(1),
     ],
   }
 }

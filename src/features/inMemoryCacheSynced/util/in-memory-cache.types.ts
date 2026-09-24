@@ -1,4 +1,5 @@
 import type { ApolloClient } from '@apollo/client'
+import type { StrictExtract, StrictOmit } from 'ts-strict-utils'
 import type { InMemoryCacheSyncedType } from './InMemoryCacheSyncedType'
 
 /**
@@ -38,6 +39,21 @@ export type WrappedString = {
 }
 
 /**
+ * The broadcast write operation type
+ */
+export type BroadcastWriteType = StrictOmit<
+  Parameters<InMemoryCacheSyncedType['write']>[0],
+  'query'
+> & {
+  [
+    Prop in StrictExtract<
+      keyof Parameters<InMemoryCacheSyncedType['write']>[0],
+      'query'
+    >
+  ]: string
+}
+
+/**
  * The broadcast info about the cache operation.
  * It contains the operation name and the arguments for the operation function call.
  */
@@ -45,7 +61,9 @@ export type CacheSyncMessageType<
   OperationName extends CacheOperationsToSyncType = CacheOperationsToSyncType,
 > = {
   operationName: OperationName
-  args: Parameters<InMemoryCacheSyncedType[OperationName]>
+  args: OperationName extends 'write'
+    ? [BroadcastWriteType]
+    : Parameters<InMemoryCacheSyncedType[OperationName]>
 }
 
 /** Maps the operation names to the corresponding broadcast messages. */

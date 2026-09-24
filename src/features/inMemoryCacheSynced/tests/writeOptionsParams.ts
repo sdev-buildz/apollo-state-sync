@@ -30,6 +30,17 @@ const writeTestObjects = {
     __typename: 'WrittenField',
     id: '1',
     value: 'option',
+    nestedField: {
+      __typename: 'NestedField',
+      key1: 'value1',
+      key2: 'value2',
+      nestedField2: {
+        __typename: 'NestedField2',
+        key3: 'value3',
+        key4: 'value4',
+        key5: 'value5',
+      },
+    },
   },
 } satisfies Record<string, NodeValueType>
 
@@ -81,6 +92,15 @@ export const writeOptionsParams = {
           __typename
           id
           value
+          nestedField {
+            key1
+            nestedField2 {
+              key3
+              key4
+              key5
+            }
+            key2
+          }
         }
       }
     `,

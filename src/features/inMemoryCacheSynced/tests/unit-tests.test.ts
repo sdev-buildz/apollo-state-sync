@@ -10,6 +10,7 @@ import { setupCacheSyncer } from '../setupCacheSyncer'
 import { persistInMemoryCache, restorePersisted } from '../util/persistance'
 
 import { canonicalSerialization } from 'canonical-serialization'
+import { print } from 'graphql'
 import { beforeEach, describe, expect, it, test, vi, type Mock } from 'vitest'
 import { synchronizationDebouncer } from '../../../util/synchronizationDebouncer'
 import { InMemoryCacheSynced } from '../InMemoryCacheSynced'
@@ -20,7 +21,7 @@ import {
 } from '../util/in-memory-cache.types'
 import type { InMemoryCacheSyncedType } from '../util/InMemoryCacheSyncedType'
 import { cacheStateChecks } from './cacheStateChecls'
-import { initializeTestData } from './testData'
+import { getBroadcastMessage, initializeTestData } from './testData'
 import { getListenedMessage } from './testDataForListeners'
 import { writeOptionsParams, type GqlQueryType } from './writeOptionsParams'
 
@@ -140,7 +141,7 @@ describe.each<{
       args: [
         {
           dataId: 'ROOT_QUERY',
-          query: writeOptionsParams.writtenField.query,
+          query: print(writeOptionsParams.writtenField.query),
           result: writeOptionsParams.writtenField.data,
         },
       ],
@@ -397,7 +398,7 @@ describe.each<{
           skipListenedFilter: () => true,
         },
       })
-      bc.emitMessage(testData[operationToSkip].message)
+      bc.emitMessage(getBroadcastMessage(testData[operationToSkip].message))
       expect(operationSpies[operationToSkip]).not.toHaveBeenCalled()
     }
   )
@@ -469,7 +470,7 @@ describe.each<{
         await cacheStateChecks[operationName].before(inMemoryCache)
 
       // Simulating incoming message from different context
-      bc.emitMessage(testData[operationName].message)
+      bc.emitMessage(getBroadcastMessage(testData[operationName].message))
 
       vi.advanceTimersByTime(globalConfig.synchronizationDebounceTimeoutMs)
 
@@ -483,7 +484,9 @@ describe.each<{
         )
       ).toBe(
         canonicalSerialization(
-          getListenedMessage(testData[operationName].message).args
+          getListenedMessage(
+            getBroadcastMessage(testData[operationName].message)
+          ).args
         )
       )
 

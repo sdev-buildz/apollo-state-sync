@@ -1,16 +1,10 @@
 import { InMemoryCache } from '@apollo/client'
-import type {
-  CacheSyncerConfigType,
-  GlobalConfig,
-} from '@root/src/globalConfig'
+import type { CacheSyncerConfigType, GlobalConfig } from '../../globalConfig'
 import { getShouldPersist, handleSyncing } from './setupBroadcastors'
 import { cacheBroadcastChannel } from './util/cacheBroadcastChannel'
-import {
-  shouldNotBroadcastSymbol,
-  shouldNotPersistSymbol,
-} from './util/in-memory-cache.types'
 import type { InMemoryCacheSyncedType } from './util/InMemoryCacheSyncedType'
 import { persistInMemoryCache, restorePersisted } from './util/persistance'
+import { processIncomingArgs } from './util/processIncomingArgs'
 
 /**
  * An **Apollo In-Memory Cache** that synchronizes its state automatically
@@ -58,25 +52,17 @@ export class InMemoryCacheSynced
           broadcastOperation.args
         )
       )
-        return // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ;(this[broadcastOperation.operationName] as any)(
-        {
-          ...(typeof broadcastOperation.args[0] !== 'string'
-            ? broadcastOperation.args[0]
-            : ({
-                value: broadcastOperation.args[0],
-              } satisfies Parameters<typeof this.retain>[0])),
-          [shouldNotBroadcastSymbol]: true,
-          [shouldNotPersistSymbol]: true,
-        },
-        ...broadcastOperation.args.slice(1)
+        ...processIncomingArgs(broadcastOperation)
       )
     })
   }
 
   override write(options: Parameters<InMemoryCacheSyncedType['write']>[0]) {
     const result = super.write(options)
-
     if (!this.stateSyncerConfig?.shouldBroadcastSubscriptionWrites) {
       /**
        * Skipping broadcasting of writes caused by graphql subscriptions.
