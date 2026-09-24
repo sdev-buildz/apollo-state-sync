@@ -105,6 +105,10 @@
         "!.changeset/**",
         "**/*.md"
       ]
+    },
+    "docs": {
+      "dependsOn": ["turbo-build"],
+      "outputs": ["./docs/api-reference"]
     }
   }
 }

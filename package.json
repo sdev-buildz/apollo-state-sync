@@ -64,7 +64,9 @@
     "knip:e2e-app": "knip --workspace e2e/web-app --workspace 'examples/*'",
     "knip": "pnpm run knip:main & pnpm run knip:e2e-app",
     "knip:ci": "pnpm run knip:main && pnpm run knip:e2e-app",
-    "docs": "typedoc --options typedoc.config.js"
+    "docs": "typedoc --options typedoc.config.js",
+    "docs:turbo": "turbo docs",
+    "docs:ci": "pnpm run build && pnpm run docs && pnpm --filter @examples/social-media-app run build"
   },
   "dependencies": {
     "@apollo/client": "catalog:",
