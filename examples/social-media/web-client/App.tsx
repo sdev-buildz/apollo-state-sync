@@ -2,6 +2,7 @@ import Clarity from '@microsoft/clarity'
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useEffect } from 'react'
+import { ConsentManager } from './components/ConsentManager'
 import { NavBar } from './components/NavBar/NavBar'
 import { PostsPage } from './components/PostsPage/PostsPage'
 import { AppContext, defaultAppContext } from './contexts/AppContext'
@@ -49,11 +50,13 @@ export function App() {
   return (
     <div className='app'>
       <ThemeProvider theme={theme} defaultMode='dark'>
-        <CssBaseline enableColorScheme />
-        <AppContext.Provider value={defaultAppContext}>
-          <NavBar />
-          <PostsPage />
-        </AppContext.Provider>
+        <ConsentManager>
+          <CssBaseline enableColorScheme />
+          <AppContext.Provider value={defaultAppContext}>
+            <NavBar />
+            <PostsPage />
+          </AppContext.Provider>
+        </ConsentManager>
       </ThemeProvider>
     </div>
   )
