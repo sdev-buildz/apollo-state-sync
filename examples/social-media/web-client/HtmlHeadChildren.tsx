@@ -11,9 +11,9 @@ export const HtmlHeadChildren = () => {
       <meta name='viewport' content='width=device-width, initial-scale=1' />
       <meta
         name='description'
-        content='Demo website showcasing the apollo client state synchronization. Used in e2e tests.'
+        content='Demo website showcasing the apollo client state synchronization. Social Media built with Apollo State Sync.'
       />
-      <title>Demo of Apollo Client State Sync and graphql-shared-ws</title>
+      <title>Social Media built with Apollo State Sync</title>
       <link
         href='https://fonts.googleapis.com/css?family=Roboto'
         rel='stylesheet'
