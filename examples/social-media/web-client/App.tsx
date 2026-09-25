@@ -1,5 +1,7 @@
+import Clarity from '@microsoft/clarity'
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { useEffect } from 'react'
 import { NavBar } from './components/NavBar/NavBar'
 import { PostsPage } from './components/PostsPage/PostsPage'
 import { AppContext, defaultAppContext } from './contexts/AppContext'
@@ -38,6 +40,12 @@ const theme = createTheme({
  * It includes the whole App Layout.
  */
 export function App() {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      Clarity.init('yntln3k90a')
+    }
+  }, [])
+
   return (
     <div className='app'>
       <ThemeProvider theme={theme} defaultMode='dark'>
