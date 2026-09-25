@@ -1,5 +1,15 @@
 # apollo-shared-ws
 
+## 1.0.2
+
+### Patch Changes
+
+- [#74](https://github.com/sdev-buildz/apollo-state-sync/pull/74) [`dbba64f`](https://github.com/sdev-buildz/apollo-state-sync/commit/dbba64f14444538c934c8f189f6d2f010e7bb7a0) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - fix and improve readme and typedoc comments. Improve descriptions in migration util's --help output.
+
+- [#79](https://github.com/sdev-buildz/apollo-state-sync/pull/79) [`6f65d3a`](https://github.com/sdev-buildz/apollo-state-sync/commit/6f65d3a9c459112e653cbfe2897279cda6e30fc4) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - fix(migration): accept tsconfig.json path provided as positional argument. tsconfig.json path should default to './tsconfig.json'.
+
+- [#91](https://github.com/sdev-buildz/apollo-state-sync/pull/91) [`07b6880`](https://github.com/sdev-buildz/apollo-state-sync/commit/07b6880794d7025ba65ce48770d092300ffc59f4) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - docs(examples): add an example shopping-site demonstrating seamless multi-tab state synchronization. It includes a video demo.
+
 ## 1.0.1
 
 ### Patch Changes
