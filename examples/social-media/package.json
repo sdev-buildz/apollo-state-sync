@@ -27,6 +27,7 @@
     "@packages/web-app-utils": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "schema-dts": "^2.0.0",
     "tsx": "catalog:",
     "typescript": "catalog:",
     "webpack": "catalog:"
