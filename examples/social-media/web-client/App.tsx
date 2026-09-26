@@ -8,30 +8,29 @@ import { PostsPage } from './components/PostsPage/PostsPage'
 import { AppContext, defaultAppContext } from './contexts/AppContext'
 
 const theme = createTheme({
-  colorSchemes: {
-    dark: true,
-    light: true,
+  cssVariables: {
+    colorSchemeSelector: 'data',
   },
-  palette: {
-    mode: 'dark',
-    primary: {
-      main: '#E2A0FF',
+  colorSchemes: {
+    dark: {
+      palette: {
+        primary: { main: '#E2A0FF' },
+        secondary: { main: '#90F3FF' },
+        tertiary: { main: '#0e6fff' },
+        tertiaryVariant: { main: '#c4dcff' },
+        text: { secondary: '#6bc3e2' },
+        background: { default: '#000000', paper: '#111111' },
+      },
     },
-    secondary: {
-      main: '#90F3FF',
-    },
-    tertiary: {
-      main: '#0e6fff', // Replace with your tertiary color hex
-    },
-    tertiaryVariant: {
-      main: '#c4dcff', // Replace with your tertiary color hex
-    },
-    text: {
-      secondary: '#6bc3e2',
-    },
-    background: {
-      default: '#000000',
-      paper: '#111111',
+    light: {
+      palette: {
+        primary: { main: '#8b35aa' },
+        secondary: { main: '#007c8a' },
+        tertiary: { main: '#0e6fff' },
+        tertiaryVariant: { main: '#c4dcff' },
+        text: { secondary: '#397c93' },
+        background: { default: '#f7f9fb', paper: '#ffffff' },
+      },
     },
   },
 })
