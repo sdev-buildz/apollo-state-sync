@@ -27,7 +27,7 @@ const theme = createTheme({
         primary: { main: '#8b35aa' },
         secondary: { main: '#007c8a' },
         tertiary: { main: '#0e6fff' },
-        tertiaryVariant: { main: '#c4dcff' },
+        tertiaryVariant: { main: '#00b1c5' },
         text: { secondary: '#397c93' },
         background: { default: '#f7f9fb', paper: '#ffffff' },
       },
