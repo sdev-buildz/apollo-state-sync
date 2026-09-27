@@ -7,6 +7,7 @@ import {
   policyPackPresets,
   useConsentManager,
 } from '@c15t/react'
+import { baseTranslations } from '@c15t/translations/all'
 import { useColorScheme, useTheme } from '@mui/material/styles'
 import { useEffect, type ReactNode } from 'react'
 
@@ -54,9 +55,32 @@ export default function ConsentManagerClient({
   const muiTheme = useTheme()
   const { mode, systemMode } = useColorScheme()
   const colorScheme = mode === 'system' ? systemMode : mode
+
+  /**
+   * The user's most preferred language that is supported by the application.
+   * @remarks
+   * Because `c15t` only detects the single topmost user preference, this property
+   * iterates through the user's complete list of preferred languages until a
+   * supported match is found.
+   */
+  const browserLocale =
+    typeof navigator === 'undefined'
+      ? 'en'
+      : ((navigator.languages.length > 0
+          ? navigator.languages
+          : [navigator.language]
+        )
+          .map((language) => language.split('-')[0]?.toLowerCase())
+          .find((language) => language && language in baseTranslations) ?? 'en')
+
   return (
     <ConsentManagerProvider
       options={{
+        i18n: {
+          messages: baseTranslations,
+          detectBrowserLanguage: false,
+          locale: browserLocale,
+        },
         mode: 'offline',
         consentCategories: ['necessary', 'measurement'],
         colorScheme: colorScheme ?? 'dark',
