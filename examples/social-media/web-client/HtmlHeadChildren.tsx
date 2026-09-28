@@ -1,4 +1,3 @@
-import { sharedConfig } from '@packages/web-app-utils/shared'
 import type { SoftwareSourceCode, WithContext } from 'schema-dts'
 /**
  * The children of the head tag such as Script tags, Link tags, etc...
@@ -7,7 +6,14 @@ export const HtmlHeadChildren = () => {
   return (
     <>
       <meta charSet='utf-8' />
-      <link rel='icon' href={`${sharedConfig.origin}/static/favicon.ico`} />
+
+      {/* Favicon */}
+      <link
+        rel='icon'
+        type='image/svg'
+        href='./static/assets/back-and-forth.svg'
+      />
+
       <meta name='viewport' content='width=device-width, initial-scale=1' />
       <meta
         name='description'
