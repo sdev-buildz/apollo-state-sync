@@ -7,6 +7,13 @@ export const HtmlHeadChildren = () => {
     <>
       <meta charSet='utf-8' />
 
+      {/* Title and Description */}
+      <title>Social Media built with Apollo State Sync</title>
+      <meta
+        name='description'
+        content='Demo website showcasing the apollo client state synchronization. Social Media built with Apollo State Sync.'
+      />
+
       {/* Favicon */}
       <link
         rel='icon'
@@ -15,17 +22,15 @@ export const HtmlHeadChildren = () => {
       />
 
       <meta name='viewport' content='width=device-width, initial-scale=1' />
-      <meta
-        name='description'
-        content='Demo website showcasing the apollo client state synchronization. Social Media built with Apollo State Sync.'
-      />
-      <title>Social Media built with Apollo State Sync</title>
+
+      {/* Font */}
       <link
         href='https://fonts.googleapis.com/css?family=Roboto'
         rel='stylesheet'
         type='text/css'
       />
       <script src='https://apis.google.com/js/api:client.js'></script>
+
       <script
         type='application/ld+json'
         dangerouslySetInnerHTML={{
