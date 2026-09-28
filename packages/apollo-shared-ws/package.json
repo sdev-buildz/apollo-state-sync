@@ -53,7 +53,7 @@
   },
   "peerDependencies": {
     "@apollo/client": "catalog:peer-deps",
-    "graphql-shared-ws": ">=0.0.0",
+    "graphql-shared-ws": ">=1.0.0",
     "ts-morph": "catalog:"
   },
   "peerDependenciesMeta": {
