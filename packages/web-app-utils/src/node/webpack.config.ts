@@ -2,7 +2,6 @@
  * @packageDocumentation
  *  {@inheritDoc getWebpackConfig}
  */
-import CompressionPlugin from 'compression-webpack-plugin'
 import CopyPlugin from 'copy-webpack-plugin'
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 import HtmlWebPackPlugin from 'html-webpack-plugin'
@@ -171,20 +170,6 @@ export const getWebpackConfig = (
         'globalThis.__DEV__': true,
       }),
       ...(isDevServer ? [] : [new MiniCssExtractPlugin({})]),
-      ...(isDevServer
-        ? []
-        : [
-            /**
-             * Compressing into brotli format.
-             */
-            new CompressionPlugin({
-              algorithm: 'brotliCompress',
-            }),
-            /**
-             * Compressing into gzip format for fallback.
-             */
-            new CompressionPlugin(),
-          ]),
     ],
     resolve: {
       fallback: {
