@@ -870,7 +870,7 @@ importers:
         specifier: 'catalog:'
         version: https://codeload.github.com/uNetworking/uWebSockets.js/tar.gz/b1092c70692ddbcc87464a77da44848614f6342a
       webpack:
-        specifier: ^5.110.3
+        specifier: 'catalog:'
         version: 5.110.3(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(csso@5.0.5)(esbuild@0.28.2)(html-minifier-terser@6.1.0)(lightningcss@1.33.0)(postcss@8.5.26)(webpack-cli@6.0.1)
       webpack-cli:
         specifier: ^6.0.1
