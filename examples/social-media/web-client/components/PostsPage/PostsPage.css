@@ -1,37 +1,6 @@
 .posts-page {
   display: contents;
-  .notifications {
-    position: fixed;
-    top: 2rem;
-    right: 2rem;
-    .notification {
-      &:has(+ .notification) {
-        margin-bottom: 1rem;
-      }
-      list-style: none;
-      padding: 0.2rem 1rem;
-      border: 1px solid black;
-      border-radius: 1rem;
-      background-color: white;
-    }
-  }
-
   .posts {
-    flex-grow: 1;
-    display: flex;
-    flex-wrap: wrap;
     overflow-y: scroll;
-    gap: 1rem;
-    padding-right: 1rem;
-    .column {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
   }
-}
-
-.post {
-  width: 20rem;
-  height: fit-content;
 }
