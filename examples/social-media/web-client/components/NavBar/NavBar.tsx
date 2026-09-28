@@ -32,7 +32,10 @@ export const NavBar = () => {
       <Toolbar>
         <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
           Social Media built with{' '}
-          <a href='https://github.com/sdev-buildz/apollo-state-sync'>
+          <a
+            href='https://github.com/sdev-buildz/apollo-state-sync'
+            style={{ textWrap: 'nowrap' }}
+          >
             Apollo State Sync
           </a>
         </Typography>
@@ -73,6 +76,7 @@ export const NavBar = () => {
           variant='outlined'
           onClick={() => isLoggedIn(!isLoggedIn())}
           startIcon={isLoggedInState ? <LoginIcon /> : <LogoutIcon />}
+          style={{ textWrap: 'nowrap' }}
         >
           {isLoggedInState ? 'Log out' : 'Log In'}
         </Button>
