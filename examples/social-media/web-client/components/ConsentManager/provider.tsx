@@ -9,7 +9,9 @@ import {
 } from '@c15t/react'
 import { baseTranslations } from '@c15t/translations/all'
 import { useColorScheme, useTheme } from '@mui/material/styles'
-import { useEffect, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
+
+type ConsentModelType = ReturnType<typeof useConsentManager>['model']
 
 /**
  * Fetches the location of the user.
@@ -20,8 +22,18 @@ import { useEffect, type ReactNode } from 'react'
  * Custom hooks cannot be used as children of JSX elements.
  * @returns null
  */
-const LocationFetcher = () => {
-  const { setOverrides } = useConsentManager()
+const LocationFetcher = ({
+  setLocFetched,
+  setModel,
+}: {
+  setLocFetched: React.Dispatch<React.SetStateAction<boolean>>
+  setModel: React.Dispatch<React.SetStateAction<ConsentModelType>>
+}) => {
+  const { setOverrides, model } = useConsentManager()
+
+  useEffect(() => {
+    setModel(model)
+  }, [model, setModel])
 
   useEffect(() => {
     //  Fetching the location of the user.
@@ -37,7 +49,13 @@ const LocationFetcher = () => {
           region: data.region_code,
         })
       })
-      .catch((err) => {})
+      .catch(() => {
+        // Use an unmatched country so the default policy pack applies.
+        setOverrides({ country: 'ZZ' })
+      })
+      .finally(() => {
+        setLocFetched(true)
+      })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -55,6 +73,15 @@ export default function ConsentManagerClient({
   const muiTheme = useTheme()
   const { mode, systemMode } = useColorScheme()
   const colorScheme = mode === 'system' ? systemMode : mode
+
+  /** The consent model choosen based on jurisdiction */
+  const [model, setModel] = useState<ConsentModelType>(null)
+
+  /**
+   * It is false until location fetch request is completed (either successfully or with an error).
+   * It is true otherwise.
+   */
+  const [locFetched, setLocFetched] = useState<boolean>(false)
 
   /**
    * The user's most preferred language that is supported by the application.
@@ -96,6 +123,7 @@ export default function ConsentManagerClient({
             textOnPrimary: muiTheme.vars!.palette.primary.contrastText,
           },
         },
+
         offlinePolicy: {
           policyPacks: [
             policyPackPresets.europeOptIn(),
@@ -105,8 +133,8 @@ export default function ConsentManagerClient({
         },
       }}
     >
-      <ConsentBanner />
-      <LocationFetcher />
+      {locFetched && model ? <ConsentBanner disableAnimation={false} /> : null}
+      <LocationFetcher setLocFetched={setLocFetched} setModel={setModel} />
       <ConsentDialog
         showTrigger={{
           icon: 'fingerprint',
