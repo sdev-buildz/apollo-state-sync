@@ -42,6 +42,11 @@ Apollo State Sync solves this by keeping state in sync across browsing contexts 
 
 Explore the [examples](./examples) directory for video demos and sample projects showcasing Apollo State Sync and Apollo Shared WS in action.
 
+|                                                                                                      Shopping site                                                                                                       |                                                                                                    Social media                                                                                                    |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img alt="Preview of the shopping site demo video" width="320" src="./assets/Shopping%20Site%20Example%20-%20Demo%20Thumbnail.png" />](https://github.com/user-attachments/assets/18df5e73-f7a6-417f-8398-2bb8251ccc3e) | [<img alt="Screenshot of the live social media app" width="320" src="./assets/Social%20Media%20Live%20Demo%20-%20In%20Action%20Screenshot.png" />](https://sdev-buildz.github.io/apollo-state-sync/examples/posts) |
+|                                                            [Watch the video](https://github.com/user-attachments/assets/18df5e73-f7a6-417f-8398-2bb8251ccc3e)                                                            |                                                                [Try the live demo](https://sdev-buildz.github.io/apollo-state-sync/examples/posts)                                                                 |
+
 - User logs in from one tab and is automatically logged in on all other tabs
 - Shopping cart updates are shared instantly across every open tab
 - Chat applications, dashboards, live-location apps, or scoreboards can be opened in multiple windows without extra network load
