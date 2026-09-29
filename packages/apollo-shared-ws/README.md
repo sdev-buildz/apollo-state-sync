@@ -21,7 +21,7 @@ It is built on top of [graphql-shared-ws](https://www.npmjs.com/package/graphql-
 ## 📦 Installation
 
 ```sh
-npm install apollo-shared-ws
+npm install apollo-shared-ws graphql-shared-ws
 ```
 
 <details>
@@ -30,19 +30,19 @@ npm install apollo-shared-ws
 #### 1) For non-monorepos.
 
 ```sh
-pnpm add apollo-shared-ws
+pnpm add apollo-shared-ws graphql-shared-ws
 ```
 
 #### 2) Adds to specific workspace.
 
 ```sh
-pnpm add apollo-shared-ws --filter="./packages/my-workspace"
+pnpm add apollo-shared-ws graphql-shared-ws --filter="./packages/my-workspace"
 ```
 
 #### 3) Adds to root workspace.
 
 ```sh
-pnpm add apollo-shared-ws -w
+pnpm add apollo-shared-ws graphql-shared-ws -w
 ```
 
 </details>
@@ -53,19 +53,19 @@ pnpm add apollo-shared-ws -w
 #### 1) For non-monorepos
 
 ```sh
-yarn add apollo-shared-ws
+yarn add apollo-shared-ws graphql-shared-ws
 ```
 
 #### 2) Adds to specific workspace
 
 ```sh
-yarn workspace <workspace-name> add apollo-shared-ws
+yarn workspace <workspace-name> add apollo-shared-ws graphql-shared-ws
 ```
 
 #### 3) Adds to root workspace
 
 ```sh
-yarn add -W apollo-shared-ws
+yarn add -W apollo-shared-ws graphql-shared-ws
 ```
 
 </details>
