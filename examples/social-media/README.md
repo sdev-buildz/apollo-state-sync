@@ -11,9 +11,13 @@ This example showcases [Apollo State Sync](../../README.md) integrated into a so
 - **UI Preferences:** Dark/light mode settings are applied globally across the session.
 - **Shared Resources:** A unified in-memory cache for real-time updates on posts and comments.
 
-### 🌐 Live Demo
+### 💻🌐 Live Demo
 
 You can access the live application here: https://sdev-buildz.github.io/apollo-state-sync/examples/posts
+
+### 📺 Watch the Demo Video:
+
+https://github.com/user-attachments/assets/59c29f7b-5810-4ade-810c-04cee8993332
 
 ## 💻 Local Development
 
