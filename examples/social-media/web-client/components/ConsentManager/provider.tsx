@@ -8,6 +8,7 @@ import {
   useConsentManager,
 } from '@c15t/react'
 import { baseTranslations } from '@c15t/translations/all'
+import GlobalStyles from '@mui/material/GlobalStyles'
 import { useColorScheme, useTheme } from '@mui/material/styles'
 import { useEffect, useState, type ReactNode } from 'react'
 
@@ -133,6 +134,14 @@ export default function ConsentManagerClient({
         },
       }}
     >
+      <GlobalStyles
+        styles={{
+          '[data-testid="consent-banner-root"]': {
+            width: 'stretch',
+            flexDirection: 'row-reverse',
+          },
+        }}
+      />
       {locFetched && model ? <ConsentBanner disableAnimation={false} /> : null}
       <LocationFetcher setLocFetched={setLocFetched} setModel={setModel} />
       <ConsentDialog
