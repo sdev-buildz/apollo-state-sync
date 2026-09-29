@@ -1,5 +1,37 @@
 # apollo-state-sync
 
+## 1.1.1
+
+### Patch Changes
+
+- [#102](https://github.com/sdev-buildz/apollo-state-sync/pull/102) [`ea6d39b`](https://github.com/sdev-buildz/apollo-state-sync/commit/ea6d39ba428bcbbbca11a5af17829eef4d47bfa8) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - fix(in-memory cache sync): when broadcasting write operations, structuredClone throws on DocumentNode
+
+- [#79](https://github.com/sdev-buildz/apollo-state-sync/pull/79) [`6f65d3a`](https://github.com/sdev-buildz/apollo-state-sync/commit/6f65d3a9c459112e653cbfe2897279cda6e30fc4) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - fix(makeVarSynced): When comparing new and previous values, use previous value instead of inital value.
+
+- [#79](https://github.com/sdev-buildz/apollo-state-sync/pull/79) [`6f65d3a`](https://github.com/sdev-buildz/apollo-state-sync/commit/6f65d3a9c459112e653cbfe2897279cda6e30fc4) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - fix(cache syncer fn): pass the provided arguments to the original reset fn in setupBroadcastorForResets
+  fix(synced cache): `await` on `super.reset` before syncing in InMemoryCacheSynced.reset
+
+- [#102](https://github.com/sdev-buildz/apollo-state-sync/pull/102) [`6beaaab`](https://github.com/sdev-buildz/apollo-state-sync/commit/6beaaab0b04c394f9c0f13da6cad3091e724f461) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - test(in-memory cache): fix test cases to use InMemoryCacheSynced class instead of stateSyncer fn
+
+- [#95](https://github.com/sdev-buildz/apollo-state-sync/pull/95) [`e3e28a3`](https://github.com/sdev-buildz/apollo-state-sync/commit/e3e28a3264dceb94c25a8d0470c1f69512da998c) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - docs(examples): example project using GraphQLZero
+
+- [#79](https://github.com/sdev-buildz/apollo-state-sync/pull/79) [`6f65d3a`](https://github.com/sdev-buildz/apollo-state-sync/commit/6f65d3a9c459112e653cbfe2897279cda6e30fc4) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - fix(stateSyncLink): notify syncDebouncer when subscriber unsubscribes
+
+- [#74](https://github.com/sdev-buildz/apollo-state-sync/pull/74) [`dbba64f`](https://github.com/sdev-buildz/apollo-state-sync/commit/dbba64f14444538c934c8f189f6d2f010e7bb7a0) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - fix and improve readme and typedoc comments. Improve descriptions in migration util's --help output.
+
+- [#79](https://github.com/sdev-buildz/apollo-state-sync/pull/79) [`6f65d3a`](https://github.com/sdev-buildz/apollo-state-sync/commit/6f65d3a9c459112e653cbfe2897279cda6e30fc4) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - fix(migration): accept tsconfig.json path provided as positional argument. tsconfig.json path should default to './tsconfig.json'.
+
+- [#70](https://github.com/sdev-buildz/apollo-state-sync/pull/70) [`2caa89b`](https://github.com/sdev-buildz/apollo-state-sync/commit/2caa89be1be74f7f40381a829f05fa7a698491cb) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - fix(global-config): rename misspelled synchronizationDebounceTimeoutMs field
+
+  Renames `synhnorizationDebounceTimeoutMs` to `synchronizationDebounceTimeoutMs`.
+
+  The original misspelled field is now deprecated and will be removed in
+  the next major release. It remains active for backward compatibility.
+
+- [#91](https://github.com/sdev-buildz/apollo-state-sync/pull/91) [`07b6880`](https://github.com/sdev-buildz/apollo-state-sync/commit/07b6880794d7025ba65ce48770d092300ffc59f4) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - docs(examples): add an example shopping-site demonstrating seamless multi-tab state synchronization. It includes a video demo.
+- Updated dependencies [[`dbba64f`](https://github.com/sdev-buildz/apollo-state-sync/commit/dbba64f14444538c934c8f189f6d2f010e7bb7a0), [`6f65d3a`](https://github.com/sdev-buildz/apollo-state-sync/commit/6f65d3a9c459112e653cbfe2897279cda6e30fc4), [`07b6880`](https://github.com/sdev-buildz/apollo-state-sync/commit/07b6880794d7025ba65ce48770d092300ffc59f4)]:
+  - apollo-shared-ws@1.0.2
+
 ## 1.1.0
 
 ### Minor Changes
