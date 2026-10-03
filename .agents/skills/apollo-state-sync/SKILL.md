@@ -117,3 +117,5 @@ const apolloClient =
     })
   )
 ```
+
+For `ApolloLink.split`, refer to [this guide](./references/APOLLO_LINK_SPLIT.md).
