@@ -47,6 +47,13 @@ const apolloClient = new ApolloClient({
 })
 ```
 
+Refer to the [InMemoryCacheSynced reference](./references/IN_MEMORY_CACHE_SYNCED.md) if you need to:
+
+1. skip broadcasting or persisting specific cache operations
+2. customize how operations broadcast from other browsing contexts are processed
+3. broadcast writes caused by subscriptions
+   (these are not broadcast by default to avoid infinite broadcast loops)
+
 ### makeVarSynced
 
 Creates a reactive variable that stays synchronized across browsing contexts.
@@ -65,6 +72,12 @@ import { makeVarSynced } from 'apollo-state-sync'
 
 const rVarSynced = makeVarSynced('random-value', 'a-unique-name')
 ```
+
+Refer to the [makeVarSynced reference](./references/MAKE_VAR_SYNCED.md) if you need to:
+
+1. skip broadcasting or persisting specific reactive variable changes
+2. skip the default comparison between the previous and new reactive variable values
+   (broadcasting does not occur when the new and old values are identical)
 
 ### apollo-shared-ws
 
