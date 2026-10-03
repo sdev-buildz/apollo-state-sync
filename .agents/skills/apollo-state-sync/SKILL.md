@@ -99,6 +99,7 @@ import { authLink } from './util/authLink'
 const wsLink = new GraphQLWsLink(
   // use 'createSharedClient'.
   createSharedClient({
+    // Don't set the `webSocketImpl` field without referring to the Custom WebSocket guide.
     url: 'wss://localhost:443/api/graphql',
     connectionParams: {
       headers: {
@@ -119,3 +120,4 @@ const apolloClient =
 ```
 
 For `ApolloLink.split`, refer to [this guide](./references/APOLLO_LINK_SPLIT.md).
+For custom WebSocket implementations, refer to the [Custom WebSocket guide](./references/CUSTOM_WEB_SOCKET.md).
