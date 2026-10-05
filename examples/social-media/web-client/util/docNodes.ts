@@ -12,9 +12,6 @@ export const postsQuery = gql`
         title
         body
       }
-      meta {
-        totalCount
-      }
     }
   }
 ` as TypedDocumentNode<Pick<Query, 'posts'>, { options: PageQueryOptions }>
@@ -31,9 +28,6 @@ export const commentsOfPostQuery = gql`
           id
           name
           body
-        }
-        meta {
-          totalCount
         }
       }
     }
