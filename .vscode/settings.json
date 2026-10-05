@@ -6,7 +6,6 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": "always",
     "source.sortImports": "always",
-    //  The below rule adds duplicate comments when exporting
     "source.fixAll.eslint": "always"
   },
   "js/ts.preferences.importModuleSpecifier": "shortest"
