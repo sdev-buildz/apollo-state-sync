@@ -118,17 +118,19 @@ export const ProductsPage = () => {
         {/* Cart */}
         <section className='cart'>
           <h4>Cart</h4>
-          <section className='items'>
+          <ul className='items' aria-live='polite'>
             {cart.map(({ id, count }) => {
               const product = catalogResult.data?.products?.find(
                 (p) => p.id === id
               )
               if (!product) return
               return (
-                <ProductCard key={product.id} product={product} cart={cart} />
+                <li>
+                  <ProductCard key={product.id} product={product} cart={cart} />
+                </li>
               )
             })}
-          </section>
+          </ul>
 
           <div className='checkout-container'>
             {(() => {
@@ -140,9 +142,16 @@ export const ProductsPage = () => {
                 return prev + product.price * item.count
               }, 0)
               return (
-                <data className='total-price' value={totalPrice}>
-                  ${totalPrice}
-                </data>
+                <>
+                  <data
+                    className='total-price'
+                    value={totalPrice}
+                    aria-live='polite'
+                    aria-atomic='true'
+                  >
+                    <div className='sr-only'>Total Price:</div>${totalPrice}
+                  </data>
+                </>
               )
             })()}
 

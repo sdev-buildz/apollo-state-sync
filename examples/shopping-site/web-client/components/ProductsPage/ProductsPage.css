@@ -75,6 +75,7 @@
         flex-direction: column;
         overflow-y: scroll;
         gap: 1rem;
+        list-style: none;
       }
       .product {
         font-size: 0.8rem;
