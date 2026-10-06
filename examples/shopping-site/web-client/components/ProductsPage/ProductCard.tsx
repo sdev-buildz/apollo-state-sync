@@ -82,10 +82,13 @@ export const ProductCard = ({
                 ? true
                 : undefined
             }
+            aria-labelledby='label-add-to-cart'
           >
             <AddShoppingCart />
+            <div id='label-add-to-cart' className='sr-only'>
+              add to cart
+            </div>
           </IconButton>
-
           {/* Count of the product in cart */}
           <Typography
             className='cartCountInputValue'
@@ -94,7 +97,6 @@ export const ProductCard = ({
           >
             {cart.find((p) => p.id === product.id)?.count ?? 0}
           </Typography>
-
           <IconButton
             className='removeFromCart'
             size='small'
@@ -102,8 +104,12 @@ export const ProductCard = ({
               setCartVar({ id: product.id!, remove: true }, products ?? [])
             }
             disabled={cart.find((p) => p.id === product.id) ? undefined : true}
+            aria-labelledby='label-remove-from-cart'
           >
             <RemoveShoppingCart />
+            <div id='label-remove-from-cart' className='sr-only'>
+              remove from cart
+            </div>
           </IconButton>
           <br />
           <Typography
@@ -112,10 +118,14 @@ export const ProductCard = ({
             component='data'
             value={product.stockCount ?? undefined}
           >
+            <div id='stock-count-label' className='sr-only'>
+              stock count:
+            </div>
             <data
               value={
                 product.stockCount !== null ? product.stockCount : undefined
               }
+              aria-labelledby='stock-count-label'
             >
               {product.stockCount}
             </data>
