@@ -96,7 +96,12 @@ export const ProductsPage = () => {
       </hgroup>
 
       {/* Real-time notifications about stock and price updates. */}
-      <Stack className='notifications' direction={'column'} spacing={2}>
+      <Stack
+        className='notifications'
+        direction={'column'}
+        spacing={2}
+        aria-live='polite'
+      >
         {notifications.map((notification, idx) => (
           <SnackbarContent key={idx} message={notification}></SnackbarContent>
         ))}
