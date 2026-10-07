@@ -102,7 +102,7 @@ const apolloClient =
   )
 ```
 
-If you are using `ApolloLink.split`, refer to this [documentation](https://sdev-buildz.github.io/apollo-state-sync/functions/packages_apollo-shared-ws_src.setupRestartSubscription.html).
+If you are using `ApolloLink.split`, refer to this [documentation](https://sdev-buildz.github.io/apollo-state-sync/api-reference/functions/packages_apollo-shared-ws_src.setupRestartSubscription.html).
 
 ## ⚙️ How it works ( Architecture )
 
@@ -112,7 +112,7 @@ It uses SharedWorkers to host a single shared WebSocket connection and indexes s
 
 ## 🔌 API documentation
 
-1. [apollo-shared-ws API reference](https://sdev-buildz.github.io/apollo-state-sync/functions/packages_apollo-shared-ws_src.setupRestartSubscription.html)
+1. [apollo-shared-ws API reference](https://sdev-buildz.github.io/apollo-state-sync/api-reference/functions/packages_apollo-shared-ws_src.setupRestartSubscription.html)
 2. [graphql-shared-ws documentation](https://www.npmjs.com/package/graphql-shared-ws#:~:text=%F0%9F%94%8C-,API%20Reference,-This%20library%20implements)
 3. [graphql-ws documentation](https://the-guild.dev/graphql/ws/get-started)
 4. [Apollo GraphQLWsLink documentation](https://www.apollographql.com/docs/react/v3/api/link/apollo-link-subscriptions)
