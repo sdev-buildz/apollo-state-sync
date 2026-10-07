@@ -1,5 +1,19 @@
 # apollo-state-sync
 
+## 1.2.0
+
+### Minor Changes
+
+- [#120](https://github.com/sdev-buildz/apollo-state-sync/pull/120) [`67097f0`](https://github.com/sdev-buildz/apollo-state-sync/commit/67097f026307f2ca1a1239f0dbebfb6d5cea2bd1) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - feat(agent-skill): add agent skill to use apollo-state-sync or apollo-shared-ws
+
+### Patch Changes
+
+- [#118](https://github.com/sdev-buildz/apollo-state-sync/pull/118) [`454b252`](https://github.com/sdev-buildz/apollo-state-sync/commit/454b252648c5b885c191da03d160789acac19e0f) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - docs(api-overview.md): fix bug in example code
+
+- [#124](https://github.com/sdev-buildz/apollo-state-sync/pull/124) [`616cd30`](https://github.com/sdev-buildz/apollo-state-sync/commit/616cd30ed1c5de9a329fe2add6e7d6ac4177bd88) Thanks [@sdev-buildz](https://github.com/sdev-buildz)! - docs: fix links to new typedoc endpoint
+- Updated dependencies [[`67097f0`](https://github.com/sdev-buildz/apollo-state-sync/commit/67097f026307f2ca1a1239f0dbebfb6d5cea2bd1), [`616cd30`](https://github.com/sdev-buildz/apollo-state-sync/commit/616cd30ed1c5de9a329fe2add6e7d6ac4177bd88)]:
+  - apollo-shared-ws@1.1.0
+
 ## 1.1.1
 
 ### Patch Changes
