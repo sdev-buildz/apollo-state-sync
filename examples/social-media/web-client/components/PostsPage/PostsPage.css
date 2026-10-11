@@ -3,4 +3,7 @@
   .posts {
     overflow-y: scroll;
   }
+  hgroup details summary {
+    cursor: pointer;
+  }
 }

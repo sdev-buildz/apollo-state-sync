@@ -4,6 +4,7 @@ import Masonry from '@mui/lab/Masonry'
 import { Skeleton } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { postsQuery } from '../../util/docNodes'
+import { useDetailsTag } from '../../util/useDetailsTag'
 import { PostCard } from './PostCard'
 
 /**
@@ -22,7 +23,10 @@ export const PostsPage = () => {
     fetchPolicy: 'cache-first',
   })
   const [colsCount, setColsCount] = useState<number>(3)
+  const { isOpen, handleToggle } = useDetailsTag({ breakpointPx: 710 })
+
   const colWidthInRem = 20
+
   useEffect(() => {
     const observer = new ResizeObserver((entries) => {
       const entry = entries[0]!
@@ -41,24 +45,26 @@ export const PostsPage = () => {
         <h2>
           <GroupsIcon /> Posts
         </h2>
-        <p>
-          Open this page in multiple tabs or windows to see synchronization in
-          action.
-        </p>
-        <ul>
-          <li>
-            Comments fetched in one tab are synchronized in real time across all
-            open tabs and windows.
-          </li>
-          <li>
-            The cache is persisted to local storage, so posts and comments
-            appear immediately when you reload the page.
-          </li>
-          <li>
-            Login status and theme preferences are synchronized across tabs and
-            windows as well.
-          </li>
-        </ul>
+        <details open={isOpen} onToggle={handleToggle}>
+          <summary>
+            Open this page in multiple tabs or windows to see synchronization in
+            action.
+          </summary>
+          <ul>
+            <li>
+              Comments fetched in one tab are synchronized in real time across
+              all open tabs and windows.
+            </li>
+            <li>
+              The cache is persisted to local storage, so posts and comments
+              appear immediately when you reload the page.
+            </li>
+            <li>
+              Login status and theme preferences are synchronized across tabs
+              and windows as well.
+            </li>
+          </ul>
+        </details>
       </hgroup>
       {/* Posts */}
       <section className='posts'>
