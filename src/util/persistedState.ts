@@ -1,4 +1,5 @@
 import type { NormalizedCacheObject } from '@apollo/client'
+import { canonicalSerialization, deserialize } from 'canonical-serialization'
 import { globalConfig } from '../globalConfig'
 
 /**
@@ -26,7 +27,7 @@ export const getPersistedState = (): PersistedStateType | undefined => {
   if (typeof window === 'undefined') return undefined
   const stringifiedState = localStorage.getItem(persistedStateKey)
   if (!stringifiedState) return
-  const persistedState = JSON.parse(stringifiedState)
+  const persistedState = deserialize(stringifiedState) as PersistedStateType
 
   if ((persistedState?.expiresAt ?? 0) <= Date.now()) {
     return undefined
@@ -51,7 +52,7 @@ export const setPersistedState = (
     const previousExpiresAt = getPersistedState()?.expiresAt
     state.expiresAt = previousExpiresAt ?? state.expiresAt
   }
-  localStorage.setItem(persistedStateKey, JSON.stringify(state))
+  localStorage.setItem(persistedStateKey, canonicalSerialization(state))
 }
 
 /**

@@ -126,6 +126,21 @@ describe.each<{
     expect(inMemoryCache.extract()).toStrictEqual(persistedState.cache)
   })
 
+  it('preserves persisted functions when the in-memory cache is persisted.', () => {
+    const persistedFunction = () => 'persisted function'
+    updatePersistedState({
+      reactiveVars: { functionValue: persistedFunction },
+    })
+
+    persistInMemoryCache(inMemoryCache)
+
+    const restoredFunction = getPersistedState()?.reactiveVars.functionValue
+    expect(typeof restoredFunction).toBe('function')
+    if (typeof restoredFunction !== 'function')
+      throw new TypeError('Expected the persisted value to be a function')
+    expect(restoredFunction()).toBe('persisted function')
+  })
+
   test('when cache.write is called, should broadcast and persist', async () => {
     await cacheStateChecks.write.before(inMemoryCache)
 

@@ -1,7 +1,9 @@
 import type { ApolloLink } from '@apollo/client'
+import { canonicalSerialization } from 'canonical-serialization'
 import { beforeEach, describe, expect, it, test, vi } from 'vitest'
 import { globalConfig } from '../../globalConfig'
 import { MockBroadcastChannel } from '../../lib/MockBroadcastChannel'
+import { getPersistedState } from '../../util/persistedState'
 import { synchronizationDebouncer } from '../../util/synchronizationDebouncer'
 import { ChannelNames, makeVarSynced } from './makeVarSynced'
 import { persistReactiveVar } from './util/persistance'
@@ -187,6 +189,25 @@ describe(`When reactive variable's value is changed`, () => {
           },
         },
       },
+      {
+        testName: `syncs and persists functions.`,
+        config: {},
+        expectToBebroadcast: true,
+        expectToBePersisted: true,
+        testVarInitialValue: 'random',
+        testVarNewValue: {
+          b: 3,
+          key1: {
+            m: 'n',
+            nested: {
+              123: 'random',
+              fun: () => {
+                return true
+              },
+            },
+          },
+        },
+      },
     ].map((testParams: ShouldBroadcastTestParamType) => {
       if (
         !(
@@ -230,9 +251,12 @@ describe(`When reactive variable's value is changed`, () => {
     if (testParams.expectToBebroadcast)
       expect(postSpy).toHaveBeenCalledWith(testParams.testVarNewValue)
     else expect(postSpy).not.toHaveBeenCalled()
-    if (testParams.expectToBePersisted)
-      expect(localStorageSetSpy).toHaveBeenCalled()
-    else expect(localStorageSetSpy).not.toHaveBeenCalled()
+    if (testParams.expectToBePersisted) {
+      const persistedValue = getPersistedState()?.reactiveVars[testVarName]
+      expect(canonicalSerialization(persistedValue)).toBe(
+        canonicalSerialization(testParams.testVarNewValue)
+      )
+    } else expect(localStorageSetSpy).not.toHaveBeenCalled()
   })
 })
 
@@ -271,6 +295,15 @@ test('listener applies incoming operations without re-broadcasting or persisting
 
   expect(postSpy).not.toHaveBeenCalledWith()
   expect(localStorageSetSpy).not.toHaveBeenCalled()
+})
+
+test('listener restores incoming functions', () => {
+  const testVar = makeVarSynced(() => 'initial', testVarData.name)
+  const bc = MockBroadcastChannel.getBroadcastChannel()
+
+  bc.emitMessage(() => 'synced function')
+
+  expect(testVar()()).toBe('synced function')
 })
 
 test.each<{ shouldDebounce: boolean; expectToBebroadcast: boolean }>([
