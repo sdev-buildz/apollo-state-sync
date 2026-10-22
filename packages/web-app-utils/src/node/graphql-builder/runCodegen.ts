@@ -2,7 +2,7 @@ import { generate, type CodegenConfig } from '@graphql-codegen/cli'
 import { Project } from 'ts-morph'
 
 /**
- * Generates the .graphql schema file.
+ * Generates and emits TypeScript types for the given graphql schema.
  */
 export async function runCodegen(config: CodegenConfig) {
   await generate(config)
@@ -11,6 +11,7 @@ export async function runCodegen(config: CodegenConfig) {
 }
 
 /**
+ * Generates codegen config. Compatible with apollo client.
  * @returns the generated codegen config
  */
 export const getCodegenConfig = (
