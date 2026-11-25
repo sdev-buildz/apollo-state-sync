@@ -17,6 +17,21 @@ export type PersistedStateType = {
 const persistedStateKey = 'apollo-persisted-state'
 
 /**
+ * Configuration for encrypting the persisted state.
+ * The secret key is used to encrypt and decrypt the persisted state.
+ * It can be session token, authentication token, user password, etc...
+ */
+const encryption: {
+  /**
+   * The secret key used to encrypt the persisted state.
+   * This can be session-token or auth-token, user-password, etc...
+   */
+  secret?: string | undefined
+} = {
+  secret: undefined,
+}
+
+/**
  * Reads the persisted Apollo Client state from local storage.
  *
  * Returns `undefined` when local storage is unavailable, no state has been
